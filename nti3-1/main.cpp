@@ -98,8 +98,8 @@ main()
         if(abs(mas[i][1] - mas[i+1][1]) > 150)
             mas[i][1] = mas[i+1][1];
     }
-    //for(int i=0; i<n; i++)
-      //cout<<(int)xy[i][0]<<endl;
+    for(int i=0; i<n; i++)
+      cout<<(int)xy[i][0]<<endl;
      //for(int i = 0;i<n;i++)
       //cout<<(int)xy[i][1]<<endl;
     bool first = false;
@@ -115,36 +115,45 @@ main()
             imy++;
         int iyou = imy+1; // Индекс второй крайней точки
         bool che = true;
-        while(che && abs(xy[iyou + 1][1] - xy[iyou][1]) < 500)
+        while(che)
         {
             che = false;
             int id = 1;
-            for(int i =1;i<6;i++)
-                if(xy[iyou + i][1] <= xy[iyou][1])
+            for(int i =1;i<3;i++)
+                if(xy[iyou + i][1] <= xy[iyou][1] && abs(xy[iyou + id][1] - xy[iyou][1]) < 500)
                 {
                     che = true;
                     id = i;
                 }
             if(che)
                 iyou++;
+            else
+                break;
+
         }
         int iwe=iyou +1; // Индекс третьей крайней точки
         che = true;
-        while( che && xy[iwe+1][1] != 3700 && abs(xy[iwe + 1][1] - xy[iwe][1]) < 500)
+        while( che && xy[iwe+1][1] != 3700)
         {
             che = false;
-            for(int i =1;i<6;i++)
-                if(xy[iwe+i][1] >= xy[iwe][1])
+            int id = 0;
+            for(int i =1;i<3;i++)
+                if(xy[iwe+i][1] >= xy[iwe][1] && abs(xy[iwe + i][1] - xy[iwe][1]) < 500)
+                {
                     che = true;
+                    id = i;
+                }
             if(che)
                 iyou++;
+            else
+                break;
         }
-            iwe++;
+        iwe++;
         lastind = iwe;
         if(imy < n && iyou < n && iwe < n && (int)xy[imy][1] != 3700 && (int)xy[iyou][1] != 3700 && (int)xy[iwe][1] != 3700)
         {
             dii = centre(xy[imy][0],xy[iyou][0],xy[iwe][0],xy[imy][1],xy[iyou][1],xy[iwe][1]);
-            cout<<(int)xy[imy][1]<<endl<<(int)xy[iyou][1]<<endl<<(int)xy[iwe][1]<<endl;
+            //cout<<(int)xy[imy][1]<<endl<<(int)xy[iyou][1]<<endl<<(int)xy[iwe][1]<<endl;
             //cout<<(int)xy[imy][0]<<endl<<(int)xy[iyou][0]<<endl<<(int)xy[iwe][0]<<endl;
         //cout<<imy<<endl<<iyou<<endl<<iwe<<endl;
           //  cout<<dii<<endl;

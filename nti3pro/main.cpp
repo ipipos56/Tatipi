@@ -85,6 +85,7 @@ int main()
         lab[i+1][i] = true;
     }
 
+    /*
     for(int i = 0;i<h*h;i++)
     {
         for(int j = 0; j<h*h;j++)
@@ -93,8 +94,9 @@ int main()
     }
     cout<<endl;
 
+    */
     //cout<<stX<<" "<<stY<<" "<<fnX<<" "<<fnY<<endl;
-    for(int i = 0;i<1;i++)
+    for(int i = 0;i<n;i++)
     {
         int wasX,wafX,wasY,wafY;
         string colWa;
@@ -103,7 +105,7 @@ int main()
         wafX = staXY(wafX,false,false);
         wafY = staXY(wafY,true,false);
         wasY = staXY(wasY,true,false);
-        cout<<wasX<<" "<<wasY<<" "<<wafX<<" "<<wafY<<endl;
+        //cout<<wasX<<" "<<wasY<<" "<<wafX<<" "<<wafY<<endl;
         if(wasX == wafX)
         {
             int ma = min(wasY,wafY);
@@ -128,10 +130,26 @@ int main()
         }
         //cout<<wasX<<" "<<wasY<<" "<<wafX<<" "<<wafY<<endl;
     }
+
+/*
     for(int i = 0;i<h*h;i++)
     {
         for(int j = 0; j<h*h;j++)
             cout<<lab[i][j]<<" ";
         cout<<endl;
+    }
+
+*/
+
+    for(int i = 0;i<h*h;i++)
+    {
+        int waCur[4];
+        if(i%h != 0)
+            waCur[0] =
+        for(int j = 0;j<4;j++)
+        {
+            lab[(int)i/h][i%h];
+
+        }
     }
 }
