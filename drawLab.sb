@@ -1,0 +1,8 @@
+path = "C:\Users\ipipos56\Desktop\Tatipi\input.txt"
+lab = File.ReadContents(path,1) / 250 + 1
+n = File.ReadLine(path,2)
+For i = 1 To n
+  line = File.ReadContents(path,i+2)
+  x1 = Text.GetIndexOf
+  GraphicsWindow.DrawRectangle()
+  EndFor

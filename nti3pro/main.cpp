@@ -12,9 +12,22 @@ string curVis="-1";
 int prib=0;
 
 
-int cheApl(int als)
+int cheApl(int _n, int _a)
 {
-    return 1;//abs((sqrt(250 * 250 + 125 * 125) * tan(als/2) * sin(90 + als/2))/sin(180-(90 + als/2)-45))/250;
+    float a1;
+    a1=_a*float(M_PI/180.0);
+    float hh1=_n*250.0;
+    //a=float(a*180.0/M_PI);
+    float ah=sqrt(250.0*250.0+hh1*hh1);
+    float bh=tan(float(a1/2.0))*ah  ;
+    float hba1=90.0+float(_a/2);
+    float bha1=180-(90+atan2(250.0,hh1)*180.0/M_PI);
+    float ba1h=float((180-bha1-hba1)*M_PI/180.0);
+    hba1=hba1*float(M_PI/180.0);
+    float a1h=bh*sin(hba1)/sin(ba1h);
+    return (250*_n+a1h) / 250;
+
+    // ≈сли здесь поставить return 1, то заходит 2 теста
 }
 
 int cheDS(char als)
@@ -69,10 +82,10 @@ int colors()
         {
             curVis = wall[pu][rot];
            //cout<<"____________"<<endl;
-           if(curVis != "FFFFFF")
+           if(curVis != "FFFFFF" && curVis != "")
            {
-            //cout<<curVis;
-            //cout<<" ";
+            cout<<curVis;
+            cout<<" ";
            }
            // cout<<"______________"<<endl;
             break;
@@ -156,7 +169,7 @@ int staXY(int _xy, bool pal,bool pos)
 
 int main()
 {
-    //freopen("input.txt","r",stdin);
+    freopen("input.txt","r",stdin);
     cin>>h;
     h = h/250+1;
     for(int i = 0;i<1000000;i++)
@@ -171,8 +184,6 @@ int main()
     cin>>n>>k;
     int alp;
     cin>>alp;
-    colVis = cheApl(alp);
-    //cout<<colVis<<endl;
     char ds;
     cin>>ds;
     rot = cheDS(ds);
@@ -182,6 +193,17 @@ int main()
     fnX = staXY(fnX,false,true);
     fnY = staXY(fnY,true,true);
     stY = staXY(stY,true,true);
+    int cn = 0;
+    if(rot == 0)
+        cn = stY;
+    else if(rot == 3)
+        cn = stX;
+    else if(rot == 1)
+        cn = h - stX - 1;
+    else if(rot == 2)
+        cn = h - stY - 1;
+    colVis = cheApl(cn,alp);
+    //cout<<colVis<<endl;
     //cout<<stX<<" "<<stY<<" "<<fnX<<" "<<fnY<<endl;
     for(int i = 0;i<h-1;i++)
     {

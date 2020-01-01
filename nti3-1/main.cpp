@@ -119,7 +119,7 @@ main()
         {
             che = false;
             int id = 1;
-            for(int i =1;i<3;i++)
+            for(int i =1;i<2;i++)
                 if(xy[iyou + i][1] <= xy[iyou][1] && abs(xy[iyou + id][1] - xy[iyou][1]) < 500)
                 {
                     che = true;
@@ -137,7 +137,7 @@ main()
         {
             che = false;
             int id = 0;
-            for(int i =1;i<3;i++)
+            for(int i =1;i<2;i++)
                 if(xy[iwe+i][1] >= xy[iwe][1] && abs(xy[iwe + i][1] - xy[iwe][1]) < 500)
                 {
                     che = true;
