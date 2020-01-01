@@ -4,7 +4,7 @@ using namespace std;
 
 int h;
 int colVis;
-string wall[1000000][4];
+string wall[3000000][4];
 int rot = -1;
 
 int previs=0;
@@ -26,8 +26,7 @@ int cheApl(int _n, int _a)
     hba1=hba1*float(M_PI/180.0);
     float a1h=bh*sin(hba1)/sin(ba1h);
     return (250*_n+a1h) / 250;
-
-    // ≈сли здесь поставить return 1, то заходит 2 теста
+    //return 5;
 }
 
 int cheDS(char als)
@@ -42,109 +41,121 @@ int cheDS(char als)
         return 3;
 }
 
-int colors()
+int colors(int _point)
 {
+    if(rot == 0)
+        prib = h*-1;
+    else if(rot == 1)
+        prib = 1;
+    else if(rot == 2)
+        prib = h;
+    else if(rot == 3)
+        prib = -1;
+
     for(int _i = 0;_i<colVis;_i++)
     {
         //cout<<curVis<<" ";
         int che = false;
-        int pu = previs + (prib * _i);
+        int pu = _point + (prib * _i);
         if(rot == 1)
         {
-            if(pu < (((int)previs/h) + 1)*h)
+            if(pu < (((int)_point/h) + 1)*h)
                 che = true;
             else
                 break;
         }
         else if(rot == 3)
         {
-            if(pu > ((int)previs/h)*h - 1)
+            if(pu > ((int)_point/h)*h - 1)
                 che = true;
             else
                 break;
         }
         else if(rot == 0)
         {
-            if(pu >= previs%h)
+            if(pu >= _point%h)
                 che = true;
             else
                 break;
         }
         else if(rot == 2)
         {
-            if(pu <= previs % h + (h*h-h))
+            //cout<<"Colors2 ";
+            if(pu <= _point % h + (h*h-h))
                 che = true;
             else
                 break;
+            //cout<<che<<" "<<pu<<" "<<wall[pu][rot]<<endl;
         }
         //cout<<wall[pu][rot]<<" "<<pu<<" "<<rot<<endl;
-        if(wall[pu][rot] != curVis && wall[pu][rot] != "-1" && che)
+        if(wall[pu][rot] != "-1")
         {
-            curVis = wall[pu][rot];
-           //cout<<"____________"<<endl;
-           if(curVis != "FFFFFF" && curVis != "")
-           {
-            cout<<curVis;
-            cout<<" ";
-           }
-           // cout<<"______________"<<endl;
-            break;
-
+            if(wall[pu][rot] != curVis && che)
+            {
+                //cout<<pu<<" "<<rot<<" ";
+                curVis = wall[pu][rot];
+                if(curVis != "FFFFFF" && curVis != "")
+                {
+                    cout<<curVis;
+                    cout<<" ";
+                }
+               //cout<<endl;
+                break;
+            }
+            else
+                break;
         }
     }
     return 0;
 }
 
-int turn(int _poi,int _ang,int _tur)
+int turn(int _poi,int _ang)
 {
-    if(_tur == 0)
+    if(_ang == 0)
     {
-        if(_ang == 0)
+        if(_poi < h)
+            return 0;
+        else
+            return h*-1;
+    }
+    else if(_ang == 2)
+    {
+        if(_poi >= h*h-h)
+            return 0;
+        else
+            return h;
+    }
+    else if(_ang == 3)
+    {
+        bool ma = false;
+        for(int _i = 0;_i<=h*h-h;_i+=h)
         {
-            if(_poi < h)
-                return 0;
-            else
-                return h*-1;
-        }
-        else if(_ang == 2)
-        {
-            if(_poi >= h*h-h)
-                return 0;
-            else
-                return h;
-        }
-        else if(_ang == 3)
-        {
-            bool ma = false;
-            for(int _i = 0;_i<=h*h-h;_i+=h)
+            if(_i == _poi)
             {
-                if(_i == _poi)
-                {
-                    ma=true;
-                    break;
-                }
+                ma=true;
+                break;
             }
-            if(ma)
-                return 0;
-            else
-                return -1;
         }
-        else if(_ang == 1)
+        if(ma)
+            return 0;
+        else
+            return -1;
+    }
+    else if(_ang == 1)
+    {
+        bool ma = false;
+        for(int _i = h-1;_i<=h*h-1;_i+=h)
         {
-            bool ma = false;
-            for(int _i = h-1;_i<=h*h;_i+=h)
+            if(_i == _poi)
             {
-                if(_i == _poi)
-                {
-                    ma=true;
-                    break;
-                }
+                ma=true;
+                break;
             }
-            if(ma)
-                return 0;
-            else
-                return 1;
         }
+        if(ma)
+            return 0;
+        else
+            return 1;
     }
 }
 
@@ -169,13 +180,12 @@ int staXY(int _xy, bool pal,bool pos)
 
 int main()
 {
-    freopen("input.txt","r",stdin);
+    //freopen("input.txt","r",stdin);
     cin>>h;
-    h = h/250+1;
-    for(int i = 0;i<1000000;i++)
+    h = h/250;
+    for(int i = 0;i<3000000;i++)
         for(int j = 0; j<4;j++)
             wall[i][j] = "-1";
-    h-=1;
     int lab[h*h][4];
     for(int i = 0;i<h*h;i++)
         for(int j = 0; j<4;j++)
@@ -275,7 +285,7 @@ int main()
         {
             int ma = min(wasX,wafX);
             int maa = max(wasX,wafX);
-            for(int j = ma;j<=maa;j++)
+            for(int j = ma;j<maa;j++)
             {
                 wall[h * wasY + j][0] = colWa;
                 wall[h * (wasY-1) + j][2] = colWa;
@@ -347,16 +357,19 @@ int main()
         for(int q = 0;q<4;q++)
         {
             int sumAl = 0;
-            for(int a = 0;a<4;a++)
+            for(int a = 0;a<3;a++)
             {
-                int curRota = a+q;
+                int curRota = a+q-1;
                 if(curRota > 3)
                     curRota-=4;
+                if(curRota < 0)
+                    curRota+=4;
                 if(lab[i][curRota] != alis[0][a] && i != stY * h + stX)
                     sumAl++;
             }
-            if(sumAl == 4)
+            if(sumAl == 3)
             {
+                //cout<<i<<endl;
                 pointAL = i;
                 napAl = q;
                 for(int s = 1;s<k;s++)
@@ -365,7 +378,7 @@ int main()
                     if(comAl[s-1] == 0)
                     {
                         int svi = 0;
-                        svi = turn(pointAL,napAl,comAl[s-1]);
+                        svi = turn(pointAL,napAl);
                         if(svi != 0)
                             pointAL+=svi;
                         else
@@ -385,18 +398,37 @@ int main()
                     }
 
                     sumAl = 0;
-                    for(int a = 0;a<4;a++)
+                    for(int a = 0;a<3;a++)
                     {
-                        int curRota = a + napAl;
+                        int curRota = a + napAl - 1;
                         if(curRota > 3)
                             curRota-=4;
+                        if(curRota < 0)
+                            curRota+=4;
                         if(lab[pointAL][curRota] != alis[s][a] && pointAL != stY * h + stX)
                             sumAl++;
                     }
-                    if(sumAl != 4)
+                    if(sumAl != 3)
                         break;
                     else if(s == k-1)
-                        full = true;
+                    {
+                        int lastCheck = false;
+                        if(comAl[k-1] == 0)
+                        {
+                            int svi = 0;
+                            svi = turn(pointAL,napAl);
+                            if(svi != 0)
+                            {
+                                pointAL+=svi;
+                                lastCheck = true;
+                            }
+                        }
+                        if(lastCheck)
+                        {
+                            full = true;
+                            break;
+                        }
+                    }
                     //cout<<full<<endl;
                 }
             }
@@ -409,9 +441,14 @@ int main()
     //if(full)
      //   cout<<<<" "<<inPo<<endl;
 
+
+
+
     for(int i = 0;i<h*h;i++)
         for(int j = 0; j<4;j++)
             lab[i][j] = labST[i][j];
+
+    //cout<<pointAL<<endl;
 
     lab[pointAL][0] = false;
     lab[pointAL][1] = false;
@@ -508,7 +545,7 @@ int main()
                 pri = 3;
             else if(pri == 0)
                 pri = 1;
-            if(lab[vert][i] && !vis[vert + harb] && dis[vert + harb] > dis[vert] + pri && vert != pointAL && vert + harb != pointAL)
+            if(lab[vert][i] && !vis[vert + harb] && dis[vert + harb] > dis[vert] + pri && vert != pointAL && vert + harb != pointAL && harb != 0)
             {
                 dis[vert + harb] = dis[vert] + pri;
                 par[vert + harb] = make_pair(vert,i);
@@ -517,8 +554,13 @@ int main()
         }
     }
 
+
+    //cout<<endl;
+    //cout<<dis[37]<<" "<<dis[27]<<" "<<dis[28]<<endl;
+
     int para = fnY * h + fnX;
     q.push(fnY * h + fnX);
+
     while(par[para].first != -1)
     {
         para = par[para].first;
@@ -529,9 +571,12 @@ int main()
     q.pop();
     curVis = "-1";
     prib = 0;
+    colors(previs);
 
     //for(int i = 0;i<h*h;i++)
     //    cout<<wall[i][0]<<" "<<wall[i][1]<<" "<<wall[i][2]<<" "<<wall[i][3]<<endl;
+
+    //cout<<wall[77][0]<<" "<<wall[77][1]<<" "<<wall[77][2]<<" "<<wall[77][3]<<endl;
 
    // cout<<"____________________________________________________"<<endl;
 
@@ -539,19 +584,11 @@ int main()
     {
         int cur = q.top();
         //cout<<endl;
-        //cout<<cur<<" "<<prev<<endl;
-        //cout<<dis[cur]<<" "<<dis[prev]<<endl;
-        //cout<<q.top()<<endl;
-        q.pop();
-        if(rot == 0)
-            prib = h*-1;
-        else if(rot == 1)
-            prib = 1;
-        else if(rot == 2)
-            prib = h;
-        else if(rot == 3)
-            prib = -1;
+        //cout<<previs<<" "<<cur<<endl;
+        //cout<<dis[cur]<<" "<<dis[previs]<<endl;
+        //cout<<q.top()<<" "<<rot<<endl;
 
+        q.pop();
         if(dis[cur]-dis[previs] == 3)
         {
             for(int j = 0;j<2;j++)
@@ -560,14 +597,14 @@ int main()
                 if(rot > 3)
                     rot-=4;
 
-                colors();
+                colors(previs);
             }
         }
         else if(dis[cur]-dis[previs] == 2)
         {
             if(rot == 0 || rot == 1)
             {
-               // cout<<endl;
+                //cout<<endl;
                 //cout<<"+1"<<endl;
                 if(cur - previs > 0)
                     rot++;
@@ -587,15 +624,13 @@ int main()
             if(rot < 0)
                 rot+=4;
 
-
-            colors();
+            colors(previs);
         }
-
-        colors();
+        //cout<<rot<<endl;
+        colors(cur);
         previs = cur;
     }
 
     //cout<<curVis<<endl;
-
-   colors();
+   colors(previs);
 }

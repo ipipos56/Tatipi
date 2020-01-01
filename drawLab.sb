@@ -1,8 +1,59 @@
-path = "C:\Users\ipipos56\Desktop\Tatipi\input.txt"
-lab = File.ReadContents(path,1) / 250 + 1
+path = "C:\Users\ipipos\Desktop\Tatipi\input1.txt"
+lab = File.ReadLine(path,1) / 250
+GraphicsWindow.Clear()
+'GraphicsWindow.DrawText(10,10,lab)
 n = File.ReadLine(path,2)
+poi = File.ReadLine(path,3)
+GraphicsWindow.Width = 1920
+GraphicsWindow.Height = 1080
+mash = 65
+s = Text.GetIndexOf(poi," ")
+napr = Text.GetSubText(poi,1,s)
+poi = Text.GetSubTextToEnd(poi,s+1)
+s = Text.GetIndexOf(poi," ")
+pointX = (Text.GetSubText(poi,1,s)-125)/250 * mash
+poi = Text.GetSubTextToEnd(poi,s+1)
+s = Text.GetIndexOf(poi," ")
+pointY = (lab - (Text.GetSubText(poi,1,s)-125)/250-1) * mash
+poi = Text.GetSubTextToEnd(poi,s+1)
+s = Text.GetIndexOf(poi," ")
+poX = (Text.GetSubText(poi,1,s)-125)/250 * mash
+poY = (lab-(Text.GetSubTextToEnd(poi,s+1)-125)/250-1)*mash
+GraphicsWindow.BrushColor = "Black"
+GraphicsWindow.FillRectangle(pointX,pointY,30,30)
+GraphicsWindow.BrushColor = "Red"
+GraphicsWindow.FillRectangle(poX,poY,30,30)
+GraphicsWindow.PenColor = "#CCCCCC"
+For i = 1 To lab+1
+  GraphicsWindow.DrawLine(mash * (i-1),0,mash*(i-1),mash * lab)
+EndFor
+
+For i = 1 To lab+1
+  GraphicsWindow.DrawLine(0,mash*(i-1),mash*lab,mash *(i-1))
+EndFor
+
+GraphicsWindow.PenWidth = 4
 For i = 1 To n
-  line = File.ReadContents(path,i+2)
-  x1 = Text.GetIndexOf
-  GraphicsWindow.DrawRectangle()
+  line = File.ReadLine(path,i+3)
+  s = Text.GetIndexOf(line," ")
+  x1 = Text.GetSubText(line,1,s)/250
+  line = Text.GetSubTextToEnd(line,s+1)
+  s = Text.GetIndexOf(line," ")
+  y1 = lab - Text.GetSubText(line,1,s)/250
+  line = Text.GetSubTextToEnd(line,s+1)
+  s = Text.GetIndexOf(line," ")
+  x2 = Text.GetSubText(line,1,s)/250
+  line = Text.GetSubTextToEnd(line,s+1)
+  s = Text.GetIndexOf(line," ")
+  y2 = lab - Text.GetSubText(line,1,s)/250
+  color = Text.Append("#",Text.GetSubTextToEnd(line,s+1))
+  GraphicsWindow.PenColor = color
+  GraphicsWindow.DrawLine(x1*mash,y1*mash,x2*mash,y2*mash)
+EndFor
+GraphicsWindow.PenWidth = 1
+GraphicsWindow.BrushColor = "#00AA00"
+ For i = 0 To lab-1
+  For j = 0 To lab-1
+    GraphicsWindow.DrawText(mash*j + 5,mash*i + 5,i*lab+j)
+  EndFor
   EndFor
