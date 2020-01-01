@@ -99,7 +99,7 @@ main()
             mas[i][1] = mas[i+1][1];
     }
     for(int i=0; i<n; i++)
-      cout<<(int)xy[i][0]<<endl;
+      cout<<(int)xy[i][1]<<endl;
      //for(int i = 0;i<n;i++)
       //cout<<(int)xy[i][1]<<endl;
     bool first = false;
