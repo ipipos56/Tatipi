@@ -255,7 +255,7 @@ int main()
         cin>>wasX>>wasY>>wafX>>wafY>>colWa;
         wasX = staXY(wasX,false,false);
         wafX = staXY(wafX,false,false);
-        wafY = staXY(wafY,true,false);
+        wafY = staXY(wafY,true,false);//ff
         wasY = staXY(wasY,true,false);
         //cout<<wasX<<" "<<wasY<<" "<<wafX<<" "<<wafY<<endl;
         if(wasX == wafX)
