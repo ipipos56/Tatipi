@@ -2,22 +2,15 @@
 
 using namespace std;
 
-#define float double
-#define int long long
-
 int h;
 int colVis;
-map<pair<int,int>,int> wall;
-map<pair<int,int>,int>::iterator it;
+string wall[3000000][4];
 int rot = -1;
-map<int,string> ma;
-map<int,string>::iterator mit;
 
 int previs=0;
-int curVis= -1;
+string curVis="-1";
 int prib=0;
 
-int couColor = 2;
 
 int cheApl(int _n, int _a)
 {
@@ -94,17 +87,16 @@ int colors(int _point)
                 break;
             //cout<<che<<" "<<pu<<" "<<wall[pu][rot]<<endl;
         }
-        //cout<<pu<<" "<<rot<<endl;
-        it = wall.find(make_pair(pu,rot));
-        if(it != wall.end())
+        //cout<<wall[pu][rot]<<" "<<pu<<" "<<rot<<endl;
+        if(wall[pu][rot] != "-1")
         {
-            if(it->second != curVis )
+            if(wall[pu][rot] != curVis && che)
             {
                 //cout<<pu<<" "<<rot<<" ";
-                curVis = it->second;
-                if(curVis != 0 && curVis != -1 && che)
+                curVis = wall[pu][rot];
+                if(curVis != "FFFFFF" && curVis != "")
                 {
-                    cout<<ma[curVis];
+                    cout<<curVis;
                     cout<<" ";
                 }
                //cout<<endl;
@@ -186,14 +178,14 @@ int staXY(int _xy, bool pal,bool pos)
 //3 1
 // 2
 
-main()
+int main()
 {
     //freopen("input.txt","r",stdin);
     cin>>h;
     h = h/250;
-    //for(int i = 0;i<3000000;i++)
-     //   for(int j = 0; j<4;j++)
-     //       wall[i][j] = "-1";
+    for(int i = 0;i<3000000;i++)
+        for(int j = 0; j<4;j++)
+            wall[i][j] = "-1";
     int lab[h*h][4];
     for(int i = 0;i<h*h;i++)
         for(int j = 0; j<4;j++)
@@ -223,8 +215,6 @@ main()
     colVis = cheApl(cn,alp);
     //cout<<colVis<<endl;
     //cout<<stX<<" "<<stY<<" "<<fnX<<" "<<fnY<<endl;
-    ma[0] = "FFFFFF";
-    ma[1] = "000000";
     for(int i = 0;i<h-1;i++)
     {
         for(int j = 0;j<h-1;j++)
@@ -239,23 +229,23 @@ main()
     {
         lab[i][1] = true;
         lab[i+1][3] = true;
-        wall[make_pair(i,2)] = 0;
-        wall[make_pair(i+1,2)] = 0;
+        wall[i][2] = "FFFFFF";
+        wall[i+1][2] = "FFFFFF";
     }
 
     for(int i = h-1;i<h*h-1;i+=h)
     {
         lab[i][2] = true;
         lab[i+h][0] = true;
-        wall[make_pair(i,1)] = 0;
-        wall[make_pair(i+h,1)] = 0;
+        wall[i][1] = "FFFFFF";
+        wall[i+h][1] = "FFFFFF";
     }
 
     for(int i = 0;i<h;i++)
-        wall[make_pair(i,0)] = 0;
+        wall[i][0] = "FFFFFF";
 
     for(int i = 0;i<=h*h-h;i+=h)
-        wall[make_pair(i,3)] = 0;
+        wall[i][3] = "FFFFFF";
 
 /*
     for(int i = 0;i<h*h;i++)
@@ -277,17 +267,6 @@ main()
         wafX = staXY(wafX,false,false);
         wafY = staXY(wafY,true,false);//ff
         wasY = staXY(wasY,true,false);
-
-        int ins = 0;
-        for(mit = ma.begin(); mit!=ma.end();mit++)
-            if(mit->second == colWa)
-                ins = mit->first;
-        if(ins == 0)
-        {
-            ma[couColor] = colWa;
-            ins = couColor;
-            couColor++;
-        }
         //cout<<wasX<<" "<<wasY<<" "<<wafX<<" "<<wafY<<endl;
         if(wasX == wafX)
         {
@@ -295,8 +274,8 @@ main()
             int maa = max(wasY,wafY);
             for(int j = ma;j<maa;j++)
             {
-                wall[make_pair(wasX + j * h,3)] = ins;
-                wall[make_pair(h * j + wasX - 1,1)] = ins;
+                wall[wasX + j * h][3] = colWa;
+                wall[h * j + wasX - 1][1] = colWa;
                 lab[wasX + j * h][3] = false;
                 lab[h * j + wasX - 1][1] = false;
             }
@@ -308,8 +287,8 @@ main()
             int maa = max(wasX,wafX);
             for(int j = ma;j<maa;j++)
             {
-                wall[make_pair(h * wasY + j,0)] = ins;
-                wall[make_pair(h * (wasY-1) + j,2)] = ins;
+                wall[h * wasY + j][0] = colWa;
+                wall[h * (wasY-1) + j][2] = colWa;
                 lab[h * wasY + j][0] = false;
                 lab[h * (wasY-1) + j][2] = false;
                 //cout<<h * wasY + j<<" "<<(h-1) * wasY + j<<endl;
@@ -319,7 +298,6 @@ main()
         }
         //cout<<wasX<<" "<<wasY<<" "<<wafX<<" "<<wafY<<endl;
     }
-    //cout<<lab[14][3]<<endl;
 
     int labST[h*h][4];
     for(int i = 0;i<h*h;i++)
@@ -360,25 +338,11 @@ main()
 */
     //cout<<lab[8][12]<<" "<<lab[12][8]<<endl;
 
-    bool alis[k][3];
+    int alis[k][3];
     int comAl[k];
     for(int i = 0;i<k;i++)
     {
-        int s1,s2,s3;
-        cin>>s1>>s2>>s3;
-        if(s1 == 1)
-            alis[i][0] = false;
-        else
-            alis[i][0] = true;
-        if(s2 == 1)
-            alis[i][1] = false;
-        else
-            alis[i][1] = true;
-        if(s3 == 1)
-            alis[i][2] = false;
-        else
-            alis[i][2] = true;
-
+        cin>>alis[i][0]>>alis[i][1]>>alis[i][2];
         char co;
         cin>>co;
         comAl[i] = cheDS(co);
@@ -400,11 +364,7 @@ main()
                     curRota-=4;
                 if(curRota < 0)
                     curRota+=4;
-                if(curRota > 3)
-                    curRota-=4;
-                if(curRota < 0)
-                    curRota+=4;
-                if(lab[i][curRota] == alis[0][a] && i != stY * h + stX)
+                if(lab[i][curRota] != alis[0][a] && i != stY * h + stX)
                     sumAl++;
             }
             if(sumAl == 3)
@@ -445,11 +405,7 @@ main()
                             curRota-=4;
                         if(curRota < 0)
                             curRota+=4;
-                        if(curRota > 3)
-                            curRota-=4;
-                        if(curRota < 0)
-                            curRota+=4;
-                        if(lab[pointAL][curRota] == alis[s][a] && pointAL != stY * h + stX)
+                        if(lab[pointAL][curRota] != alis[s][a] && pointAL != stY * h + stX)
                             sumAl++;
                     }
                     if(sumAl != 3)
@@ -467,8 +423,6 @@ main()
                                 lastCheck = true;
                             }
                         }
-                        else
-                            lastCheck = true;
                         if(lastCheck)
                         {
                             full = true;
@@ -501,37 +455,34 @@ main()
     lab[pointAL][2] = false;
     lab[pointAL][3] = false;
 
+    if(wall[pointAL][0] == "-1")
+        wall[pointAL][0] = "000000";
+    if(wall[pointAL][1] == "-1")
+        wall[pointAL][1] = "000000";
+    if(wall[pointAL][2] == "-1")
+        wall[pointAL][2] = "000000";
+    if(wall[pointAL][3] == "-1")
+        wall[pointAL][3] = "000000";
 
-    for(int i = 0;i<4;i++)
-    {
-        it = wall.find(make_pair(pointAL,i));
-        if(it == wall.end())
-            wall[make_pair(pointAL,i)] = 1;
-    }
+    if(pointAL < h*h-h)
+        wall[pointAL + h][0] = "000000";
 
-    it = wall.find(make_pair(pointAL+h,0));
-    if(pointAL < h*h-h && it == wall.end())
-        wall[make_pair(pointAL + h,0)] = 1;
-
-    it = wall.find(make_pair(pointAL - 1,1));
     che = false;
     for(int i = 0;i<=h*h-h;i+=h)
         if(i == pointAL)
             che = true;
-    if(!che && it == wall.end())
-        wall[make_pair(pointAL - 1,1)] = 1;
+    if(!che)
+        wall[pointAL - 1][1] = "000000";
 
-    it = wall.find(make_pair(pointAL - h,2));
-    if(pointAL > h-1 && it == wall.end())
-        wall[make_pair(pointAL - h,2)] = 1;
+    if(pointAL > h-1)
+        wall[pointAL - h][2] = "000000";
 
-    it = wall.find(make_pair(pointAL + 1,3));
     che = false;
     for(int i = h-1;i<=h*h-1;i+=h)
         if(i == pointAL)
             che = true;
-    if(!che && it == wall.end())
-        wall[make_pair(pointAL + 1,3)] = 1;
+    if(!che)
+        wall[pointAL + 1][3] = "000000";
 
 
     che = false;
@@ -560,11 +511,10 @@ main()
 
     for(int i = 0;i<h*h;i++)
     {
-        dis[i]= 1000000000;
+        dis[i]= 10000000;
         vis[i] = false;
         par[i] = make_pair(-1,-1);
     }
-    //cout<<lab[14][3]<<" "<<lab[13][3]<<" "<<pointAL<<endl;
 
     vis[stY * h + stX] = true;
     dis[stY * h + stX] = 0;
@@ -606,10 +556,10 @@ main()
 
 
     //cout<<endl;
-    //cout<<dis[13]<<" "<<dis[9]<<" "<<dis[5]<<" "<<dis[14]<<endl;
+    //cout<<dis[37]<<" "<<dis[27]<<" "<<dis[28]<<endl;
 
     int para = fnY * h + fnX;
-    q.push(para);
+    q.push(fnY * h + fnX);
 
     while(par[para].first != -1)
     {
@@ -619,9 +569,8 @@ main()
 
     previs = q.top();
     q.pop();
-    curVis = -1;
+    curVis = "-1";
     prib = 0;
-    //cout<<previs<<endl;
     colors(previs);
 
     //for(int i = 0;i<h*h;i++)
@@ -640,7 +589,7 @@ main()
         //cout<<q.top()<<" "<<rot<<endl;
 
         q.pop();
-        if(abs(dis[cur]-dis[previs]) == 3)
+        if(dis[cur]-dis[previs] == 3)
         {
             for(int j = 0;j<2;j++)
             {
@@ -651,7 +600,7 @@ main()
                 colors(previs);
             }
         }
-        else if(abs(dis[cur]-dis[previs]) == 2)
+        else if(dis[cur]-dis[previs] == 2)
         {
             if(rot == 0 || rot == 1)
             {
@@ -659,7 +608,7 @@ main()
                 //cout<<"+1"<<endl;
                 if(cur - previs > 0)
                     rot++;
-                else if(cur - previs < 0)
+                else
                     rot--;
                 //cout<<rot<<endl;
             }
@@ -667,7 +616,7 @@ main()
             {
                 if(cur - previs > 0)
                     rot--;
-                else if(cur - previs < 0)
+                else
                     rot++;
             }
             if(rot > 3)
