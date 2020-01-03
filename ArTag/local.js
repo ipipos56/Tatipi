@@ -17,107 +17,112 @@ min = function(a, b)
 max = function(a, b)
 {
     return a > b ? a : b;
-}
+}
 
 abs = Math.abs;
 sin = Math.sin;
 cos = Math.cos;
 round = Math.round;
-var code;
-
-var s = [0,0,0];
-s[0] = brick.sensor(A3);
-s[1] = brick.sensor(A1);
-s[2] = brick.sensor(A2);
-
-var sz = [0,0,0];
-
-var ML = brick.motor(M4).setPower; 
-var MR = brick.motor(M3).setPower; 
-var EL = brick.encoder(E4); 
-var ER = brick.encoder(E3); 
-
-var rotCnt = 0;
-
-
-var direction = 0;
-
-var x,y;
-var h = 16;
-var point = 136;
-var rot = 1;
+var code;
+
+var s = [0,0,0];
+s[0] = brick.sensor(A3);
+s[1] = brick.sensor(A1);
+s[2] = brick.sensor(A2);
+
+var sz = [0,0,0];
+
+var ML = brick.motor(M4).setPower; 
+var MR = brick.motor(M3).setPower; 
+var EL = brick.encoder(E4); 
+var ER = brick.encoder(E3); 
+
+rotCnt = 0;
+
+
+var direction = 0;
+
+var x,y;
+var h = 16;
+var point = 136;
+var rot = 1;
 var map = new Array(256);
+
+fullRot = 0;
 
 var main = function()
 {
     __interpretation_started_timestamp__ = Date.now();
 
-	for(var i = 0; i < map.length; i++)
-		map[i] = [-1,-1,-1,-1];
-
+	for(var i = 0; i < map.length; i++)
+		map[i] = [-1,-1,-1,-1];
 
-    var otv = getARTagValue(0);//inp[1]);
-	if(otv >= 8)
-		y = otv-8;
-	else
+
+    var otv = getARTagValue(0);//inp[1]);
+	if(otv >= 8)
+		y = otv-8;
+	else
 		x=otv;
-	var otv = getARTagValue(1);//inp[1]);
-	if(otv >= 8)
-		y = otv-8;
-	else
+	var otv = getARTagValue(1);//inp[1]);
+	if(otv >= 8)
+		y = otv-8;
+	else
 		x=otv;
-    print(x+" "+y);
-	
-	
-	ER.reset()
-	EL.reset()
-	
-	brick.gyroscope().calibrate(2000);
-	script.wait(2050);
+    print(x+" "+y);
+	
+	
+	ER.reset()
+	EL.reset()
+	
+	brick.gyroscope().calibrate(4000);
+	script.wait(4050);
 	moveSmall();
-	
-	while(1)
-	{
+	
+	var pa = true;
+	
+	while(pa)
+	{
 		valSen();
-
-		for(i = 0;i<3;i++)
-		{
-			var pr = point;
-			print(sz[0]+" "+sz[1]+" "+sz[2]);
-			var curre = rot + i - 1;
-			curre = cuboid(curre);
-			if(sz[i] == 1 && map[point][curre] == -1)
+		pa = false;
+		for(i = 0;i<3;i++)
+		{
+			var pr = point;
+			print(sz[0]+" "+sz[1]+" "+sz[2]);
+			var curre = rot + i - 1;
+			curre = cuboid(curre);
+			if(sz[i] == 1 && map[point][curre] == -1)
 			{
-				print(point+" "+curre)
-				if(i == 0)
-				{
-					turn_left();
-					wait(500);
-					forward();
-				}
-				else if(i == 1)
-					forward();
-				else if(i == 2)
-				{
-					turn_right();
-					wait(500);
-					forward();
-				}
-				break;
-			}
-			map[pr][curre] = sz[i];
-			if(curre == 0)
-				map[pr - h][2] = sz[i];
-			else if(curre == 1)
-				map[pr + 1][3] = sz[i];
-			else if(curre == 2)
-				map[pr + h][0] = sz[i];
-			else if(curre == 3)
-				map[pr - 1][1] = sz[i];
-		}
-		wait(300);
-	}
-	
+				pa = true;
+				print(point+" "+curre)
+				if(i == 0)
+				{
+					turn_left();
+					wait(500);
+					forward();
+				}
+				else if(i == 1)
+					forward();
+				else if(i == 2)
+				{
+					turn_right();
+					wait(500);
+					forward();
+				}
+				break;
+			}
+			map[pr][curre] = sz[i];
+			if(curre == 0)
+				map[pr - h][2] = sz[i];
+			else if(curre == 1)
+				map[pr + 1][3] = sz[i];
+			else if(curre == 2)
+				map[pr + h][0] = sz[i];
+			else if(curre == 3)
+				map[pr - 1][1] = sz[i];
+		}
+		wait(300);
+	}
+	
 	
     brick.display().addLabel("finish",1,1) //вывод ответа
     brick.display().redraw()
@@ -125,121 +130,128 @@ var main = function()
 
     script.wait(2000)
     return;
-}
-
-function valSen()
-{
-	for(i = 0;i<3;i++)
-	{
-		sz[i] = s[i].read();
-		if(sz[i] < 50)
-			sz[i] = 0;
-		else
-			sz[i] = 1;
-	}
 }
-
-
-function stop(){
-	MR(0)
-	ML(0)
-	wait(50)
-}
-
-function dvish()
-{
-		gyro = brick.gyroscope().read()[6]/1000;
-		if (direction == -2) {
-			err = gyro + sign(gyro) * direction * 90
-		} else {
-			err =  gyro - direction * 90;	
-		}
-		ML(50-err*1)
-		MR(50+err*1)
-		wait(1);
-		//print(SU.read());
-}
-
-function forward()
-{
-		
-	ER.reset()
-	EL.reset()
+
+function valSen()
+{
+	for(i = 0;i<3;i++)
+	{
+		sz[i] = s[i].read();
+		if(sz[i] < 50)
+			sz[i] = 0;
+		else
+			sz[i] = 1;
+	}
+}
+
+
+function stop(){
+	MR(0)
+	ML(0)
+	wait(50)
+}
+
+function forward(robot)
+{
+		
+	ER.reset()
+	EL.reset()
 	deg = (700/(pi*56))*360;
-	direction = (rotCnt + 2) % 4 - 2;
-	while((EL.read()+ER.read())/2 < deg && s[1].read() > 25 )
-		dvish();
-	stop();
-	
 	if(rot == 0)
-		point-=h;
+		direction = -90;
 	else if(rot == 1)
-		point+=1;
+		direction = 0;
 	else if(rot == 2)
-		point+=h;
+		direction = 90;
 	else if(rot == 3)
-		point-=1;
-}
-
-function turn_left() {
-	ER.reset()
-	EL.reset()
-
-	deg = (174/56)*90
-	deg = 280
-	ML(-50)
-	MR(50)
-	while(ER.read() < deg)
-		wait(1)
-	stop()
-	
-	rotCnt -= 1;
-	
-	rot-=1; // Вращение робота
-	rot = cuboid(rot);
-}
-
-function turn_right(robot) 
-{
-	ER.reset()
-	EL.reset()
-	
-	deg = (174/56)*90;
-	ML(50);
-	MR(-50);
-	while(EL.read() < deg) 
-		script.wait(1);
-	stop();
-	rotCnt += 1;
-	
-	rot+=1; // Вращение робота
-	rot = cuboid(rot);
-}
-
-function moveSmall()
-{
-	ER.reset();
-	EL.reset();
-	deg = (88/(pi*56))*360;
-
-	while((EL.read()+ER.read())/2 < deg)
+		direction = -180;
+	while((EL.read()+ER.read())/2 < deg && s[1].read() > 25 )
 	{
-		err =  brick.gyroscope().read()[6]/1000;
-		ML(50-err*0.5);
-		MR(50+err*0.5);
-		script.wait(1);
-	}
-	stop();
+		gyro = brick.gyroscope().read()[6]/1000;
+		if(rot == 3)
+		{
+			if(gyro < 0)
+				direction = -180;
+			else 
+				direction = 180;
+		}
+		err = direction - gyro;
+		ML(50+err*1)
+		MR(50-err*1)
+		wait(1);
+	}
+	stop();
+	
+	if(rot == 0)
+		point-=h;
+	else if(rot == 1)
+		point+=1;
+	else if(rot == 2)
+		point+=h;
+	else if(rot == 3)
+		point-=1;
 }
-
-function cuboid(_a)
-{
-	if(_a > 3)
-		return _a-4;
-	if(_a < 0)
-		return _a+4;
-	return _a;
-}
+
+function turn_left() {
+	ER.reset()
+	EL.reset()
+
+	deg = (174/56)*90
+	//deg = 280
+	ML(-30)
+	MR(30)
+	while(abs(ER.read()) < deg)
+	{
+		gyro = brick.gyroscope().read()[6]/1000;
+		print(gyro);
+		wait(1)
+	}
+	stop()
+
+	rot-=1; // Вращение робота
+	rot = cuboid(rot);
+}
+
+function turn_right(robot) 
+{
+	ER.reset()
+	EL.reset()
+	
+	deg = (174/56)*90;
+	ML(30);
+	MR(-30);
+	while(abs(EL.read()) < deg) 
+		script.wait(1);
+	stop();
+	
+	rot+=1; // Вращение робота
+	rot = cuboid(rot);
+}
+
+function moveSmall()
+{
+	ER.reset();
+	EL.reset();
+	deg = (88/(pi*56))*360;
+
+	while((EL.read()+ER.read())/2 < deg)
+	{
+		err =  brick.gyroscope().read()[6]/1000 - fullRot;
+		ML(50-err*0.5);
+		MR(50+err*0.5);
+		script.wait(1);
+	}
+	stop();
+}
+
+function cuboid(_a)
+{
+	if(_a > 3)
+		return _a-4;
+	if(_a < 0)
+		return _a+4;
+	return _a;
+}
 
 
 
