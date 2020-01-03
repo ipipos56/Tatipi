@@ -1,0 +1,15 @@
+path = "C:\Users\ipipos\Desktop\Tatipi\ArTag\ee.txt"
+GraphicsWindow.Clear()
+wid = 160
+hei = 120
+For i = 1 To hei
+  For j = 1 To wid
+    in = File.ReadLine(path,i*hei + wid)
+    If in = 0 Then
+      GraphicsWindow.BrushColor = "#000000"
+    Else
+      GraphicsWindow.BrushColor = "#FFFFFF"
+      EndIf
+    GraphicsWindow.FillRectangle(i,j,1,1)
+  EndFor
+EndFor  
