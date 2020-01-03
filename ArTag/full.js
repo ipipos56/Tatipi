@@ -5,9 +5,11 @@ var motor_l = brick.motor(M4).setPower;
 var motor_r = brick.motor(M3).setPower; 
 var enc_l = brick.encoder(E4); 
 var enc_r = brick.encoder(E3); 
-
-var SL = brick.sensor(D2);
-var SU = brick.sensor(D1);
+
+var s[3];
+s[0] = brick.sensor(A1);
+s[1] = brick.sensor(A2);
+s[2] = brick.sensor(A3);
 
 
 var mLeft = brick.motor(M1).setPower; 

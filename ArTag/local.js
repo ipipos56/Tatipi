@@ -17,7 +17,8 @@ min = function(a, b)
 max = function(a, b)
 {
     return a > b ? a : b;
-}
+}
+
 abs = Math.abs;
 sin = Math.sin;
 cos = Math.cos;
@@ -36,14 +37,16 @@ var MR = brick.motor(M3).setPower;
 var EL = brick.encoder(E4); 
 var ER = brick.encoder(E3); 
 
-rotCnt = 0;
+var rotCnt = 0;
 
-rot = 0;
 
 var direction = 0;
 
 var x,y;
-var map = new Array(64);
+var h = 16;
+var point = 136;
+var rot = 1;
+var map = new Array(256);
 
 var main = function()
 {
@@ -79,17 +82,38 @@ var main = function()
 
 		for(i = 0;i<3;i++)
 		{
-			//print(sz[0]+" "+sz[1]+" "+sz[2]);
-			if(sz[i] == 1)
+			var pr = point;
+			print(sz[0]+" "+sz[1]+" "+sz[2]);
+			var curre = rot + i - 1;
+			curre = cuboid(curre);
+			if(sz[i] == 1 && map[point][curre] == -1)
 			{
+				print(point+" "+curre)
 				if(i == 0)
+				{
 					turn_left();
+					wait(500);
+					forward();
+				}
 				else if(i == 1)
 					forward();
 				else if(i == 2)
+				{
 					turn_right();
+					wait(500);
+					forward();
+				}
 				break;
 			}
+			map[pr][curre] = sz[i];
+			if(curre == 0)
+				map[pr - h][2] = sz[i];
+			else if(curre == 1)
+				map[pr + 1][3] = sz[i];
+			else if(curre == 2)
+				map[pr + h][0] = sz[i];
+			else if(curre == 3)
+				map[pr - 1][1] = sz[i];
 		}
 		wait(300);
 	}
@@ -146,6 +170,15 @@ function forward()
 	while((EL.read()+ER.read())/2 < deg && s[1].read() > 25 )
 		dvish();
 	stop();
+	
+	if(rot == 0)
+		point-=h;
+	else if(rot == 1)
+		point+=1;
+	else if(rot == 2)
+		point+=h;
+	else if(rot == 3)
+		point-=1;
 }
 
 function turn_left() {
@@ -163,8 +196,7 @@ function turn_left() {
 	rotCnt -= 1;
 	
 	rot-=1; // Вращение робота
-	if(rot<0)
-		rot+=4;
+	rot = cuboid(rot);
 }
 
 function turn_right(robot) 
@@ -181,8 +213,7 @@ function turn_right(robot)
 	rotCnt += 1;
 	
 	rot+=1; // Вращение робота
-	if(rot>3)
-		rot-=4;
+	rot = cuboid(rot);
 }
 
 function moveSmall()
@@ -200,6 +231,15 @@ function moveSmall()
 	}
 	stop();
 }
+
+function cuboid(_a)
+{
+	if(_a > 3)
+		return _a-4;
+	if(_a < 0)
+		return _a+4;
+	return _a;
+}
 
 
 
