@@ -1,6 +1,9 @@
 var __interpretation_started_timestamp__;
 pi = 3.141592653589793;
-wait = script.wait;
+wait = script.wait;
+X = 0;
+Y = 0;
+NUM = 0;
 sign = function(n)
 {
     return n > 0 ? 1 : n = 0 ? 0 : -1;
@@ -27,19 +30,19 @@ var main = function()
 {
     __interpretation_started_timestamp__ = Date.now();
 
-
+	var x,t;
     var otv = getARTagValue(0);//inp[1]);
 	if(otv>=8)
-		Y=code-8;
+		y=otv-8;
 	else
-		X=otv;
+		x=otv;
     
 	var otv = getARTagValue(1);//inp[1]);
 	if(otv>=8)
-		Y=code-8;
+		y=otv-8;
 	else
-		X=otv;
-    print(X+" "+Y);
+		x=otv;
+    print(x+" "+y);
     brick.display().addLabel("finish",1,1) //вывод ответа
     brick.display().redraw()
     script.wait(5000)
@@ -362,14 +365,14 @@ function getARTagValue(number)
     getData(number);
     binarization();
 
-    printImage();
+   // printImage();
     getCorners();
     findPoint();
     //printSelectedImage();
     //printImage();
-    X = -1;
-    Y = -1;
-    NUM = -1;
+    X = 0;
+    Y = 0;
+    NUM = 0;
     //print(values[0][0]+" "+values[0][1]+" "+values[0][2]);
     //print(values[1][0]+" "+values[1][1]+" "+values[1][2]);
     //print(values[2][0]+" "+values[2][1]+" "+values[2][2]);
