@@ -1,4 +1,4 @@
-path = "C:\Users\ipipos56\Desktop\Tatipi\input1.txt"
+path = "C:\Users\ipipos\Desktop\Tatipi\input1.txt"
 lab = File.ReadLine(path,1) / 250
 GraphicsWindow.Clear()
 'GraphicsWindow.DrawText(10,10,lab)
@@ -6,7 +6,7 @@ n = File.ReadLine(path,2)
 poi = File.ReadLine(path,3)
 GraphicsWindow.Width = 1920
 GraphicsWindow.Height = 1080
-mash = 100
+mash = 43
 s = Text.GetIndexOf(poi," ")
 napr = Text.GetSubText(poi,1,s)
 poi = Text.GetSubTextToEnd(poi,s+1)
