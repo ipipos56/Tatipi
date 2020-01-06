@@ -1,17 +1,17 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-
+void bubbleSort(int** arr, int size,string* col);
 int quarter(float _sn, float _cs)
 {
     int qr=0;
-    if(_cs>0&&_cs<1&&_sn>0&&_sn<1)
+    if(_cs>0&&_cs<1.0&&_sn>0&&_sn<1.0)
         qr=1;
-    else if(_cs<0&&_cs>-1&&_sn>0&&_sn<1)
+    else if(_cs<0&&_cs>-1.0&&_sn>0&&_sn<1.0)
         qr=2;
-    else if(_cs<0&&_cs>-1&&_sn<0&&_sn>-1)
+    else if(_cs<0&&_cs>-1.0&&_sn<0&&_sn>-1.0)
         qr=3;
-    else if(_cs>0&&_cs<1&&_sn<0&&_sn>-1)
+    else if(_cs>0&&_cs<1.0&&_sn<0&&_sn>-1.0)
         qr=4;
     else if(_cs==1)
         qr=-1;
@@ -25,21 +25,27 @@ int quarter(float _sn, float _cs)
 }
 int main()
 {
-    int n=0,k=14;
+    int n=0,k=12;
     float alfa=0.1;
     string rot="";
-    int x0=375,y0=1375;
+    int x0=1625,y0=1125;
     float beta=6.28;
     string wall[k];
-    int part[k][4];
+    int part[k][7];
     float kleft,kright,bright,bleft,yright,yleft,xright,xleft,k1,k2,cs,sn,d,dleft,dright,d1,d2;
     int qtleft,qtright,q1,q2;
+    float quat[k][4];
     for(int i=0; i<k; i++)
     {
+
         for(int j=0; j<4; j++)
+        {
+            quat[i][j]=0;
             cin>>part[i][j];
+        }
         cin>>wall[i];
     }
+    int a1=0,a2=0,a3=0,a4=0;
     for(int i=0; i<k; i++)
     {
         if(wall[i]!="0")
@@ -83,20 +89,11 @@ int main()
                         else if(part[j][2]<x0)
                             cs=-(x0-part[j][2])/d2;
                         q2=quarter(sn,cs);
-                        //cout<<q1<<" : "<<q2<<endl;
-                        //cout<<xleft<<"  :  "<<xright<<endl;
-                        //cout<<max(part[j][0],part[j][1])<<"  1:  "<<y1<<endl;
-                        // cout<<min(part[j][0],part[j][1])<<"  2:  "<<y2<<endl;
                         k1=float((part[j][1]-y0)/float(part[j][0]-x0));
                         k2=float((part[j][3]-y0)/float(part[j][2]-x0));
                         if(min(kleft,kright)<=k1&&min(kleft,kright)<=k2&&max(kleft,kright)>=k1&&max(kleft,kright)>=k2&&((q1==qtleft)||(q1==qtright))&&((q2==qtleft)||(q2==qtright))
                                 &&(max(d1,d2)>max(dright,dleft))&&(min(d1,d2)>min(dright,dleft)))
-                        {
-                            // cout<<"j "<<part[j][0]<<" : "<<part[j][1]<<" | "<<part[j][2]<<" : "<<part[j][3]<<endl;
-                            //cout<<min(kleft,kright)<<" "<<k1<<" : "<<k2<<" "<<max(kleft,kright)<<" = "<<i<<" "<<j<<endl;
-                            //cout<<min(kleft,kright)<<" "<<k1<<" : "<<k2<<" "<<max(kleft,kright)<<" = "<<i<<" "<<j<<endl;
                             wall[j]="0";
-                        }
 
                     }
 
@@ -140,18 +137,11 @@ int main()
                         else if(part[j][2]<x0)
                             cs=-(x0-part[j][2])/d2;
                         q2=quarter(sn,cs);
-                        //cout<<q1<<" : "<<q2<<endl;
-                        //cout<<xleft<<"  :  "<<xright<<endl;
-                        //cout<<max(part[j][0],part[j][1])<<"  1:  "<<y1<<endl;
-                        // cout<<min(part[j][0],part[j][1])<<"  2:  "<<y2<<endl;
                         k1=float((part[j][1]-y0)/float(part[j][0]-x0));
                         k2=float((part[j][3]-y0)/float(part[j][2]-x0));
                         if(min(kleft,kright)<=k1&&min(kleft,kright)<=k2&&max(kleft,kright)>=k1&&max(kleft,kright)>=k2&&((q1==qtleft)||(q1==qtright))&&((q2==qtleft)||(q2==qtright))
                                 &&(max(d1,d2)>max(dright,dleft))&&(min(d1,d2)>min(dright,dleft)))
                         {
-                            // cout<<"j "<<part[j][0]<<" : "<<part[j][1]<<" | "<<part[j][2]<<" : "<<part[j][3]<<endl;
-                            //cout<<min(kleft,kright)<<" "<<k1<<" : "<<k2<<" "<<max(kleft,kright)<<" = "<<i<<" "<<j<<endl;
-                            //cout<<min(kleft,kright)<<" "<<k1<<" : "<<k2<<" "<<max(kleft,kright)<<" = "<<i<<" "<<j<<endl;
                             wall[j]="0";
                         }
 
@@ -200,17 +190,10 @@ int main()
                             else if(part[j][2]<x0)
                                 cs=-(x0-part[j][2])/d2;
                             q2=quarter(sn,cs);
-                            //cout<<q1<<" : "<<q2<<endl;
-                            //cout<<xleft<<"  :  "<<xright<<endl;
-                            //cout<<max(part[j][0],part[j][1])<<"  1:  "<<y1<<endl;
-                            // cout<<min(part[j][0],part[j][1])<<"  2:  "<<y2<<endl;
                             k1=float((part[j][1]-y0)/float(part[j][0]-x0));
                             k2=float((part[j][3]-y0)/float(part[j][2]-x0));
                             if(min(k1,k2)<kleft&&max(k1,k2)>kright&&(max(d1,d2)>max(dright,dleft))&&(min(d1,d2)>min(dright,dleft))&&((q1==qtleft)||(q1==qtright))&&((q2==qtleft)||(q2==qtright)))
                             {
-                                // cout<<"j "<<part[j][0]<<" : "<<part[j][1]<<" | "<<part[j][2]<<" : "<<part[j][3]<<endl;
-                                //cout<<min(kleft,kright)<<" "<<k1<<" : "<<k2<<" "<<max(kleft,kright)<<" = "<<i<<" "<<j<<endl;
-                                //cout<<min(kleft,kright)<<" "<<k1<<" : "<<k2<<" "<<max(kleft,kright)<<" = "<<i<<" "<<j<<endl;
                                 wall[j]="0";
                             }
 
@@ -248,9 +231,6 @@ int main()
                             k2=float((part[j][3]-y0)/float(part[j][2]-x0));
                             if(min(k1,k2)<kleft&&max(k1,k2)>kright&&(max(d1,d2)>max(dright,dleft))&&(min(d1,d2)>min(dright,dleft))&&((q1==qtleft)||(q1==qtright))&&((q2==qtleft)||(q2==qtright)))
                             {
-                                // cout<<"j "<<part[j][0]<<" : "<<part[j][1]<<" | "<<part[j][2]<<" : "<<part[j][3]<<endl;
-                                //cout<<min(kleft,kright)<<" "<<k1<<" : "<<k2<<" "<<max(kleft,kright)<<" = "<<i<<" "<<j<<endl;
-                                //cout<<min(kleft,kright)<<" "<<k1<<" : "<<k2<<" "<<max(kleft,kright)<<" = "<<i<<" "<<j<<endl;
                                 wall[j]="0";
                             }
                         }
@@ -259,16 +239,72 @@ int main()
             }
 
         }
-        //for(int j=0; j<k; j++)
-        // {
-
-        //}
     }
     cout<<endl;
+    /* for(int i=0; i<k; i++)
+     {
+         for(int j=0; j<4; j++)
+             cout<<part[i][j]<<" ";
+         cout<<wall[i]<<endl;
+     }*/
     for(int i=0; i<k; i++)
-       {
-           for(int j=0;j<4;j++)
-            cout<<part[i][j]<<" ";
-           cout<<wall[i]<<endl;
-       }
+    {
+        if(wall[i]!="0")
+        {
+            d=float((part[i][0]-x0)*(part[i][0]-x0)+(part[i][1]-y0)*(part[i][1]-y0));
+            sn=(float(part[i][1]-y0)/(d));
+            cs=(float(part[i][0]-x0)/(d));
+            quat[i][0]=quarter(sn,cs);
+            quat[i][2]=atan2(sn,cs);
+            //cout<<atan2(sn,cs)<<" ";
+            d=float((part[i][2]-x0)*(part[i][2]-x0)+(part[i][3]-y0)*(part[i][3]-y0));
+            sn=(float(part[i][3]-y0)/(d));
+            cs=(float(part[i][2]-x0)/(d));
+            quat[i][1]=quarter(sn,cs);
+            quat[i][3]=atan2(sn,cs);
+            quat[i][2]=(quat[i][2]+quat[i][3])/2;
+            quat[i][3]=0;
+            //cout<<atan2(sn,cs)<<endl;
+        }
+    }
+
+
+
+
+    float temp,temp2,temp3,temp4;
+    string st;
+    for(int i = 0; i < k; i++) {
+        for(int j = 0; j < k - 1; j++)  {
+            if(quat[j][2] > quat[j + 1][2]) {
+                st=wall[j];
+                wall[j]=wall[j+1];
+                wall[j+1]=st;
+
+                temp2 = quat[j][0];
+                quat[j][0] = quat[j + 1][0];
+                quat[j + 1][0] = temp2;
+
+                temp = quat[j][1];
+                quat[j][1] = quat[j + 1][1];
+                quat[j + 1][1] = temp;
+
+                temp3 = quat[j][2];
+                quat[j][2] = quat[j + 1][2];
+                quat[j + 1][2] = temp3;
+
+                temp4 = quat[j][3];
+                quat[j][3] = quat[j + 1][3];
+                quat[j + 1][3] = temp4;
+            }
+        }
+    }
+    for(int i=0;i<k;i++)
+    {
+        for(int j=0;j<4;j++)
+            cout<<quat[i][j]<<" ";
+        cout<<wall[i]<<endl;
+    }
+
+
 }
+
