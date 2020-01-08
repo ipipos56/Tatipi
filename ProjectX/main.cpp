@@ -241,70 +241,12 @@ int main()
         }
     }
     cout<<endl;
-    /* for(int i=0; i<k; i++)
+     for(int i=0; i<k; i++)
      {
          for(int j=0; j<4; j++)
              cout<<part[i][j]<<" ";
          cout<<wall[i]<<endl;
-     }*/
-    for(int i=0; i<k; i++)
-    {
-        if(wall[i]!="0")
-        {
-            d=float((part[i][0]-x0)*(part[i][0]-x0)+(part[i][1]-y0)*(part[i][1]-y0));
-            sn=(float(part[i][1]-y0)/(d));
-            cs=(float(part[i][0]-x0)/(d));
-            quat[i][0]=quarter(sn,cs);
-            quat[i][2]=atan2(sn,cs);
-            //cout<<atan2(sn,cs)<<" ";
-            d=float((part[i][2]-x0)*(part[i][2]-x0)+(part[i][3]-y0)*(part[i][3]-y0));
-            sn=(float(part[i][3]-y0)/(d));
-            cs=(float(part[i][2]-x0)/(d));
-            quat[i][1]=quarter(sn,cs);
-            quat[i][3]=atan2(sn,cs);
-            quat[i][2]=(quat[i][2]+quat[i][3])/2;
-            quat[i][3]=0;
-            //cout<<atan2(sn,cs)<<endl;
-        }
-    }
-
-
-
-
-    float temp,temp2,temp3,temp4;
-    string st;
-    for(int i = 0; i < k; i++) {
-        for(int j = 0; j < k - 1; j++)  {
-            if(quat[j][2] > quat[j + 1][2]) {
-                st=wall[j];
-                wall[j]=wall[j+1];
-                wall[j+1]=st;
-
-                temp2 = quat[j][0];
-                quat[j][0] = quat[j + 1][0];
-                quat[j + 1][0] = temp2;
-
-                temp = quat[j][1];
-                quat[j][1] = quat[j + 1][1];
-                quat[j + 1][1] = temp;
-
-                temp3 = quat[j][2];
-                quat[j][2] = quat[j + 1][2];
-                quat[j + 1][2] = temp3;
-
-                temp4 = quat[j][3];
-                quat[j][3] = quat[j + 1][3];
-                quat[j + 1][3] = temp4;
-            }
-        }
-    }
-    for(int i=0;i<k;i++)
-    {
-        for(int j=0;j<4;j++)
-            cout<<quat[i][j]<<" ";
-        cout<<wall[i]<<endl;
-    }
-
+     }
 
 }
 
