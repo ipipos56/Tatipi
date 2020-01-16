@@ -33,10 +33,10 @@ s[2] = brick.sensor(A2);
 
 sz = [0,0,0];
 
-ML = brick.motor(M4).setPower; 
-MR = brick.motor(M3).setPower; 
-EL = brick.encoder(E4); 
-ER = brick.encoder(E3); 
+ML = brick.motor(M2).setPower; 
+MR = brick.motor(M1).setPower; 
+EL = brick.encoder(E2); 
+ER = brick.encoder(E1); 
 
 rotCnt = 0;
 
@@ -80,15 +80,19 @@ var main = function()
 	ER.reset()
 	EL.reset()
 	
-	brick.gyroscope().calibrate(4000);
-	script.wait(4050);
+	brick.gyroscope().calibrate(5000);
+	script.wait(5100);
 	moveSmall();
 	
 	var pa = true;
 	var test = false;
-	var iter = 0;
+	var iter = 0;
+	
+	forward();
 	
-	
+	
+	
+	/*
 	while(pa)
 	{
 		valSen();
@@ -191,6 +195,7 @@ var main = function()
 	
 	findPath(point,((y*h)+x+pqw));
 	
+*/
     brick.display().addLabel("finish",1,1) //вывод ответа
     brick.display().redraw()
     script.wait(5000)
