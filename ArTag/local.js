@@ -46,8 +46,8 @@ var x,y;
 var h = 16;
 var point = 136;
 var rot = 1;
-var map = new Array(256);
-
+var map = new Array(256);
+
 fullRot = 0;
 
 var main = function()
@@ -76,13 +76,13 @@ var main = function()
 	
 	brick.gyroscope().calibrate(4000);
 	script.wait(4050);
-	moveSmall();
+	moveSmall();
 	
-	var pa = true;
+	var pa = true;
 	
 	while(pa)
 	{
-		valSen();
+		valSen();
 		pa = false;
 		for(i = 0;i<3;i++)
 		{
@@ -91,7 +91,7 @@ var main = function()
 			var curre = rot + i - 1;
 			curre = cuboid(curre);
 			if(sz[i] == 1 && map[point][curre] == -1)
-			{
+			{
 				pa = true;
 				print(point+" "+curre)
 				if(i == 0)
@@ -156,29 +156,29 @@ function forward(robot)
 		
 	ER.reset()
 	EL.reset()
-	deg = (700/(pi*56))*360;
-	if(rot == 0)
-		direction = -90;
-	else if(rot == 1)
-		direction = 0;
-	else if(rot == 2)
-		direction = 90;
-	else if(rot == 3)
+	deg = (700/(pi*56))*360;
+	if(rot == 0)
+		direction = -90;
+	else if(rot == 1)
+		direction = 0;
+	else if(rot == 2)
+		direction = 90;
+	else if(rot == 3)
 		direction = -180;
 	while((EL.read()+ER.read())/2 < deg && s[1].read() > 25 )
-	{
-		gyro = brick.gyroscope().read()[6]/1000;
-		if(rot == 3)
-		{
-			if(gyro < 0)
-				direction = -180;
-			else 
-				direction = 180;
-		}
-		err = direction - gyro;
-		ML(50+err*1)
-		MR(50-err*1)
-		wait(1);
+	{
+		gyro = brick.gyroscope().read()[6]/1000;
+		if(rot == 3)
+		{
+			if(gyro < 0)
+				direction = -180;
+			else 
+				direction = 180;
+		}
+		err = direction - gyro;
+		ML(50+err*1)
+		MR(50-err*1)
+		wait(1);
 	}
 	stop();
 	
@@ -200,11 +200,11 @@ function turn_left() {
 	//deg = 280
 	ML(-30)
 	MR(30)
-	while(abs(ER.read()) < deg)
-	{
-		gyro = brick.gyroscope().read()[6]/1000;
+	while(abs(ER.read()) < deg)
+	{
+		gyro = brick.gyroscope().read()[6]/1000;
 		print(gyro);
-		wait(1)
+		wait(1)
 	}
 	stop()
 
@@ -270,7 +270,7 @@ iA = 0, jA = 0, iB = 0, jB = 0, iC = 0, jC = 0, iD = 0, jD = 0;
 
 function getData(num)
 {
-	var raw = script.readAll("input.txt");
+	var raw = script.readAll('ArTag/input.txt');
 	var mn;
     if(num==0)
     {

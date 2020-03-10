@@ -33,10 +33,10 @@ s[2] = brick.sensor(A2);
 
 sz = [0,0,0];
 
-ML = brick.motor(M2).setPower; 
-MR = brick.motor(M1).setPower; 
-EL = brick.encoder(E2); 
-ER = brick.encoder(E1); 
+ML = brick.motor(M4).setPower; 
+MR = brick.motor(M3).setPower; 
+EL = brick.encoder(E4); 
+ER = brick.encoder(E3); 
 
 rotCnt = 0;
 
@@ -86,13 +86,12 @@ var main = function()
 	
 	var pa = true;
 	var test = false;
-	var iter = 0;
-	
-	forward();
+	var iter = 0;
 	
-	
-	
-	/*
+	//forward();
+	
+	
+	
 	while(pa)
 	{
 		valSen();
@@ -143,7 +142,7 @@ var main = function()
 	var pqw = 0;
 	while(nonplace.length > 0)
 	{
-		pqw = nonplace.shift();
+		pqw = nonplace.pop();
 		print(pqw);
 		var tt = 0;
 		if(map[pqw][0] == -1 || map[pqw][1] == -1 || map[pqw][2] == -1 || map[pqw][3] == -1)
@@ -195,7 +194,6 @@ var main = function()
 	
 	findPath(point,((y*h)+x+pqw));
 	
-*/
     brick.display().addLabel("finish",1,1) //вывод ответа
     brick.display().redraw()
     script.wait(5000)
@@ -513,7 +511,7 @@ iA = 0, jA = 0, iB = 0, jB = 0, iC = 0, jC = 0, iD = 0, jD = 0;
 
 function getData(num)
 {
-	var raw = script.readAll("input.txt");
+	var raw = script.readAll("ArTag/input.txt");
 	var mn;
     if(num==0)
     {
