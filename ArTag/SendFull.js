@@ -507,7 +507,7 @@ iA = 0, jA = 0, iB = 0, jB = 0, iC = 0, jC = 0, iD = 0, jD = 0;
 
 function getData(num)
 {
-	var raw = script.readAll("ArTag/input.txt");
+	var raw = script.readAll("input.txt");
 	var mn;
 	raw = raw[0].split(" ");
     for (i = 0; i < height; ++i)
