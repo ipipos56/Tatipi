@@ -537,9 +537,9 @@ function getData(num)
         }
     }
 
-        for (i = height-1; i < height; ++i)
+        for (i = 0; i < height; ++i)
     {
-        for (j = width-2; j < width; j++)
+        for (j = width-4; j < width; j++)
         {
             image[i][j] = 255 + 255 + 255;
         }
@@ -938,7 +938,7 @@ function getARTagValue(number)
 {
     getData(number);
     binarization();
-    //printImage();
+  //  printImage();
     getCorners();
     findPoint();
 	
