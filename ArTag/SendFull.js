@@ -528,18 +528,18 @@ function getData(num)
         }
 
     }
-    for (i = 0; i < width; ++i)
+  /*  for (i = 0; i < width; ++i)
     {
         for (j = 0; j < 4; j++)
         {
             image[j][i] = 255 + 255 + 255;
 			
         }
-    }
+    }*/
 
         for (i = 0; i < height; ++i)
     {
-        for (j = width-4; j < width; j++)
+        for (j = width-2; j < width; j++)
         {
             image[i][j] = 255 + 255 + 255;
         }
