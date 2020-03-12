@@ -532,7 +532,8 @@ function getData(num)
     {
         for (j = 0; j < 4; j++)
         {
-            image[j][i] = 255 + 255 + 255;
+            image[j][i] = 255 + 255 + 255;
+			
         }
     }
 	    for (i = 0; i < height; ++i)
