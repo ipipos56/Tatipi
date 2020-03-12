@@ -508,7 +508,7 @@ iA = 0, jA = 0, iB = 0, jB = 0, iC = 0, jC = 0, iD = 0, jD = 0;
 function getData(num)
 {
 	var raw = script.readAll("input.txt");
-	var mn;
+	var mn;
 	raw = raw[0].split(" ");
     for (i = 0; i < height; ++i)
     {
@@ -522,7 +522,7 @@ function getData(num)
     }
     for (i = 0; i < height; ++i)
     {
-        for (j = 0; j < 3; j++)
+        for (j = 0; j < 4; j++)
         {
             image[i][j] = 255 + 255 + 255;
         }
@@ -530,14 +530,21 @@ function getData(num)
     }
     for (i = 0; i < width; ++i)
     {
-        for (j = 0; j < 3; j++)
+        for (j = 0; j < 4; j++)
         {
-            image[j][i] = 255 + 255 + 255;
+            image[j][i] = 255 + 255 + 255;
 			
         }
+    }
+
+        for (i = height-1; i < height; ++i)
+    {
+        for (j = width-2; j < width; j++)
+        {
+            image[i][j] = 255 + 255 + 255;
+        }
+
     }
-
-    
 
 }
 
