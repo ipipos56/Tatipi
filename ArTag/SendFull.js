@@ -507,7 +507,7 @@ iA = 0, jA = 0, iB = 0, jB = 0, iC = 0, jC = 0, iD = 0, jD = 0;
 
 function getData(num)
 {
-	var raw = script.readAll("ArTag/input.txt");
+	var raw = script.readAll("input.txt");
 	var mn;
 	raw = raw[0].split(" ");
     for (i = 0; i < height; ++i)
@@ -522,7 +522,7 @@ function getData(num)
     }
     for (i = 0; i < height; ++i)
     {
-        for (j = 0; j < 4; j++)
+        for (j = 0; j < 3; j++)
         {
             image[i][j] = 255 + 255 + 255;
         }
@@ -530,19 +530,11 @@ function getData(num)
     }
     for (i = 0; i < width; ++i)
     {
-        for (j = 0; j < 4; j++)
+        for (j = 0; j < 3; j++)
         {
             image[j][i] = 255 + 255 + 255;
 			
         }
-    }
-	    for (i = 0; i < height; ++i)
-    {
-        for (j = width-8; j < width; j++)
-        {
-            image[i][j] = 255 + 255 + 255;
-        }
-
     }
 
     
