@@ -26,12 +26,12 @@ round = Math.round;
 var code;
 
 
-s = new Array(3);
-s[0] = brick.sensor(A3);
-s[1] = brick.sensor(A1);
-s[2] = brick.sensor(A2);
+//s = new Array(3);
+//s[0] = brick.sensor(A3);
+//s[1] = brick.sensor(A1);
+//s[2] = brick.sensor(A2);
 
-sz = [0,0,0];
+//sz = [0,0,0];
 
 ML = brick.motor(M4).setPower; 
 MR = brick.motor(M3).setPower; 
@@ -507,7 +507,7 @@ iA = 0, jA = 0, iB = 0, jB = 0, iC = 0, jC = 0, iD = 0, jD = 0;
 
 function getData(num)
 {
-	var raw = script.readAll("ArTag/input.txt");
+	var raw = script.readAll("C:/Users/ipipos/Desktop/Tatipi/ArTag/input.txt");
 	var mn;
     if(num==0)
     {
@@ -860,26 +860,26 @@ function findPoint()
   
 	tem = [4];
 	for(uf=0;uf<4;uf++)
-		tem[uf]=[];
-	
-	itd=0;
-	for(ia=0;ia<6;ia++)
-	{
-		for(ja=0;ja<6;ja++)
-		{
-			tem[0]=numbers[itd];
-			tem[1]=numbers[itd+8];
-			tem[2]=numbers[itd+1];
-			tem[3]=numbers[itd+7];
-			val = [];
-			val = intersect2(tem[0][0],tem[0][1],tem[1][0],tem[1][1],tem[2][0],tem[2][1],tem[3][0],tem[3][1])
-			values[ia][ja] = (image[val[0]][val[1]]+1)%2;
-			itd++;
-		}
-		itd++;
-	}
-	print(values)
-/*	
+		tem[uf]=[];
+	
+	itd=0;
+	for(ia=0;ia<6;ia++)
+	{
+		for(ja=0;ja<6;ja++)
+		{
+			tem[0]=numbers[itd];
+			tem[1]=numbers[itd+8];
+			tem[2]=numbers[itd+1];
+			tem[3]=numbers[itd+7];
+			val = [];
+			val = intersect2(tem[0][0],tem[0][1],tem[1][0],tem[1][1],tem[2][0],tem[2][1],tem[3][0],tem[3][1])
+			values[ia][ja] = (image[val[0]][val[1]]+1)%2;
+			itd++;
+		}
+		itd++;
+	}
+	//print(values)
+/*	
 	
 	image[AM[0]][AM[1]]=6
 	image[MB[0]][MB[1]]=6
@@ -895,9 +895,9 @@ function findPoint()
 	image[OL[0]][OL[1]]=6
 	image[OK[0]][OK[1]]=6
 	*/
-	//for(i=0;i<7;i++)
+	//for(i=0;i<7;i++)
 		//for(j=0;j<7;j++)
-		//image[numbers[i*7+j][0]][numbers[i*7+j][1]]=0;
+		//image[numbers[i*7+j][0]][numbers[i*7+j][1]]=0;
 		//image[K[0]][K[1]]=6
 	//image[K[0]][K[1]]=6
 	
@@ -921,11 +921,11 @@ function rotate_clockwise(times)
 {
     for (i = 0; i < times; i = i + 1)
     {
-        values_temp = [	[0, 0, 0, 0, 0, 0],
-						[0, 0, 0, 0, 0, 0], 
-						[0, 0, 0, 0, 0, 0],
-						[0, 0, 0, 0, 0, 0],
-						[0, 0, 0, 0, 0, 0],
+        values_temp = [	[0, 0, 0, 0, 0, 0],
+						[0, 0, 0, 0, 0, 0], 
+						[0, 0, 0, 0, 0, 0],
+						[0, 0, 0, 0, 0, 0],
+						[0, 0, 0, 0, 0, 0],
 						[0, 0, 0, 0, 0, 0]];
         for (j = 0; j < 6; j = j + 1)
         {
@@ -946,7 +946,7 @@ function getARTagValue(number)
     //printImage();
     getCorners();
     findPoint();
-    printSelectedImage();
+    //printSelectedImage();
     if (values[0][0] == 0 && values[0][5] == 1 && values[5][5] == 1 && values[5][0] == 1)
     {
         rotate_clockwise(2);
@@ -971,7 +971,7 @@ function getARTagValue(number)
     //print(values[1][0]+" "+values[1][1]+" "+values[1][2]);
     //print(values[2][0]+" "+values[2][1]+" "+values[2][2]);
     //code ="";
-    code=(values[0][1]*8+values[1][0]*4+values[1][2]*2+values[2][1]);
+    //code=(values[0][1]*8+values[1][0]*4+values[1][2]*2+values[2][1]);
     //print(code);
 	//if(code>=8)
 	//	code=code-8;
@@ -980,6 +980,33 @@ function getARTagValue(number)
     //NUM = values[1][0] * 2 + values[1][2];
    // string = "" + X + " " + Y + " " + NUM;
 
-    // brick.display().addLabel(string,10,10);
-    return code;
+    // brick.display().addLabel(string,10,10);
+	
+	
+	
+	kom = [0,0,0,0,0,0,0,0,0,0,0,0,0];
+	kom[0] = values[0][3] * 2 + values[1][0];
+	kom[1] = values[1][1] * 2 + values[1][2];
+	kom[2] = values[1][4] * 2 + values[1][5];
+	kom[3] = values[2][0] * 2 + values[2][1];
+	kom[4] = values[2][2] * 2 + values[2][3];
+	kom[5] = values[2][4] * 2 + values[3][0];
+	kom[6] = values[3][1] * 2 + values[3][2];
+	kom[7] = values[3][3] * 2 + values[3][4];
+	kom[8] = values[3][5] * 2 + values[4][0];
+	kom[9] = values[4][1] * 2 + values[4][2];
+	kom[10] = values[4][3] * 2 + values[4][4];
+	kom[11] = values[4][5] * 2 + values[5][1];
+	kom[12] = values[5][2] * 2 + values[5][3];
+	vivo = "";
+	for(var i = 0;i<13;i++)
+		if(i != 12)
+			vivo += String(kom[i]) + String(" ");
+		else
+			vivo += String(kom[i]);
+	print(vivo);
+	brick.display().addLabel(vivo,1,1) //вывод ответа
+    brick.display().redraw()
+    script.wait(5000)
+    return 0;
 }
