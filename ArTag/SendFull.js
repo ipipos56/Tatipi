@@ -508,7 +508,7 @@ iA = 0, jA = 0, iB = 0, jB = 0, iC = 0, jC = 0, iD = 0, jD = 0;
 function getData(num)
 {
 	var raw = script.readAll("input.txt");
-	var mn;
+	var mn;
 	raw = raw[0].split(" ");
     for (i = 0; i < height; ++i)
     {
@@ -532,18 +532,18 @@ function getData(num)
     {
         for (j = 0; j < 4; j++)
         {
-            image[j][i] = 255 + 255 + 255;
+            image[j][i] = 255 + 255 + 255;
 			
         }
-    }*/
-
-        for (i = 0; i < height; ++i)
-    {
-        for (j = width-2; j < width; j++)
-        {
-            image[i][j] = 255 + 255 + 255;
-        }
-
+    }*/
+
+        for (i = 0; i < height; ++i)
+    {
+        for (j = width-2; j < width; j++)
+        {
+            image[i][j] = 255 + 255 + 255;
+        }
+
     }
 
 }
@@ -940,7 +940,7 @@ function getARTagValue(number)
     binarization();
   //  printImage();
     getCorners();
-    findPoint();
+    findPoint();
 	
     //printSelectedImage();
     if (values[0][0] == 1 && values[0][5] == 0 && values[5][5] == 0 && values[5][0] == 0)

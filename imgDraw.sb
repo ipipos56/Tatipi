@@ -1,0 +1,17 @@
+img = File.ReadContents("C:\Users\ipipos\Desktop\Tatipi\input.txt") 
+GraphicsWindow.Clear()
+mash = 5
+GraphicsWindow.Width = 1920
+GraphicsWindow.Height = 1080
+    For i = 1 To 120
+      For j = 1 To 160
+    ind = Text.GetIndexOf(img," ")
+    tt = Text.GetSubText(img,1,ind)
+    img = Text.GetSubTextToEnd(img, ind+1)
+    GraphicsWindow.BrushColor = Text.Append("#",tt)
+    If j < 4 Then
+      GraphicsWindow.BrushColor = "#FFFFFF"
+      EndIf
+    GraphicsWindow.FillRectangle(j * mash,i * mash,mash,mash)
+    EndFor
+  EndFor
