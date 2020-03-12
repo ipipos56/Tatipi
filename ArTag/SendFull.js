@@ -938,10 +938,10 @@ function getARTagValue(number)
 {
     getData(number);
     binarization();
-
     //printImage();
     getCorners();
-    findPoint();
+    findPoint();
+	print(Error(values))
     //printSelectedImage();
     if (values[0][0] == 1 && values[0][5] == 0 && values[5][5] == 0 && values[5][0] == 0)
     {
