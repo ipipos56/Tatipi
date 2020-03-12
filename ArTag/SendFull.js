@@ -507,19 +507,9 @@ iA = 0, jA = 0, iB = 0, jB = 0, iC = 0, jC = 0, iD = 0, jD = 0;
 
 function getData(num)
 {
-	var raw = script.readAll("C:/Users/ipipos/Desktop/Tatipi/ArTag/input.txt");
-	var mn;
-    if(num==0)
-    {
-
-        raw = raw[0].split(" ");
-    }
-    else if(num==1)
-    {
-
-        raw = raw[1].split(" ");
-    }
-
+	var raw = script.readAll("ArTag/input.txt");
+	var mn;
+	raw = raw[0].split(" ");
     for (i = 0; i < height; ++i)
     {
         image[i] = [];
@@ -547,7 +537,7 @@ function getData(num)
 
     }
 
-    for (i = height - 8; i < height; ++i)
+    for (i = height; i < height; ++i)
         for (j = 0; j < width; ++j)
             image[i][j] = 255 + 255 + 255;
 }
@@ -947,18 +937,18 @@ function getARTagValue(number)
     getCorners();
     findPoint();
     //printSelectedImage();
-    if (values[0][0] == 0 && values[0][5] == 1 && values[5][5] == 1 && values[5][0] == 1)
+    if (values[0][0] == 1 && values[0][5] == 0 && values[5][5] == 0 && values[5][0] == 0)
     {
         rotate_clockwise(2);
     }
-    else if (values[0][5] == 0 && values[0][0] == 1 && values[5][5] == 1 && values[5][0] == 1)
+    else if (values[0][5] == 1 && values[0][0] == 0 && values[5][5] == 0 && values[5][0] == 0)
     {
         rotate_clockwise(1);
     }
-    else if (values[5][5] == 0 && values[0][5] == 1 && values[0][0] == 1 && values[5][0] == 1)
+    else if (values[5][5] == 1 && values[0][5] == 0 && values[0][0] == 0 && values[5][0] == 0)
     {
     }
-    else if (values[5][0] == 0 && values[0][5] == 1 && values[5][5] == 1 && values[0][0] == 1)
+    else if (values[5][0] == 1 && values[0][5] == 0 && values[5][5] == 0 && values[0][0] == 0)
     {
         rotate_clockwise(3)
     }
@@ -980,33 +970,33 @@ function getARTagValue(number)
     //NUM = values[1][0] * 2 + values[1][2];
    // string = "" + X + " " + Y + " " + NUM;
 
-    // brick.display().addLabel(string,10,10);
-	
-	
-	
-	kom = [0,0,0,0,0,0,0,0,0,0,0,0,0];
-	kom[0] = values[0][3] * 2 + values[1][0];
-	kom[1] = values[1][1] * 2 + values[1][2];
-	kom[2] = values[1][4] * 2 + values[1][5];
-	kom[3] = values[2][0] * 2 + values[2][1];
-	kom[4] = values[2][2] * 2 + values[2][3];
-	kom[5] = values[2][4] * 2 + values[3][0];
-	kom[6] = values[3][1] * 2 + values[3][2];
-	kom[7] = values[3][3] * 2 + values[3][4];
-	kom[8] = values[3][5] * 2 + values[4][0];
-	kom[9] = values[4][1] * 2 + values[4][2];
-	kom[10] = values[4][3] * 2 + values[4][4];
-	kom[11] = values[4][5] * 2 + values[5][1];
-	kom[12] = values[5][2] * 2 + values[5][3];
-	vivo = "";
-	for(var i = 0;i<13;i++)
-		if(i != 12)
-			vivo += String(kom[i]) + String(" ");
-		else
-			vivo += String(kom[i]);
-	print(vivo);
-	brick.display().addLabel(vivo,1,1) //вывод ответа
-    brick.display().redraw()
+    // brick.display().addLabel(string,10,10);
+	
+	
+	
+	kom = [0,0,0,0,0,0,0,0,0,0,0,0,0];
+	kom[0] = values[0][3] * 2 + values[1][0];
+	kom[1] = values[1][1] * 2 + values[1][2];
+	kom[2] = values[1][4] * 2 + values[1][5];
+	kom[3] = values[2][0] * 2 + values[2][1];
+	kom[4] = values[2][2] * 2 + values[2][3];
+	kom[5] = values[2][4] * 2 + values[3][0];
+	kom[6] = values[3][1] * 2 + values[3][2];
+	kom[7] = values[3][3] * 2 + values[3][4];
+	kom[8] = values[3][5] * 2 + values[4][0];
+	kom[9] = values[4][1] * 2 + values[4][2];
+	kom[10] = values[4][3] * 2 + values[4][4];
+	kom[11] = values[4][5] * 2 + values[5][1];
+	kom[12] = values[5][2] * 2 + values[5][3];
+	vivo = "";
+	for(var i = 0;i<13;i++)
+		if(i != 12)
+			vivo += String(kom[i]) + String(" ");
+		else
+			vivo += String(kom[i]);
+	print(vivo);
+	brick.display().addLabel(vivo,1,1) //вывод ответа
+    brick.display().redraw()
     script.wait(5000)
     return 0;
 }
