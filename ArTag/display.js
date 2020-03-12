@@ -9,3 +9,4 @@ var main = function()
 	disp.redraw();
 	script.wait(1000000);
 }
+
