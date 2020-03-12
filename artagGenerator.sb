@@ -1,0 +1,30 @@
+GraphicsWindow.Clear()
+mash = 40
+sdvig = 200
+GraphicsWindow.Width = 1920
+GraphicsWindow.Height = 1080
+GraphicsWindow.BrushColor = "Black"
+For i = 1 To 8
+  GraphicsWindow.FillRectangle(i * mash + sdvig,sdvig,mash,mash)
+EndFor
+For i = 1 To 6
+  img = File.ReadLine("C:\Users\ipipos\Desktop\Tatipi\artag.txt",i)
+  GraphicsWindow.BrushColor = "Black"
+  GraphicsWindow.FillRectangle(mash + sdvig, i *mash + sdvig,mash,mash)
+  For j = 1 To 6
+    tt = Text.GetSubText(img,1,1)
+    img = Text.GetSubTextToEnd(img,2)
+    tt = Math.GetRandomNumber(2) - 1
+    GraphicsWindow.BrushColor = "Black"
+    If tt = 0 Then
+      GraphicsWindow.BrushColor = "White"
+      EndIf
+    GraphicsWindow.FillRectangle((j+1) * mash + sdvig,i * mash + sdvig,mash,mash)
+EndFor
+  GraphicsWindow.BrushColor = "Black"
+  GraphicsWindow.FillRectangle(mash * 8 + sdvig, i *mash + sdvig,mash,mash)
+EndFor
+For i = 1 To 8
+  GraphicsWindow.BrushColor = "Black"
+    GraphicsWindow.FillRectangle(i * mash + sdvig, mash * 7 + sdvig,mash,mash)
+    EndFor
