@@ -53,7 +53,9 @@ nonplace = [];
 
 fullRot = 0;
 
-
+var numbers = [49];
+for(i=0;i<49;i++)
+	numbers[i]=[0,0];
 
 var main = function()
 {
@@ -65,24 +67,12 @@ var main = function()
 	//print(map);
 
     var otv = getARTagValue(0);//inp[1]);
-	if(otv >= 8)
-		y = otv-8;
-	else
-		x=otv;
-	var otv = getARTagValue(1);//inp[1]);
-	if(otv >= 8)
-		y = otv-8;
-	else
-		x=otv;
-    print(x+" "+y);
-	
-	
 	ER.reset()
 	EL.reset()
 	
-	brick.gyroscope().calibrate(5000);
-	script.wait(5100);
-	moveSmall();
+	//brick.gyroscope().calibrate(5000);
+	//script.wait(5100);
+	//moveSmall();
 	
 	var pa = true;
 	var test = false;
@@ -91,7 +81,7 @@ var main = function()
 	//forward();
 	
 	
-	
+	/*
 	while(pa)
 	{
 		valSen();
@@ -200,6 +190,7 @@ var main = function()
 
     script.wait(2000)
     return;
+	*/
 }
 
 function valSen()
@@ -500,7 +491,12 @@ height = 120, width = 160;
 
 image = [];
 
-values = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+values = [	[0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0], 
+			[0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0], 
+			[0, 0, 0, 0, 0, 0], 
+			[0, 0, 0, 0, 0, 0]];
 
 iMin = 0, iMax = 0, jMin = 0, jMax = 0;
 
@@ -585,7 +581,7 @@ function printSelectedImage()
     {
         str = "";
         for (j = jMin; j <= jMax; ++j)
-            str += ".#ABCD*0123456789"[image[i][j]] + " ";//".#ABCD*"
+            str += ".#ABCDo*0123456789"[image[i][j]] + " ";//".#ABCD*"
         print(str);
     }
 }
@@ -726,53 +722,188 @@ function findPoint()
     DC = [C[0] - D[0], C[1] - D[1]];
     AD = [D[0] - A[0], D[1] - A[1]];
 
-    O = intersect2(A[0], A[1], C[0], C[1], B[0], B[1], D[0], D[1]);
-
+	O = intersect2(A[0], A[1], C[0], C[1], B[0], B[1], D[0], D[1]);
+	
+	
     E = intersect1(B[0], B[1], C[0], C[1], O[0], O[1], AB[0] + DC[0], AB[1] + DC[1]);
-
     K = intersect1(A[0], A[1], D[0], D[1], O[0], O[1], -AB[0] - DC[0], -AB[1] - DC[1]);
-
     L = intersect1(C[0], C[1], D[0], D[1], O[0], O[1], AD[0] + BC[0], AD[1] + BC[1]);
     M = intersect1(A[0], A[1], B[0], B[1], O[0], O[1], -AD[0] - BC[0], -AD[1] - BC[1]);
 
-    W1 = intersect2(M[0], M[1], E[0], E[1], B[0], B[1], D[0], D[1]);
+	OA = intersect2(A[0], A[1], C[0], C[1], M[0], M[1], K[0], K[1]);
+	OB = intersect2(M[0], M[1], E[0], E[1], B[0], B[1], D[0], D[1]);
+	OC = intersect2(A[0], A[1], C[0], C[1], E[0], E[1], L[0], L[1]);
+	OD = intersect2(K[0], K[1], L[0], L[1], B[0], B[1], D[0], D[1]);
+	AM = [];
+	MB = [];
+	BE = [];
+	EC = [];
+	CL = [];
+	LD = [];
+	DK = [];
+	KA = [];
+	
+	AM[0] = Math.floor((A[0]+M[0])/2);
+	AM[1] = Math.floor((A[1]+M[1])/2);
+	MB[0] =	Math.floor((M[0]+B[0])/2);
+	MB[1] =	Math.floor((M[1]+B[1])/2);
+	BE[0] = Math.floor((B[0]+E[0])/2);
+	BE[1] = Math.floor((B[1]+E[1])/2);
+	EC[0] = Math.floor((E[0]+C[0])/2);
+	EC[1] = Math.floor((E[1]+C[1])/2);
+	CL[0] = Math.floor((C[0]+L[0])/2);
+	CL[1] = Math.floor((C[1]+L[1])/2);
+	LD[0] = Math.floor((L[0]+D[0])/2);
+	LD[1] = Math.floor((L[1]+D[1])/2);
+	DK[0] = Math.floor((D[0]+K[0])/2);
+	DK[1] = Math.floor((D[1]+K[1])/2);
+	KA[0] = Math.floor((K[0]+A[0])/2);
+	KA[1] = Math.floor((K[1]+A[1])/2);
+	OM = []
+	OE = []
+	OL = []
+	OK = []
+	
+	OM[0] = Math.floor((O[0]+M[0])/2);
+	OM[1] = Math.floor((O[1]+M[1])/2);
+	OE[0] = Math.floor((O[0]+E[0])/2);
+	OE[1] = Math.floor((O[1]+E[1])/2);
+	OL[0] = Math.floor((O[0]+L[0])/2);
+	OL[1] = Math.floor((O[1]+L[1])/2);
+	OK[0] = Math.floor((O[0]+K[0])/2);
+	OK[1] = Math.floor((O[1]+K[1])/2);
+	
+	numbers[0] =	intersect2(A[0], A[1], OA[0], OA[1], AM[0],AM[1], KA[0], KA[1]);	
+	numbers[1][0] =	Math.floor((AM[0]+OA[0])/2);
+	numbers[1][1] =	Math.floor((AM[1]+OA[1])/2);
+	numbers[2] =	intersect2(AM[0], AM[1], OM[0], OM[1], M[0],M[1], OA[0], OA[1]);	
+	numbers[3][0] =	Math.floor((M[0]+OM[0])/2);
+	numbers[3][1] =	Math.floor((M[1]+OM[1])/2);
+	numbers[4] =	intersect2(M[0], M[1], OB[0], OB[1], MB[0],MB[1], OM[0], OM[1]);	
+	numbers[5][0] =	Math.floor((MB[0]+OB[0])/2);
+	numbers[5][1] =	Math.floor((MB[1]+OB[1])/2);
+	numbers[6] =	intersect2(MB[0], MB[1], BE[0], BE[1], B[0],B[1], OB[0], OB[1]);	
+	
+	
+	numbers[7][0] =	Math.floor((KA[0]+OA[0])/2);
+	numbers[7][1] =	Math.floor((KA[1]+OA[1])/2);
+	numbers[8] = OA;
+	numbers[9][0] =	Math.floor((OA[0]+OM[0])/2);
+	numbers[9][1] =	Math.floor((OA[1]+OM[1])/2);
+	numbers[10][0] = OM[0];
+	numbers[10][1] = OM[1];
+	numbers[11][0] = Math.floor((OM[0]+OB[0])/2);
+	numbers[11][1] = Math.floor((OM[1]+OB[1])/2);
+	numbers[12] = OB;
+	numbers[13][0] = Math.floor((OB[0]+BE[0])/2);
+	numbers[13][1] = Math.floor((OB[1]+BE[1])/2);
+	
+	numbers[14] =	intersect2(KA[0], KA[1], OK[0], OK[1], OA[0],OA[1], K[0], K[1]);	
+	numbers[15][0] =	Math.floor((OA[0]+OK[0])/2);
+	numbers[15][1] =	Math.floor((OA[1]+OK[1])/2);
+	numbers[16] =	intersect2(OA[0], OA[1], O[0], O[1], OM[0],OM[1], OK[0], OK[1]);	
+	numbers[17][0] =	Math.floor((OM[0]+O[0])/2);
+	numbers[17][1] =	Math.floor((OM[1]+O[1])/2);
+	numbers[18] =	intersect2(OM[0], OM[1], OE[0], OE[1], OB[0],OB[1], O[0], O[1]);	
+	numbers[19][0] =	Math.floor((OB[0]+OE[0])/2);
+	numbers[19][1] =	Math.floor((OB[1]+OE[1])/2);
+	numbers[20] =	intersect2(OB[0], OB[1], E[0], E[1], BE[0],BE[1], OE[0], OE[1]);
+	
+	numbers[21][0] =	Math.floor((K[0]+OK[0])/2);
+	numbers[21][1] =	Math.floor((K[1]+OK[1])/2);
+	numbers[22] = OK;
+	numbers[23][0] =	Math.floor((OK[0]+O[0])/2);
+	numbers[23][1] =	Math.floor((OK[1]+O[1])/2);
+	numbers[24][0] = O[0];
+	numbers[24][1] = O[1];
+	numbers[25][0] = Math.floor((O[0]+OE[0])/2);
+	numbers[25][1] = Math.floor((O[1]+OE[1])/2);
+	numbers[26] = OE;
+	numbers[27][0] = Math.floor((OE[0]+E[0])/2);
+	numbers[27][1] = Math.floor((OE[1]+E[1])/2);
 
-    W2 = intersect2(E[0], E[1], L[0], L[1], A[0], A[1], C[0], C[1]);
-    W3 = intersect2(K[0], K[1], L[0], L[1], B[0], B[1], D[0], D[1]);
-    W4 = intersect2(M[0], M[1], K[0], K[1], A[0], A[1], C[0], C[1]);
-    //print(W1+" "+W2+" "+W3+" "+W4)
-    H1 = intersect2(W1[0], W1[1], W2[0], W2[1], K[0], K[1], E[0], E[1]);
-    H2 = intersect2(W2[0], W2[1], W3[0], W3[1], L[0], L[1], M[0], M[1]);
-    H3 = intersect2(W3[0], W3[1], W4[0], W4[1], K[0], K[1], E[0], E[1]);
-    H4 = intersect2(W4[0], W4[1], W1[0], W1[1], L[0], L[1], M[0], M[1]);
 
-    Z1 = intersect2(O[0], O[1], W1[0], W1[1], H4[0], H4[1], H1[0], H1[1]);
-    Z2 = intersect2(O[0], O[1], W2[0], W2[1], H1[0], H1[1], H2[0], H2[1]);
-    Z3 = intersect2(O[0], O[1], W3[0], W3[1], H2[0], H2[1], H3[0], H3[1]);
-    Z4 = intersect2(O[0], O[1], W4[0], W4[1], H3[0], H3[1], H4[0], H4[1]);
-    //print(Z1+" "+Z2+" "+Z3+" "+Z4)
-    //T1 = intersect2(H4[0], H4[1], W1[0], W1[1], Z1[0], Z1[1], Z2[0], Z2[1]);
-    //T2 = intersect2(W1[0], W1[1], H1[0], H1[1], Z1[0], Z1[1], Z4[0], Z4[1]);
-    //T3 = intersect2(H1[0], H1[1], W2[0], W2[1], Z2[0], Z2[1], Z3[0], Z3[1]);
-    //T4 = intersect2(W2[0], W2[1], H2[0], H2[1], Z2[0], Z2[1], Z1[0], Z1[1]);
-    //T5 = intersect2(H2[0], H2[1], W3[0], W3[1], Z3[0], Z3[1], Z4[0], Z4[1]);
-    //T6 = intersect2(W3[0], W3[1], H3[0], H3[1], Z3[0], Z3[1], Z2[0], Z2[1]);
-    //T7 = intersect2(H3[0], H3[1], W4[0], W4[1], Z4[0], Z4[1], Z1[0], Z1[1]);
-    //T8 = intersect2(W4[0], W4[1], H4[0], H4[1], Z4[0], Z4[1], Z3[0], Z3[1]);
-
-
-    values[0][0] = image[W4[0]][W4[1]];
-    //print(image[W1[0]][W1[1]]);
-    values[0][1] = image[H4[0]][H4[1]];
-    values[0][2] = image[W1[0]][W1[1]];
-    values[1][0] = image[H3[0]][H3[1]];
-    values[1][1] = image[O[0]][O[1]];
-    values[1][2] = image[H1[0]][H1[1]];
-    values[2][0] = image[W3[0]][W3[1]];
-    values[2][1] = image[H2[0]][H2[1]];
-    values[2][2] = image[W2[0]][W2[1]];
-
-    image[W4[0]][W4[1]]=7;//0
+	numbers[28] =	intersect2(K[0], K[1], OD[0], OD[1], OK[0],OK[1], DK[0], DK[1]);	
+	numbers[29][0] =	Math.floor((OK[0]+OD[0])/2);
+	numbers[29][1] =	Math.floor((OK[1]+OD[1])/2);
+	numbers[30] =	intersect2(OK[0], OK[1], OL[0], OL[1], O[0],O[1], OD[0], OD[1]);	
+	numbers[31][0] =	Math.floor((O[0]+OL[0])/2);
+	numbers[31][1] =	Math.floor((O[1]+OL[1])/2);
+	numbers[32] =	intersect2(O[0], O[1], OC[0], OC[1], OE[0],OE[1], OL[0], OL[1]);	
+	numbers[33][0] =	Math.floor((OE[0]+OC[0])/2);
+	numbers[33][1] =	Math.floor((OE[1]+OC[1])/2);
+	numbers[34] =	intersect2(OE[0], OE[1], EC[0], EC[1], E[0],E[1], OC[0], OC[1]);	
+	
+	numbers[35][0] =	Math.floor((DK[0]+OD[0])/2);
+	numbers[35][1] =	Math.floor((DK[1]+OD[1])/2);
+	numbers[36] = OD;
+	numbers[37][0] =	Math.floor((OD[0]+OL[0])/2);
+	numbers[37][1] =	Math.floor((OD[1]+OL[1])/2);
+	numbers[38][0] = OL[0];
+	numbers[38][1] = OL[1];
+	numbers[39][0] = Math.floor((OL[0]+OC[0])/2);
+	numbers[39][1] = Math.floor((OL[1]+OC[1])/2);
+	numbers[40] = OC;
+	numbers[41][0] = Math.floor((OC[0]+EC[0])/2);
+	numbers[41][1] = Math.floor((OC[1]+EC[1])/2);
+	
+	numbers[42] =	intersect2(DK[0], DK[1], LD[0], LD[1], OD[0],OD[1], D[0], D[1]);	
+	numbers[43][0] =	Math.floor((OD[0]+LD[0])/2);
+	numbers[43][1] =	Math.floor((OD[1]+LD[1])/2);
+	numbers[44] =	intersect2(OD[0], OD[1], L[0], L[1], OL[0],OL[1], LD[0], LD[1]);	
+	numbers[45][0] =	Math.floor((OL[0]+L[0])/2);
+	numbers[45][1] =	Math.floor((OL[1]+L[1])/2);
+	numbers[46] =	intersect2(OL[0], OL[1], CL[0], CL[1], OC[0],OC[1], L[0], L[1]);	
+	numbers[47][0] =	Math.floor((OC[0]+CL[0])/2);
+	numbers[47][1] =	Math.floor((OC[1]+CL[1])/2);
+	numbers[48] =	intersect2(OC[0], OC[1], C[0], C[1], EC[0],EC[1], CL[0], CL[1]);
+  
+	tem = [4];
+	for(uf=0;uf<4;uf++)
+		tem[uf]=[];
+	
+	itd=0;
+	for(ia=0;ia<6;ia++)
+	{
+		for(ja=0;ja<6;ja++)
+		{
+			tem[0]=numbers[itd];
+			tem[1]=numbers[itd+8];
+			tem[2]=numbers[itd+1];
+			tem[3]=numbers[itd+7];
+			val = [];
+			val = intersect2(tem[0][0],tem[0][1],tem[1][0],tem[1][1],tem[2][0],tem[2][1],tem[3][0],tem[3][1])
+			values[ia][ja] = (image[val[0]][val[1]]+1)%2;
+			itd++;
+		}
+		itd++;
+	}
+	print(values)
+/*	
+	
+	image[AM[0]][AM[1]]=6
+	image[MB[0]][MB[1]]=6
+	image[BE[0]][BE[1]]=6
+	image[EC[0]][EC[1]]=6
+	image[CL[0]][CL[1]]=6
+	image[LD[0]][LD[1]]=6
+	image[DK[0]][DK[1]]=6
+	image[KA[0]][KA[1]]=6
+	image[numbers[0][0]][numbers[0][1]]=9
+	image[OM[0]][OM[1]]=6
+	image[OE[0]][OE[1]]=6
+	image[OL[0]][OL[1]]=6
+	image[OK[0]][OK[1]]=6
+	*/
+	//for(i=0;i<7;i++)
+		//for(j=0;j<7;j++)
+		//image[numbers[i*7+j][0]][numbers[i*7+j][1]]=0;
+		//image[K[0]][K[1]]=6
+	//image[K[0]][K[1]]=6
+	
+	//image[L[0]][L[1]]=5
+	//image[M[0]][M[1]]=6
+    /*image[W4[0]][W4[1]]=7;//0
     image[H4[0]][H4[1]]=8;//1
     image[W1[0]][W1[1]]=9;//2
     image[H3[0]][H3[1]]=10;//3
@@ -782,7 +913,7 @@ function findPoint()
     image[H2[0]][H2[1]]=14;//7
     image[W2[0]][W2[1]]=15;//8
 
-
+*/
 
 }
 
@@ -790,10 +921,15 @@ function rotate_clockwise(times)
 {
     for (i = 0; i < times; i = i + 1)
     {
-        values_temp = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-        for (j = 0; j < 3; j = j + 1)
+        values_temp = [	[0, 0, 0, 0, 0, 0],
+						[0, 0, 0, 0, 0, 0], 
+						[0, 0, 0, 0, 0, 0],
+						[0, 0, 0, 0, 0, 0],
+						[0, 0, 0, 0, 0, 0],
+						[0, 0, 0, 0, 0, 0]];
+        for (j = 0; j < 6; j = j + 1)
         {
-            for (z = 0; z < 3; z = z + 1)
+            for (z = 0; z < 6; z = z + 1)
             {
                 values_temp[z][2-j] = values[j][z]
             }
@@ -810,26 +946,19 @@ function getARTagValue(number)
     //printImage();
     getCorners();
     findPoint();
-    //printSelectedImage();
-    //printImage();
-    //X = -1;
-    //Y = -1;
-    //NUM = -1;
-    //print(values[0][0]+" "+values[0][1]+" "+values[0][2]);
-    //print(values[1][0]+" "+values[1][1]+" "+values[1][2]);
-    //print(values[2][0]+" "+values[2][1]+" "+values[2][2]);
-    if (values[0][0] == 0 && values[0][2] == 1 && values[2][2] == 1 && values[2][0] == 1)
+    printSelectedImage();
+    if (values[0][0] == 0 && values[0][5] == 1 && values[5][5] == 1 && values[5][0] == 1)
     {
         rotate_clockwise(2);
     }
-    else if (values[0][2] == 0 && values[0][0] == 1 && values[2][2] == 1 && values[2][0] == 1)
+    else if (values[0][5] == 0 && values[0][0] == 1 && values[5][5] == 1 && values[5][0] == 1)
     {
         rotate_clockwise(1);
     }
-    else if (values[2][2] == 0 && values[0][2] == 1 && values[0][0] == 1 && values[2][0] == 1)
+    else if (values[5][5] == 0 && values[0][5] == 1 && values[0][0] == 1 && values[5][0] == 1)
     {
     }
-    else if (values[2][0] == 0 && values[0][2] == 1 && values[2][2] == 1 && values[0][0] == 1)
+    else if (values[5][0] == 0 && values[0][5] == 1 && values[5][5] == 1 && values[0][0] == 1)
     {
         rotate_clockwise(3)
     }
