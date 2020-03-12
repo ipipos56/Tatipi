@@ -507,7 +507,7 @@ iA = 0, jA = 0, iB = 0, jB = 0, iC = 0, jC = 0, iD = 0, jD = 0;
 
 function getData(num)
 {
-	var raw = script.readAll("input.txt");
+	var raw = script.readAll("ArTag/input.txt");
 	var mn;
 	raw = raw[0].split(" ");
     for (i = 0; i < height; ++i)
@@ -534,12 +534,18 @@ function getData(num)
         {
             image[j][i] = 255 + 255 + 255;
         }
+    }
+	    for (i = 0; i < height; ++i)
+    {
+        for (j = width-8; j < width; j++)
+        {
+            image[i][j] = 255 + 255 + 255;
+        }
+
+    }
+
+    
 
-    }
-
-    for (i = height; i < height; ++i)
-        for (j = 0; j < width; ++j)
-            image[i][j] = 255 + 255 + 255;
 }
 
 function binarization()
@@ -936,7 +942,7 @@ function getARTagValue(number)
     //printImage();
     getCorners();
     findPoint();
-    //printSelectedImage();
+    printSelectedImage();
     if (values[0][0] == 1 && values[0][5] == 0 && values[5][5] == 0 && values[5][0] == 0)
     {
         rotate_clockwise(2);
