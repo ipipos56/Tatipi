@@ -26,12 +26,12 @@ round = Math.round;
 var code;
 
 
-//s = new Array(3);
-//s[0] = brick.sensor(A3);
-s = brick.sensor(A1);
-//s[2] = brick.sensor(A2);
+s = new Array(3);
+s[0] = brick.sensor(A1);
+s[1] = brick.sensor(D1);
+s[2] = brick.sensor(A2);
 
-//sz = [0,0,0];
+sz = [0,0,0];
 
 ML = brick.motor(M3).setPower; 
 MR = brick.motor(M4).setPower; 
@@ -43,6 +43,13 @@ rotCnt = 0;
 
 cprR = 390;
 cprL = 390;
+
+rasu = 16;
+lefu = 14;
+upu = 8;
+povl = 300;
+povr = 310;
+sectr = 552;
 
 direction = 0;
 
@@ -78,7 +85,7 @@ var main = function()
 	else
 		x=otv;
     print(x+" "+y);
-	*/
+	*/
 	
 	ER.reset()
 	EL.reset()
@@ -102,7 +109,12 @@ var main = function()
 	//script.wait(5100);
 	//normForward();
 	normForLe();
-	//moveSmall();
+	//normForPram();
+	//turn_right();
+	//turn_left();
+	//normForward();
+	//moveSmall();
+	//pram1();
 	
 	var pa = true;
 	var test = false;
@@ -122,7 +134,19 @@ var main = function()
 	}
 	stop();
 	*/
-	/*
+	
+	
+	while(1)
+	{
+		valSen();
+		te = String(sz[0]) + String(" ") + String(sz[1]) + String(" ") + String(sz[2]);
+		print(te);
+		brick.display().addLabel(te,1,1);
+		brick.display().redraw();
+		script.wait(1000);
+	}
+	
+	script.wait(30000);
 	while(pa)
 	{
 		valSen();
@@ -225,7 +249,7 @@ var main = function()
 	
 	findPath(point,((y*h)+x+pqw));
 	
-*/
+
     brick.display().addLabel("finish",1,1) //вывод ответа
     brick.display().redraw()
     script.wait(5000)
@@ -239,10 +263,10 @@ function valSen()
 	for(var _i = 0;_i<3;_i++)
 	{
 		sz[_i] = s[_i].read();
-		if(sz[_i] < 50)
-			sz[_i] = 0;
-		else
+		if(abs(rasu - sz[_i]) > lefu)
 			sz[_i] = 1;
+		else
+			sz[_i] = 0;
 	}
 	
 }
@@ -274,7 +298,7 @@ function findPath(stPoin,fnPoin)
 		
 		for(var er = 0;er<4;er++)
 		{
-			var poiD
+			var poiD
 			el = 0;
 			if(er == 0)
 				poiDel = (-1 * h);
@@ -365,54 +389,45 @@ function findPath(stPoin,fnPoin)
 	}
 }
 
-spST = 33;
-spFN = 70;
-lerr = 0;
+spST = 47;
+spFN = 70;
+lerr = 0;
 
-function normForward()
+function pram1()
 {
-	erol = abs(ER.read());
-	elol = abs(EL.read());
-	iter = 1;
-	sp=spST;
-	fla = 1;
-	while(fla)
-	{
-		err = ((abs(ER.read()) - erol) - (abs(EL.read()) - elol)) - 35;
-		if(s.read() < 15)
-		{
-			fla = 0;
-		}
-		P = err * 0.9;
-		I = (lerr + err) * 0;
-		D = (lerr - err) * 0.1;
-		mot = P+I+D;
-		if(sp + iter < spFN)
-			sp = sp + iter;
-		print(sp);
-		MR(sp - mot);
-		ML(sp + mot);
-		lerr = err;
-		wait(50);
-	}
-}
-
-function normForLe()
-{
+	EL.reset();
+	ER.reset();
 	iter = 1;
 	sp=spST;
 	flag = 1;
-	while(flag)
+	while(flag==1)
 	{
-		err = 7 - s.read();
-		if(abs(err) > 15)
+		err = rasu - s[0].read();
+		if(err<)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		err = rasu - s[0].read();
+		if(abs(err) > lefu)
 		{	
 			print(err);
 			err = 0;
 			lerr = 0;
 			flag = 0;
-			normForward();
-		}	
+			normForPram();
+		}
 		P = err * 3;
 		I = (lerr + err) * 0;
 		D = (lerr - err) * 1;
@@ -434,6 +449,115 @@ function normForLe()
 		lerr = err;
 		wait(50);
 	}
+	stop();
+}
+
+function normForPram()
+{
+	erol = abs(ER.read());
+	elol = abs(EL.read());
+	iter = 1;
+	sp=spST;
+	fla = 1;
+	while(fla && ER.read() < sectr)
+	{
+		err = ((abs(ER.read()) - erol) - (abs(EL.read()) - elol)) - 0;
+		if(abs(rasu - s[0].read()) < lefu)
+		{
+			fla = 0;
+		}
+		P = err * 0.9;
+		I = (lerr + err) * 0;
+		D = (lerr - err) * 0.2;
+		mot = P+I+D;
+		if(sp + iter < spFN)
+			sp = sp + iter;
+		print(sp);
+		MR(sp - mot);
+		ML(sp + mot);
+		lerr = err;
+		wait(50);
+	}
+}
+
+
+function normForward()
+{
+	erol = abs(ER.read());
+	elol = abs(EL.read());
+	iter = 1;
+	sp=spST;
+	fla = 1;
+	while(fla)
+	{
+		err = ((abs(ER.read()) - erol) - (abs(EL.read()) - elol)) - 0;
+		if(abs(rasu - s[0].read()) < lefu)
+		{
+			fla = 0;
+		}
+		P = err * 0.9;
+		I = (lerr + err) * 0;
+		D = (lerr - err) * 0.2;
+		mot = P+I+D;
+		if(sp + iter < spFN)
+			sp = sp + iter;
+		print(sp);
+		MR(sp - mot);
+		ML(sp + mot);
+		lerr = err;
+		wait(50);
+	}
+}
+
+function normForLe()
+{
+	iter = 1;
+	sp=spST;
+	flag = 1;
+	while(flag)
+	{
+		err = rasu - s[0].read();
+		if(abs(err) > lefu)
+		{	
+			print(err);
+			err = 0;
+			lerr = 0;
+			flag = 0;
+			normForward();
+		}
+		if(abs(s[1].read() < upu))
+		{
+			MR(-100);
+			ML(-100);
+			script.wait(50);
+			MR(0);
+			ML(0);
+			script.wait(1000);
+			turn_right();
+			stop();
+			script.wait(1000);
+		}
+		P = err * 3;
+		I = (lerr + err) * 0;
+		D = (lerr - err) * 1;
+		mot = P+I+D;
+		if(sp + iter < spFN)
+			sp = sp + iter;
+		print(sp);
+		if(flag)
+		{
+			MR(sp - mot);
+			ML(sp + mot);
+		}
+		else
+		{
+			ML(0);
+			MR(0);
+			flag = 1;
+		}
+		lerr = err;
+		wait(50);
+	}
 }
 
 function forward()
@@ -489,27 +613,35 @@ function forward()
 
 rotcont = 1;
 
-function turn_left() {
+function turn_right() 
+{
 	
 	//newInfo();
-	tecR = 0;
-	tecL = abs(EL.readRawData());
+	ER.reset();
+	EL.reset();
 
-	deg = 239 + abs(EL.readRawData());
-	tep = 239 / 4;
+	deg = povr + abs(EL.readRawData());
+	tep = povr / 4;
 	pri = (spFN - spST) / tep;
-	while((abs(ER.readRawData()) - tecR) < (deg - (tep * 3)))
+	while(abs(EL.readRawData()) < tep)
 	{
-		ML(((abs(ER.readRawData()) - tecR) * pri + spST));
-		MR(-1 * ((abs(ER.readRawData()) - tecR) * pri + spST));
+		ML(EL.readRawData() * pri + spST);
+		MR(-1 * EL.readRawData() * pri + -1 * spST);
 		//print(ER.read() + String("1"));
 		wait(10);
+	}
+	ML(spFN);
+	MR(-1 * spFN);
+	while(abs(EL.readRawData()) < tep * 3)
+	{
+		script.wait(10);
 	}
-	while(abs(ER.readRawData()) != deg)
-	{
-		ML((deg - abs(ER.readRawData()))*0.3);
-		MR((deg - abs(ER.readRawData()))*-0.3);
-		wait(10);
+	while(abs(EL.readRawData()) < deg)
+	{
+		ML((deg - EL.readRawData()) * pri + spST);
+		MR(-1 * (deg - EL.readRawData()) * pri + -1 * spST);
+		//print(ER.read() + String("1"));
+		wait(10);
 	}
 	//deg = 280
 /*
@@ -545,22 +677,41 @@ function turn_left() {
 	//rot = cuboid(rot);
 	
 	//newInfo();
-	rotcont++;
+	rotcont--;
 }
 
-function turn_right() 
+function turn_left() 
 {
 	//newInfo();
-	
-	ER.reset()
-	EL.reset()
-	
-	//deg = (174/56)*90;
-	deg = (142/56)*90;
-	ML(50);
-	MR(-50);
-	while(abs(EL.read()) < deg) 
-		script.wait(2);
+	
+	//newInfo();
+	ER.reset();
+	EL.reset();
+
+	deg = povl + abs(ER.readRawData());
+	tep = povl / 4;
+	pri = (spFN - spST) / tep;
+	while(abs(ER.readRawData()) < tep)
+	{
+		MR(ER.readRawData() * pri + spST);
+		ML(-1 * ER.readRawData() * pri + -1 * spST);
+		//print(ER.read() + String("1"));
+		wait(10);
+	}
+	MR(spFN);
+	ML(-1 * spFN);
+	while(abs(ER.readRawData()) < tep * 3)
+	{
+		script.wait(10);
+	}
+	while(abs(ER.readRawData()) < deg)
+	{
+		MR((deg - ER.readRawData()) * pri + spST);
+		ML(-1 * (deg - ER.readRawData()) * pri + -1 * spST);
+		//print(ER.read() + String("1"));
+		wait(10);
+	}
+	
 	stop();
 	
 	//rot+=1; // Вращение робота
