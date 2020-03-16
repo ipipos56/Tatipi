@@ -312,8 +312,8 @@ function _1to0()
 		}
 		else
 		{
-			MR(-2);
-			ML(-2);
+			MR(-4);
+			ML(-4);
 			wait(200);
 			stop();
 			turnForw(135);
@@ -321,9 +321,8 @@ function _1to0()
 			EL.reset();
 			erol = abs(ER.read());
 			elol = abs(EL.read());
-			err = rasu - s[0].read();
-			while((erol+elol)/2<463)
-			while((erol+elol)/2<463)
+			err = rasu - s[0].read();
+			while((erol+elol)/2<420)
 			{
 				err = rasu - s[0].read();
 				erol = abs(ER.read());
@@ -417,26 +416,60 @@ function pram1()
 			ML(-4);
 			wait(200);
 			stop();
-			turnForw(50);
+			turnForw(60);
 			sz[0]=s[0].read();
 			if(sz[0] > 20)
 				sz[0] = 1;
 			else
 				sz[0] = 0;
-			print("2 "+s[2].read())
-			script.wait(999999);
-			turnForw(340);
-			stop();
-			sz[1]=s[1].read();
-			if(sz[1] > 20)
-				sz[1] = 1;
-			else
-				sz[1] = 0;
-			sz[2]=s[2].read();
-			if(sz[2] > 20)
-				sz[2] = 1;
-			else
-				sz[2] = 0;
+			
+			sz[2]=s[2].read();
+			if(sz[2] > 25)
+				sz[2] = 1;
+			else
+				sz[2] = 0;
+			if(sz[2]==1)
+			{
+				turnForw(330);
+				stop();
+				sz[1]=s[1].read();
+				if(sz[1] > 25)
+					sz[1] = 1;
+				else
+					sz[1] = 0;
+			}
+			else
+			{
+				ER.reset();
+				EL.reset();
+				erol = abs(ER.read());
+				elol = abs(EL.read());
+				__2=s[2].read();
+				while((erol+elol)/2<320)
+				{
+					erol = abs(ER.read());
+					elol = abs(EL.read());
+					err = __2 - s[2].read();
+					P = err * 2.5;
+					I = (lerr + err) * 0;
+					D = (lerr - err) * 1.5;
+					mot = P+I+D;
+					MR(sp + mot);
+					ML(sp - mot);
+					lerr = err
+					wait(40);
+				}
+				MR(-4);
+				ML(-4);
+				wait(200);
+				stop();
+				sz[1]=s[1].read();
+				if(sz[1] > 25)
+					sz[1] = 1;
+				else
+					sz[1] = 0;
+				
+			}
 			flag=0;
 		}
 		EL.reset();
