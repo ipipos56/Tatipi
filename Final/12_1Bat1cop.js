@@ -174,7 +174,10 @@ function robotRotation()
 		rotate(-90);
 		rotate(-90);
 		turnDown(135);
-	}
+	}
+	rot-=2; // Вращение робота
+	rot = cuboid(rot);
+
 		
 }
 //
