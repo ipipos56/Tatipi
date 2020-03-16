@@ -1,10 +1,6 @@
 var __interpretation_started_timestamp__;
 pi = 3.141592653589793;
 wait = script.wait;
-sign = function(n) { return n > 0 ? 1 : n = 0 ? 0 : -1; }
-trueLeft=0;
-trueRight=0;
-
 sign = function(n)
 {
     return n > 0 ? 1 : n = 0 ? 0 : -1;
@@ -50,9 +46,9 @@ cprL = 390;
 
 rasu = 16;
 lefu = 14;
-upu = 8;
-povl = 300;
-povr = 310;
+upu = 8;
+povl = 300;
+povr = 310;
 sectr = 552;
 
 direction = 0;
@@ -72,6 +68,7 @@ fullRot = 0;
 var main = function()
 {
     __interpretation_started_timestamp__ = Date.now();
+	
 	//for(var i = 0;i<289;i++)
 	//	map[i] = [-1,-1,-1,-1];
 	
@@ -88,12 +85,11 @@ var main = function()
 	else
 		x=otv;
     print(x+" "+y);
-	*/
-	rotate(-90);
+	*/
+	
 	ER.reset()
 	EL.reset()
-	//pram1();
-	//turnForw(80)
+	
 	por = 50;
 	cof= 1;
 	
@@ -112,12 +108,12 @@ var main = function()
 	//brick.gyroscope().calibrate(5000);
 	//script.wait(5100);
 	//normForward();
-	//normForLe();
-	//normForPram();
+	normForLe();
+	//normForPram();
 	//turn_right();
 	//turn_left();
 	//normForward();
-	//moveSmall();
+	//moveSmall();
 	//pram1();
 	
 	var pa = true;
@@ -126,7 +122,7 @@ var main = function()
 	
 	//for(var i = 0; i<10;i++)
 	//{	
-		//rotate(-90);
+		//turn_left();
 		//wait(1000);
 	//}
 	/*while(ER.read() < 389)
@@ -138,18 +134,18 @@ var main = function()
 	}
 	stop();
 	*/
-	
-	
-	/*while(1)
-	{
-		valSen();
-		te = String(sz[0]) + String(" ") + String(sz[1]) + String(" ") + String(sz[2]);
-		print(te);
-		brick.display().addLabel(te,1,1);
-		brick.display().redraw();
-		script.wait(1000);
-	}
-	
+	
+	
+	while(1)
+	{
+		valSen();
+		te = String(sz[0]) + String(" ") + String(sz[1]) + String(" ") + String(sz[2]);
+		print(te);
+		brick.display().addLabel(te,1,1);
+		brick.display().redraw();
+		script.wait(1000);
+	}
+	
 	script.wait(30000);
 	while(pa)
 	{
@@ -168,7 +164,7 @@ var main = function()
 				//print(point+" "+curre)
 				if(i == 0)
 				{
-					rotate(-90);
+					turn_left();
 					wait(500);
 					forward();
 				}
@@ -178,7 +174,7 @@ var main = function()
 				}
 				else if(i == 2)
 				{
-					rotate(90);
+					turn_right();
 					wait(500);
 					forward();
 				}
@@ -189,7 +185,7 @@ var main = function()
 		if(!test && iter == 0 && !pa)
 		{
 			pa = true;
-			rotate(90);
+			turn_right();
 			test = true;
 		}
 		iter++;
@@ -211,7 +207,7 @@ var main = function()
 		}
 		if(tt == 1 && (map[pqw][0] == -1 || map[pqw][1] == -1 || map[pqw][2] == -1 || map[pqw][3] == -1))
 		{	
-			rotate(90);
+			turn_right();
 			newInfo();
 		}
 	}
@@ -259,8 +255,7 @@ var main = function()
     script.wait(5000)
 
     script.wait(2000)
-    return;
-	*/
+    return;
 }
 
 function valSen()
@@ -268,7 +263,7 @@ function valSen()
 	for(var _i = 0;_i<3;_i++)
 	{
 		sz[_i] = s[_i].read();
-		if(sz[_i] > 20)
+		if(abs(rasu - sz[_i]) > lefu)
 			sz[_i] = 1;
 		else
 			sz[_i] = 0;
@@ -280,7 +275,7 @@ function valSen()
 function stop(){
 	MR(0)
 	ML(0)
-	wait(75)
+	wait(50)
 }
 
 function findPath(stPoin,fnPoin)
@@ -361,7 +356,7 @@ function findPath(stPoin,fnPoin)
 			{
 				for(var j = 0;j<2;j++)
 				{
-					rotate(90);
+					turn_right();
 				}
 			}
 			else if(abs(dis[cur]-dis[previs]) == 2)
@@ -369,16 +364,16 @@ function findPath(stPoin,fnPoin)
 				if(rot == 0 || rot == 1)
 				{
 					if((cur - previs) > 0)
-						rotate(90);
+						turn_right();
 					else if(cur - previs < 0)
-						rotate(-90);
+						turn_left();
 				}
 				else if(rot == 2 || rot == 3)
 				{
 					if(cur - previs > 0)
-						rotate(-90);
+						turn_left();
 					else if(cur - previs < 0)
-						rotate(90);
+						turn_right();
 				}
 			}
 			forward();
@@ -397,138 +392,94 @@ function findPath(stPoin,fnPoin)
 spST = 47;
 spFN = 70;
 lerr = 0;
-
-function pram1()
-{
-	EL.reset();
-	ER.reset();
-	iter = 1;
-	sp=65;
-	flag = 1;
-	trueLeft=0;
-	trueRight=0;
-	while(flag==1)
-	{
-		trueLeft += EL.read();
-		trueRight += ER.read();
-		err = rasu - s[0].read();
-		if(err>-6&&err<6)
-		{
-			P = err * 3;
-			I = (lerr + err) * 0;
-			D = (lerr - err) * 2;
-			mot = P+I+D;
-			MR(sp - mot);
-			ML(sp + mot);
-			if((490-Math.floor((trueLeft+trueRight)/2))<=0)
-			{
-				stop();
-				valSen()
-				print(sz[0]+" "+sz[1]+" "+sz[2]);
-				flag=0;
-			}
-		}
-		else
-		{
-			MR(0);
-			ML(0);
-			turnForw(50);
-			trueLeft += EL.read();
-			trueRight += ER.read();
-			valSen()
-			print(sz[0]+" "+sz[1]+" "+sz[2]);
-			turnForw(350);
-			stop();
-			flag=0;
-		}
-		EL.reset();
-		ER.reset();
-		lerr = err;
-		wait(25);
-	}
-	stop();
-}
 
-function rotate(_deg)
+function pram1()
 {
-	
-	var elLast=EL.read();
-	var erLast=ER.read();
-	var rightEnc=0;
-	var leftEnc=0;
-	var _err=0;
-	var sgn=sign(_deg);
-	if(sgn>0)
-		_rot=213
-	else
-		_rot=210
-	while((abs(leftEnc)+abs(rightEnc))/2<_rot)
+	EL.reset();
+	ER.reset();
+	iter = 1;
+	sp=spST;
+	flag = 1;
+	while(flag==1)
 	{
-		rightEnc=ER.read()-erLast;
-		leftEnc=EL.read()-elLast;
-		_err=(abs(leftEnc)-abs(rightEnc));
-		ML((65-_err)*sgn);
-		MR((-65-_err)*sgn);
-		script.wait(10);
+		err = rasu - s[0].read();
+		if(err<)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		err = rasu - s[0].read();
+		if(abs(err) > lefu)
+		{	
+			print(err);
+			err = 0;
+			lerr = 0;
+			flag = 0;
+			normForPram();
+		}
+		P = err * 3;
+		I = (lerr + err) * 0;
+		D = (lerr - err) * 1;
+		mot = P+I+D;
+		if(sp + iter < spFN)
+			sp = sp + iter;
+		print(sp);
+		if(flag)
+		{
+			MR(sp - mot);
+			ML(sp + mot);
+		}
+		else
+		{
+			ML(0);
+			MR(0);
+			flag = 1;
+		}
+		lerr = err;
+		wait(50);
 	}
-	ML((-18)*sgn);
-	MR((18)*sgn);
-	script.wait(100);
 	stop();
-	
-	
-}
-function normForPram()
-{
-	erol = abs(ER.read());
-	elol = abs(EL.read());
-	iter = 1;
-	sp=spST;
-	fla = 1;
-	while(fla && ER.read() < sectr)
-	{
-		err = ((abs(ER.read()) - erol) - (abs(EL.read()) - elol)) - 0;
-		if(abs(rasu - s[0].read()) < lefu)
-		{
-			fla = 0;
-		}
-		P = err * 0.9;
-		I = (lerr + err) * 0;
-		D = (lerr - err) * 0.2;
-		mot = P+I+D;
-		if(sp + iter < spFN)
-			sp = sp + iter;
-		print(sp);
-		MR(sp - mot);
-		ML(sp + mot);
-		lerr = err;
-		wait(50);
-	}
-}
-function turnForw(_dist)
-{
-	EL.reset();
-	ER.reset();
-	erol = abs(ER.read());
-	elol = abs(EL.read());
-	sp=spST;
-	while((erol+elol)/2<_dist)
-	{
-		erol = abs(ER.read());
-		elol = abs(EL.read());
-		err = ((abs(ER.read()) - erol) - (abs(EL.read()) - elol)) - 0;
-		P = err * 1.4;
-		I = (lerr + err) * 0;
-		D = (lerr - err) * 0.8;
-		mot = P+I+D;
-		MR(sp - mot);
-		ML(sp + mot);
-		lerr = err;
-		wait(25);
-	}
-	
-}
-
+}
+
+function normForPram()
+{
+	erol = abs(ER.read());
+	elol = abs(EL.read());
+	iter = 1;
+	sp=spST;
+	fla = 1;
+	while(fla && ER.read() < sectr)
+	{
+		err = ((abs(ER.read()) - erol) - (abs(EL.read()) - elol)) - 0;
+		if(abs(rasu - s[0].read()) < lefu)
+		{
+			fla = 0;
+		}
+		P = err * 0.9;
+		I = (lerr + err) * 0;
+		D = (lerr - err) * 0.2;
+		mot = P+I+D;
+		if(sp + iter < spFN)
+			sp = sp + iter;
+		print(sp);
+		MR(sp - mot);
+		ML(sp + mot);
+		lerr = err;
+		wait(50);
+	}
+}
+
 
 function normForward()
 {
@@ -575,15 +526,15 @@ function normForLe()
 			normForward();
 		}
 		if(abs(s[1].read() < upu))
-		{
-			MR(-100);
-			ML(-100);
-			script.wait(50);
-			MR(0);
-			ML(0);
+		{
+			MR(-100);
+			ML(-100);
+			script.wait(50);
+			MR(0);
+			ML(0);
 			script.wait(1000);
-			rotate(90);
-			stop();
+			turn_right();
+			stop();
 			script.wait(1000);
 		}
 		P = err * 3;
@@ -662,7 +613,7 @@ function forward()
 
 rotcont = 1;
 
-function turn_right() 
+function turn_right() 
 {
 	
 	//newInfo();
@@ -678,19 +629,19 @@ function turn_right()
 		MR(-1 * EL.readRawData() * pri + -1 * spST);
 		//print(ER.read() + String("1"));
 		wait(10);
+	}
+	ML(spFN);
+	MR(-1 * spFN);
+	while(abs(EL.readRawData()) < tep * 3)
+	{
+		script.wait(10);
 	}
-	ML(spFN);
-	MR(-1 * spFN);
-	while(abs(EL.readRawData()) < tep * 3)
-	{
-		script.wait(10);
-	}
-	while(abs(EL.readRawData()) < deg)
-	{
-		ML((deg - EL.readRawData()) * pri + spST);
-		MR(-1 * (deg - EL.readRawData()) * pri + -1 * spST);
-		//print(ER.read() + String("1"));
-		wait(10);
+	while(abs(EL.readRawData()) < deg)
+	{
+		ML((deg - EL.readRawData()) * pri + spST);
+		MR(-1 * (deg - EL.readRawData()) * pri + -1 * spST);
+		//print(ER.read() + String("1"));
+		wait(10);
 	}
 	//deg = 280
 /*
@@ -732,35 +683,35 @@ function turn_right()
 function turn_left() 
 {
 	//newInfo();
-	
-	//newInfo();
-	ER.reset();
-	EL.reset();
-
-	deg = povl + abs(ER.readRawData());
-	tep = povl / 4;
-	pri = (spFN - spST) / tep;
-	while(abs(ER.readRawData()) < tep)
-	{
-		MR(ER.readRawData() * pri + spST);
-		ML(-1 * ER.readRawData() * pri + -1 * spST);
-		//print(ER.read() + String("1"));
-		wait(10);
-	}
-	MR(spFN);
-	ML(-1 * spFN);
-	while(abs(ER.readRawData()) < tep * 3)
-	{
-		script.wait(10);
-	}
-	while(abs(ER.readRawData()) < deg)
-	{
-		MR((deg - ER.readRawData()) * pri + spST);
-		ML(-1 * (deg - ER.readRawData()) * pri + -1 * spST);
-		//print(ER.read() + String("1"));
-		wait(10);
-	}
-	
+	
+	//newInfo();
+	ER.reset();
+	EL.reset();
+
+	deg = povl + abs(ER.readRawData());
+	tep = povl / 4;
+	pri = (spFN - spST) / tep;
+	while(abs(ER.readRawData()) < tep)
+	{
+		MR(ER.readRawData() * pri + spST);
+		ML(-1 * ER.readRawData() * pri + -1 * spST);
+		//print(ER.read() + String("1"));
+		wait(10);
+	}
+	MR(spFN);
+	ML(-1 * spFN);
+	while(abs(ER.readRawData()) < tep * 3)
+	{
+		script.wait(10);
+	}
+	while(abs(ER.readRawData()) < deg)
+	{
+		MR((deg - ER.readRawData()) * pri + spST);
+		ML(-1 * (deg - ER.readRawData()) * pri + -1 * spST);
+		//print(ER.read() + String("1"));
+		wait(10);
+	}
+	
 	stop();
 	
 	//rot+=1; // Вращение робота
