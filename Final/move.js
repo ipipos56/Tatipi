@@ -92,8 +92,9 @@ var main = function()
 	//rotate(-90);
 	ER.reset()
 	EL.reset()
+	_1to0()
 	//pram1();
-	turnForw(1000)
+	//turnForw(1000)
 	por = 50;
 	cof= 1;
 	
@@ -398,16 +399,93 @@ spST = 47;
 spFN = 70;
 lerr = 0;
 
+function _1to0()
+{
+	EL.reset();
+	ER.reset();
+	iter = 1;
+	sp=70;
+	flag = 1;
+	trueLeft=0;
+	trueRight=0;
+	while(flag==1)
+	{
+		trueLeft += EL.read();
+		trueRight += ER.read();
+		err = 15 - s[0].read();
+		if(err<-6&&err>6)
+		{
+			erol = abs(ER.read());
+			elol = abs(EL.read());
+			err = (erol) - (elol) - 0;
+			P = err * 3;
+			I = (lerr + err) * 0;
+			D = (lerr - err) * 1.5;
+			mot = P+I+D;
+			MR(sp - mot);
+			ML(sp + mot);
+			lerr = err;
+			if((480-Math.floor((trueLeft+trueRight)/2))<=0)
+			{
+				stop();
+				valSen()
+				print(sz[0]+" "+sz[1]+" "+sz[2]);
+				flag=0;
+			}
+		}
+		else
+		{
+			MR(-2);
+			ML(-2);
+			wait(200);
+			stop();
+			turnForw(150);
+			ER.reset();
+			EL.reset();
+			erol = abs(ER.read());
+			elol = abs(EL.read());
+			err = 15 - s[0].read();
+			while((erol+elol)/2<480)
+			{
+				err = 14 - s[0].read();
+				erol = abs(ER.read());
+				elol = abs(EL.read());
+				P = err * 3;
+				I = (lerr + err) * 0;
+				D = (lerr - err) * 1.5;
+				mot = P+I+D;
+				MR(sp - mot);
+				ML(sp + mot);
+				lerr=err;
+				wait(15);
+			}
+			MR(-2);
+			ML(-2);
+			wait(200);
+			valSen()
+			print(sz[0]+" "+sz[1]+" "+sz[2]);
+			stop();
+			flag=0;
+		}
+		EL.reset();
+		ER.reset();
+		lerr = err;
+		wait(25);
+	}
+	stop();
+}
+
+
 function pram1()
 {
 	EL.reset();
 	ER.reset();
 	iter = 1;
-	sp=75;
+	sp=70;
 	flag = 1;
 	trueLeft=0;
 	trueRight=0;
-	while(1)
+	while(flag==1)
 	{
 		trueLeft += EL.read();
 		trueRight += ER.read();
@@ -420,7 +498,7 @@ function pram1()
 			mot = P+I+D;
 			MR(sp - mot);
 			ML(sp + mot);
-			if((490-Math.floor((trueLeft+trueRight)/2))<=0)
+			if((480-Math.floor((trueLeft+trueRight)/2))<=0)
 			{
 				stop();
 				valSen()
@@ -430,15 +508,14 @@ function pram1()
 		}
 		else
 		{
-			MR(-5);
-			ML(-5);
-			wait(100);
+			MR(-2);
+			ML(-2);
+			wait(200);
+			stop();
 			turnForw(50);
-			trueLeft += EL.read();
-			trueRight += ER.read();
 			valSen()
 			print(sz[0]+" "+sz[1]+" "+sz[2]);
-			turnForw(350);
+			turnForw(360);
 			stop();
 			flag=0;
 		}
@@ -470,11 +547,11 @@ function rotate(_deg)
 		_err=(abs(leftEnc)-abs(rightEnc));
 		ML((65-_err)*sgn);
 		MR((-65-_err)*sgn);
-		script.wait(10);
+		wait(10);
 	}
 	ML((-18)*sgn);
 	MR((18)*sgn);
-	script.wait(100);
+	wait(100);
 	stop();
 	
 	
@@ -508,9 +585,11 @@ function normForPram()
 }
 function turnForw(_dist)
 {
+	ER.reset();
+	EL.reset();
 	erol = abs(ER.read());
 	elol = abs(EL.read());
-	sp=80;
+	sp=70;
 	while((erol+elol)/2<_dist)
 	{
 		erol = abs(ER.read());
@@ -525,9 +604,9 @@ function turnForw(_dist)
 		lerr = err;
 		wait(10);
 	}
-	ML(-15);
-	MR(-15);
-	script.wait(50);
+	ML(-5);
+	MR(-5);
+	wait(50);
 	
 }
 
@@ -580,10 +659,10 @@ function normForLe()
 		{
 			MR(-100);
 			ML(-100);
-			script.wait(50);
+			wait(50);
 			MR(0);
 			ML(0);
-			script.wait(1000);
+			wait(1000);
 			rotate(90);
 			stop();
 			script.wait(1000);
