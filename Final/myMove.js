@@ -71,198 +71,50 @@ fullRot = 0;
 
 var main = function()
 {
-    __interpretation_started_timestamp__ = Date.now();
-	//for(var i = 0;i<289;i++)
-	//	map[i] = [-1,-1,-1,-1];
 	
-	//print(map);
-/*
-    var otv = getARTagValue(0);//inp[1]);
-	if(otv >= 8)
-		y = otv-8;
-	else
-		x=otv;
-	var otv = getARTagValue(1);//inp[1]);
-	if(otv >= 8)
-		y = otv-8;
-	else
-		x=otv;
-    print(x+" "+y);
-	*/
-	rotate(-90);
-	ER.reset()
-	EL.reset()
-	//_1to0()
-	//turnDown(250);
-	//pram1();
-	//turnForw(1000)
-	por = 50;
-	cof= 1;
-	
-	/*for(var i = 0;i<3000;i++)
+	while(1)
 	{
-		moch = i;
-		err = abs(ER.readRawData()) * cof - abs(EL.readRawData());
-		err = err * -1;
-		if(moch > 50)
-			moch = 50;
-		MR(moch + err)
-		ML(moch - err);
-		wait(1);
-	}*/
-	
-	//brick.gyroscope().calibrate(5000);
-	//script.wait(5100);
-	//normForward();
-	//normForLe();
-	//normForPram();
-	//turn_right();
-	//turn_left();
-	//normForward();
-	//moveSmall();
-	//pram1();
-	
-	var pa = true;
-	var test = false;
-	var iter = 0;
-	
-	//for(var i = 0; i<10;i++)
-	//{	
-		//rotate(-90);
-		//wait(1000);
-	//}
-	/*while(ER.read() < 389)
-	{
-		err = ER.read() - EL.read();
-		ML(40 + err * 0.9);
-		MR(40 - err * 0.9);
-		wait(1);
-	}
-	stop();
-	*/
-	
-	
-	/*while(1)
-	{
-		valSen();
-		te = String(sz[0]) + String(" ") + String(sz[1]) + String(" ") + String(sz[2]);
-		print(te);
-		brick.display().addLabel(te,1,1);
-		brick.display().redraw();
-		script.wait(1000);
+		var bat=brick.battery().readVoltage();
+		print(bat);
+		script.wait(100);
 	}
 	
-	script.wait(30000);
-	while(pa)
+	valSen();
+	while(1)
 	{
-		valSen();
-		pa = false;
-		var info = [map[point][0],map[point][1],map[point][2],map[point][3]];
-		for(i = 0;i<3;i++)
+		print(sz[0]+" "+sz[1]+" "+sz[2]);
+		if(sz[0]==1)
 		{
-			print(sz[0]+" "+sz[1]+" "+sz[2]);
-			var curre = rot + i - 1;
-			curre = cuboid(curre);
-			if(sz[i] == 1 && info[curre] == -1)
+			turnForw(130);
+			rotate(-90);
+			turnDown(130);
+			_1to0();
+		}
+		else
+			if(sz[0]==0&&sz[1]==1)
 			{
-				test = true;
-				pa = true;
-				//print(point+" "+curre)
-				if(i == 0)
-				{
-					rotate(-90);
-					wait(500);
-					forward();
-				}
-				else if(i == 1)
-				{
-					forward();
-				}
-				else if(i == 2)
-				{
-					rotate(90);
-					wait(500);
-					forward();
-				}
-				break;
+				pram1();
 			}
-		}
-		wait(300);
-		if(!test && iter == 0 && !pa)
-		{
-			pa = true;
-			rotate(90);
-			test = true;
-		}
-		iter++;
-	}
-	
-	newInfo();
-	
-	
-	var pqw = 0;
-	while(nonplace.length > 0)
-	{
-		pqw = nonplace.shift();
-		print(pqw);
-		var tt = 0;
-		if(map[pqw][0] == -1 || map[pqw][1] == -1 || map[pqw][2] == -1 || map[pqw][3] == -1)
-		{
-			print("turn into " + point);
-			tt = findPath(point,pqw);
-		}
-		if(tt == 1 && (map[pqw][0] == -1 || map[pqw][1] == -1 || map[pqw][2] == -1 || map[pqw][3] == -1))
-		{	
-			rotate(90);
-			newInfo();
-		}
-	}
-	
-	//map[151] = [0,0,1,0];
-	//map[224] = [0,1,1,0];
-	
-	print(map);
-	
-	//print("_________________");
-	var pqw = 0;
-	var le=1000;
-	var ur=1000;
-	for(var i = 0;i<289;i++)
-	{
-		if(map[i][0] != -1 && map[i][1] != -1 && map[i][2] != -1 && map[i][3] != -1)
-		{
-			print(i);
-			//print(Math.floor(i/h));
-			var temp = i/h
-			if((temp - (temp%1)) < ur)
+		else
+			if(sz[0]==0&&sz[1]==0&&sz[2]==1)
 			{
-				print("ur " + i);
-				ur = (temp - (temp%1));
+				turnForw(130);
+				rotate(90);
+				turnDown(130);
+				pram1();
 			}
-			if(i%h < le)
+		else
+			if(sz[0]==0&&sz[1]==0&&sz[2]==0)
 			{
-				print("le " + i);
-				le = i%h;
+				turnForw(130);
+				rotate(90);
+				rotate(90);
+				turnDown(130);
+				pram1();
 			}
+			ER.reset();
+			EL.reset();
 		}
-	}
-	print(ur + " " + le);
-	
-	pqw = ((ur * h) + le);
-	
-	
-	print(pqw + " " + ((y*h)+x));
-	
-	findPath(point,((y*h)+x+pqw));
-	
-
-    brick.display().addLabel("finish",1,1) //вывод ответа
-    brick.display().redraw()
-    script.wait(5000)
-
-    script.wait(2000)
-    return;
-	*/
 }
 
 function valSen()
@@ -414,7 +266,7 @@ function _1to0()
 		trueLeft += EL.read();
 		trueRight += ER.read();
 		err = 15 - s[0].read();
-		if(err<-6&&err>6)
+		if(err<-6&&err>9)
 		{
 			erol = abs(ER.read());
 			elol = abs(EL.read());
@@ -426,7 +278,7 @@ function _1to0()
 			MR(sp - mot);
 			ML(sp + mot);
 			lerr = err;
-			if((480-Math.floor((trueLeft+trueRight)/2))<=0)
+			if((420-Math.floor((trueLeft+trueRight)/2))<=0)
 			{
 				stop();
 				valSen()
@@ -446,7 +298,7 @@ function _1to0()
 			erol = abs(ER.read());
 			elol = abs(EL.read());
 			err = 15 - s[0].read();
-			while((erol+elol)/2<480)
+			while((erol+elol)/2<435)
 			{
 				err = 14 - s[0].read();
 				erol = abs(ER.read());
@@ -488,7 +340,7 @@ function turnDown(_dist)
 		erol = abs(ER.read());
 		elol = abs(EL.read());
 		err = (elol) - (erol) - 0;
-		P = err * 3;
+		P = err * 2;
 		I = (lerr + err) * 0;
 		D = (lerr - err) * 1.5;
 		mot = P+I+D;
@@ -517,7 +369,7 @@ function pram1()
 		trueLeft += EL.read();
 		trueRight += ER.read();
 		err = rasu - s[0].read();
-		if(err>-6&&err<6)
+		if(err>-6&&err<8)
 		{
 			P = err * 3;
 			I = (lerr + err) * 0;
@@ -525,7 +377,7 @@ function pram1()
 			mot = P+I+D;
 			MR(sp - mot);
 			ML(sp + mot);
-			if((480-Math.floor((trueLeft+trueRight)/2))<=0)
+			if((440-Math.floor((trueLeft+trueRight)/2))<=0)
 			{
 				stop();
 				valSen()
@@ -541,10 +393,22 @@ function pram1()
 			stop();
 			turnForw(50);
 			sz[0]=s[0].read();
-			turnForw(360);
+			if(sz[0] > 20)
+				sz[0] = 1;
+			else
+				sz[0] = 0;
+			turnForw(335);
 			stop();
 			sz[1]=s[1].read();
+			if(sz[1] > 20)
+				sz[1] = 1;
+			else
+				sz[1] = 0;
 			sz[2]=s[2].read();
+			if(sz[2] > 20)
+				sz[2] = 1;
+			else
+				sz[2] = 0;
 			flag=0;
 		}
 		EL.reset();
@@ -565,9 +429,9 @@ function rotate(_deg)
 	var _err=0;
 	var sgn=sign(_deg);
 	if(sgn>0)
-		_rot=213
+		_rot=214
 	else
-		_rot=212
+		_rot=214
 	while((abs(leftEnc)+abs(rightEnc))/2<_rot)
 	{
 		rightEnc=ER.read()-erLast;
