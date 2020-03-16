@@ -152,7 +152,7 @@ function right()
 	rot+=1; // Вращение робота
 	rot = cuboid(rot);
 }
-//
+////
 
 function robotRotation()
 {
@@ -178,11 +178,6 @@ function robotRotation()
 }
 //
 
-function right()
-{
-	
-}
-//
 function valSen()
 {
     for(var _i = 0; _i<3; _i++)
@@ -690,51 +685,23 @@ function rotate(_deg)
     var sgn=sign(_deg);
     if(sgn>0)
         _rot=219
-             else
-                 _rot=220
-                      while((abs(leftEnc)+abs(rightEnc))/2<_rot)
-            {
-                rightEnc=ER.read()-erLast;
-                leftEnc=EL.read()-elLast;
-                _err=(abs(leftEnc)-abs(rightEnc));
-                ML((65-_err)*sgn);
-                MR((-65-_err)*sgn);
-                wait(10);
-            }
+	else
+		 _rot=220
+	while((abs(leftEnc)+abs(rightEnc))/2<_rot)
+		{
+			rightEnc=ER.read()-erLast;
+			leftEnc=EL.read()-elLast;
+			_err=(abs(leftEnc)-abs(rightEnc));
+			ML((65-_err)*sgn);
+			MR((-65-_err)*sgn);
+			wait(10);
+		}
     ML((-18)*sgn);
     MR((18)*sgn);
     wait(100);
     stop();
-
-
 }
-function normForPram()
-{
-    erol = abs(ER.read());
-    elol = abs(EL.read());
-    iter = 1;
-    sp=spST;
-    fla = 1;
-    while(fla && ER.read() < sectr)
-    {
-        err = ((abs(ER.read()) - erol) - (abs(EL.read()) - elol)) - 0;
-        if(abs(rasu - s[0].read()) < lefu)
-        {
-            fla = 0;
-        }
-        P = err * 0.9;
-        I = (lerr + err) * 0;
-        D = (lerr - err) * 0.2;
-        mot = P+I+D;
-        if(sp + iter < spFN)
-            sp = sp + iter;
-        print(sp);
-        MR(sp - mot);
-        ML(sp + mot);
-        lerr = err;
-        wait(50);
-    }
-}
+//
 function turnForw(_dist)
 {
     ER.reset();
@@ -1141,9 +1108,6 @@ function findPoint()
     image[W3[0]][W3[1]]=13;//6
     image[H2[0]][H2[1]]=14;//7
     image[W2[0]][W2[1]]=15;//8
-
-
-
 }
 
 function rotate_clockwise(times)
