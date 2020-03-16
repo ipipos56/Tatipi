@@ -51,11 +51,7 @@ rotCnt = 0;
 cprR = 390;
 cprL = 390;
 
-rasu = 15;
-lefu = 14;
-upu = 8;
-povl = 300;
-povr = 310;
+rasu = 14;
 sectr = 552;
 
 direction = 0;
@@ -347,92 +343,7 @@ function doWhall()
     wait(50);
 }
 //
-function _0to1()
-{
-    EL.reset();
-    ER.reset();
-    iter = 1;
-    sp=60;
-    flag = 1;
-    trueLeft=0;
-    trueRight=0;
-    _0 = s[0].read();
-    _2 = s[2].read();
-    if(_2>26&&_0>26)
-    {
-        while(flag==1)
-        {
-            trueLeft += EL.read();
-            trueRight += ER.read();
-            err = rasu - s[2].read();
-            if(s[2].read()>26)
-            {
-                erol = abs(ER.read());
-                elol = abs(EL.read());
-                err = (erol) - (elol) - 0;
-                P = err * 3;
-                I = (lerr - err) * 0;
-                D = (lerr + err) * 1.5;
-                mot = P+I+D;
-                MR(sp + mot);
-                ML(sp - mot);
-                lerr = err;
-                if((463-Math.floor((trueLeft+trueRight)/2))<=0)
-                {
-                    stop();
-                    valSen()
-                    print(sz[0]+" "+sz[1]+" "+sz[2]);
-                    flag=0;
-                }
-            }
-            else
-            {
-                MR(-4);
-                ML(-4);
-                wait(200);
-                stop();
-                turnForw(135);
-                ER.reset();
-                EL.reset();
-                erol = abs(ER.read());
-                elol = abs(EL.read());
-                err = rasu - s[2].read();
-                while((erol+elol)/2<420)
-                {
-                    err = rasu - s[2].read();
-                    erol = abs(ER.read());
-                    elol = abs(EL.read());
-                    P = err * 3;
-                    I = (lerr - err) * 0;
-                    D = (lerr + err) * 1.5;
-                    mot = P+I+D;
-                    MR(sp - mot);
-                    ML(sp + mot);
-                    lerr=err;
-                    wait(10);
-                }
-                MR(-2);
-                ML(-2);
-                wait(200);
-                valSen()
-                print(sz[0]+" "+sz[1]+" "+sz[2]);
-                stop();
-                flag=0;
-            }
-            EL.reset();
-            ER.reset();
-            lerr = err;
-            wait(50);
-        }
-        stop();
-    }
-    else if((_2>26&&_0<=26)||(_0<=26))
-    {
-		print("tut")
-        pram1();
-    }
-}
-//
+
 
 
 function extra_1to0()
@@ -634,7 +545,7 @@ function _1to0()
 	stop();
    
 }
-
+//
 function turnDown(_dist)
 {
     ER.reset();
@@ -661,6 +572,8 @@ function turnDown(_dist)
     wait(100);
 
 }
+//
+
 
 function pram1()
 {
@@ -762,6 +675,9 @@ function pram1()
     }
     stop();
 }
+//
+
+
 
 function rotate(_deg)
 {
@@ -847,84 +763,6 @@ function turnForw(_dist)
 }
 //
 
-function normForward()
-{
-    erol = abs(ER.read());
-    elol = abs(EL.read());
-    iter = 1;
-    sp=spST;
-    fla = 1;
-    while(fla)
-    {
-        err = ((abs(ER.read()) - erol) - (abs(EL.read()) - elol)) - 0;
-        if(abs(rasu - s[0].read()) < lefu)
-        {
-            fla = 0;
-        }
-        P = err * 0.9;
-        I = (lerr + err) * 0;
-        D = (lerr - err) * 0.2;
-        mot = P+I+D;
-        if(sp + iter < spFN)
-            sp = sp + iter;
-        print(sp);
-        MR(sp - mot);
-        ML(sp + mot);
-        lerr = err;
-        wait(50);
-    }
-}
-//
-function normForLe()
-{
-    iter = 1;
-    sp=spST;
-    flag = 1;
-    while(flag)
-    {
-        err = rasu - s[0].read();
-        if(abs(err) > lefu)
-        {
-            print(err);
-            err = 0;
-            lerr = 0;
-            flag = 0;
-            normForward();
-        }
-        if(abs(s[1].read() < upu))
-        {
-            MR(-100);
-            ML(-100);
-            wait(50);
-            MR(0);
-            ML(0);
-            wait(1000);
-            rotate(90);
-            stop();
-            script.wait(1000);
-        }
-        P = err * 3;
-        I = (lerr + err) * 0;
-        D = (lerr - err) * 1;
-        mot = P+I+D;
-        if(sp + iter < spFN)
-            sp = sp + iter;
-        print(sp);
-        if(flag)
-        {
-            MR(sp - mot);
-            ML(sp + mot);
-        }
-        else
-        {
-            ML(0);
-            MR(0);
-            flag = 1;
-        }
-        lerr = err;
-        wait(50);
-    }
-}
 
 function forward()
 {
@@ -939,7 +777,7 @@ function forward()
 		if(sz[0]==1&&sz[2]==1)
 			_1to0();
 }
-
+//
 rotcont = 1;
 
 
