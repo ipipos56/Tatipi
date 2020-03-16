@@ -61,7 +61,7 @@ sectr = 552;
 direction = 0;
 
 x = 0
-    y = 0;
+y = 0;
 h = 17;
 point = 144;
 rot = 1;
@@ -118,67 +118,71 @@ var main = function()
         EL.reset();
     }
 }
-//
-function left()
-{
-	_1 = s[1].read();
-	if(_1>26)
-	{
-		turnForw(130);
-		rotate(-90);
-		turnDown(135);
+//
+function left()
+{
+	_1 = s[1].read();
+	if(_1>26)
+	{
+		turnForw(130);
+		rotate(-90);
+		turnDown(135);
+	}
+	else
+	{
+		doWhall();
+		rotate(-90);
+		turnDown(135);
 	}
-	else
-	{
-		doWhall();
-		rotate(-90);
-		turnDown(135);
+	rot-=1; // Вращение робота
+	rot = cuboid(rot);
+}
+//
+function right()
+{
+	_1 = s[1].read();
+	if(_1>26)
+	{
+		turnForw(130);
+		rotate(90);
+		turnDown(135);
+	}
+	else
+	{
+		doWhall();
+		rotate(90);
+		turnDown(135);
 	}
-}
-//
-function right()
-{
-	_1 = s[1].read();
-	if(_1>26)
-	{
-		turnForw(130);
-		rotate(90);
-		turnDown(135);
-	}
-	else
-	{
-		doWhall();
-		rotate(90);
-		turnDown(135);
-	}
-}
-//
-
-function robotRotation()
-{
-	_1 = s[1].read();
-	if(_1>26)
-	{
-		turnForw(130);
-		rotate(-90);
-		rotate(-90);
-		turnDown(135);
-	}
-	else
-	{
-		doWhall();
-		rotate(-90);
-		rotate(-90);
-		turnDown(135);
-	}
-		
-}
-//
-
-function right()
-{
-	
-}
+	rot+=1; // Вращение робота
+	rot = cuboid(rot);
+}
+//
+
+function robotRotation()
+{
+	_1 = s[1].read();
+	if(_1>26)
+	{
+		turnForw(130);
+		rotate(-90);
+		rotate(-90);
+		turnDown(135);
+	}
+	else
+	{
+		doWhall();
+		rotate(-90);
+		rotate(-90);
+		turnDown(135);
+	}
+		
+}
+//
+
+function right()
+{
+	
+}
 //
 function valSen()
 {
