@@ -48,7 +48,7 @@ rotCnt = 0;
 cprR = 390;
 cprL = 390;
 
-rasu = s[0].read();
+rasu = 14;
 lefu = 14;
 upu = 8;
 povl = 300;
@@ -92,7 +92,8 @@ var main = function()
 	//rotate(-90);
 	ER.reset()
 	EL.reset()
-	_1to0()
+	//_1to0()
+	turnDown(250);
 	//pram1();
 	//turnForw(1000)
 	por = 50;
@@ -475,6 +476,32 @@ function _1to0()
 	stop();
 }
 
+function turnDown(_dist)
+{
+	ER.reset();
+	EL.reset();
+	erol = abs(ER.read());
+	elol = abs(EL.read());
+	sp=-55;
+	while((erol+elol)/2<_dist)
+	{
+		erol = abs(ER.read());
+		elol = abs(EL.read());
+		err = (elol) - (erol) - 0;
+		P = err * 3;
+		I = (lerr + err) * 0;
+		D = (lerr - err) * 1.5;
+		mot = P+I+D;
+		MR(sp - mot);
+		ML(sp + mot);
+		lerr = err;
+		wait(10);
+	}
+	ML(5);
+	MR(5);
+	wait(50);
+	
+}
 
 function pram1()
 {
@@ -513,10 +540,11 @@ function pram1()
 			wait(200);
 			stop();
 			turnForw(50);
-			valSen()
-			print(sz[0]+" "+sz[1]+" "+sz[2]);
+			sz[0]=s[0].read();
 			turnForw(360);
 			stop();
+			sz[1]=s[1].read();
+			sz[2]=s[2].read();
 			flag=0;
 		}
 		EL.reset();
