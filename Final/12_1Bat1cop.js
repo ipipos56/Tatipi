@@ -1,7 +1,10 @@
 var __interpretation_started_timestamp__;
 pi = 3.141592653589793;
 wait = script.wait;
-sign = function(n) { return n > 0 ? 1 : n = 0 ? 0 : -1; }
+sign = function(n)
+{
+    return n > 0 ? 1 : n = 0 ? 0 : -1;
+}
 trueLeft=0;
 trueRight=0;
 
@@ -37,10 +40,10 @@ s[2] = brick.sensor(A2);
 
 sz = [0,0,0];
 
-ML = brick.motor(M3).setPower; 
-MR = brick.motor(M4).setPower; 
-EL = brick.encoder(E3); 
-ER = brick.encoder(E4); 
+ML = brick.motor(M3).setPower;
+MR = brick.motor(M4).setPower;
+EL = brick.encoder(E3);
+ER = brick.encoder(E4);
 
 rotCnt = 0;
 
@@ -58,7 +61,7 @@ sectr = 552;
 direction = 0;
 
 x = 0
-y = 0;
+    y = 0;
 h = 17;
 point = 144;
 rot = 1;
@@ -71,230 +74,480 @@ fullRot = 0;
 
 var main = function()
 {
-	
-	/*while(1)
-	{
-		var bat=brick.battery().readVoltage();
-		print(bat);
-		script.wait(100);
-	}
-	*/
-	valSen();
-	while(1)
-	{
-		print(sz[0]+" "+sz[1]+" "+sz[2]);
-		if(sz[0]==1)
-		{
-			turnForw(125);
-			rotate(-90);
-			turnDown(130);
-			_1to0();
-		}
-		else
-			if(sz[0]==0&&sz[1]==1)
-			{
-				pram1();
-			}
-		else
-			if(sz[0]==0&&sz[1]==0&&sz[2]==1)
-			{
-				doWhall();
-				rotate(90);
-				turnDown(140);
-				pram1();
-			}
-		else
-			if(sz[0]==0&&sz[1]==0&&sz[2]==0)
-			{
-				doWhall();
-				rotate(90);
-				rotate(90);
-				turnDown(130);
-				pram1();
-			}
-			ER.reset();
-			EL.reset();
-		}
-}
 
+    /*while(1)
+    {
+    	var bat=brick.battery().readVoltage();
+    	print(bat);
+    	script.wait(100);
+    }
+    */
+    forward();
+    while(1);
+    valSen();
+    while(1)
+    {
+        print(sz[0]+" "+sz[1]+" "+sz[2]);
+        if(sz[0]==1)
+        {
+            turnForw(125);
+            rotate(-90);
+            turnDown(130);
+            _1to0();
+        }
+        else if(sz[0]==0&&sz[1]==1)
+        {
+            pram1();
+        }
+        else if(sz[0]==0&&sz[1]==0&&sz[2]==1)
+        {
+            doWhall();
+            rotate(90);
+            turnDown(140);
+            pram1();
+        }
+        else if(sz[0]==0&&sz[1]==0&&sz[2]==0)
+        {
+            doWhall();
+            rotate(90);
+            rotate(90);
+            turnDown(130);
+            pram1();
+        }
+        ER.reset();
+        EL.reset();
+    }
+}
+//
+function left()
+{
+	_1 = s[1].read();
+	if(_1>26)
+	{
+		turnForw(130);
+		rotate(-90);
+		turnDown(135);
+	}
+	else
+	{
+		doWhall();
+		rotate(-90);
+		turnDown(135);
+	}
+}
+//
+function right()
+{
+	_1 = s[1].read();
+	if(_1>26)
+	{
+		turnForw(130);
+		rotate(90);
+		turnDown(135);
+	}
+	else
+	{
+		doWhall();
+		rotate(90);
+		turnDown(135);
+	}
+}
+//
+
+function robotRotation()
+{
+	_1 = s[1].read();
+	if(_1>26)
+	{
+		turnForw(130);
+		rotate(-90);
+		rotate(-90);
+		turnDown(135);
+	}
+	else
+	{
+		doWhall();
+		rotate(-90);
+		rotate(-90);
+		turnDown(135);
+	}
+		
+}
+//
+
+function right()
+{
+	
+}
+//
 function valSen()
 {
-	for(var _i = 0;_i<3;_i++)
-	{
-		sz[_i] = s[_i].read();
-		if(sz[_i] > 25)
-			sz[_i] = 1;
-		else
-			sz[_i] = 0;
-	}
-	
+    for(var _i = 0; _i<3; _i++)
+    {
+        sz[_i] = s[_i].read();
+        if(sz[_i] > 25)
+            sz[_i] = 1;
+        else
+            sz[_i] = 0;
+    }
+
 }
 
 
-function stop(){
-	MR(0)
-	ML(0)
-	wait(75)
+function stop()
+{
+    MR(0)
+    ML(0)
+    wait(75)
 }
 
 function findPath(stPoin,fnPoin)
 {
-	var q = [];
-	var dis = [];
-	var par = [];
-	for(var _i = 0;_i<289;_i++)
-	{
-		dis[_i] = 100000;
-		par[_i] = [-1,-1];
-	}
-	q.push(stPoin);
-	dis[stPoin] = 0;
-	par[stPoin][0] = -1;
-	par[stPoin][1] = rot;
-	while(q.length > 0)
-	{
-		var vert = q.pop();
-		
-		for(var er = 0;er<4;er++)
-		{
-			var poiD
-			el = 0;
-			if(er == 0)
-				poiDel = (-1 * h);
-			else if(er == 1)
-				poiDel = 1;
-			else if(er == 2)
-				poiDel = h;
-			else if(er == 3)
-				poiDel = -1;
-			
-			var pri = abs(par[vert][1] - er);
-			
-			if( pri == 1 || pri == 3)
+    var q = [];
+    var dis = [];
+    var par = [];
+    for(var _i = 0; _i<289; _i++)
+    {
+        dis[_i] = 100000;
+        par[_i] = [-1,-1];
+    }
+    q.push(stPoin);
+    dis[stPoin] = 0;
+    par[stPoin][0] = -1;
+    par[stPoin][1] = rot;
+    while(q.length > 0)
+    {
+        var vert = q.pop();
+
+        for(var er = 0; er<4; er++)
+        {
+            var poiD
+            el = 0;
+            if(er == 0)
+                poiDel = (-1 * h);
+            else if(er == 1)
+                poiDel = 1;
+            else if(er == 2)
+                poiDel = h;
+            else if(er == 3)
+                poiDel = -1;
+
+            var pri = abs(par[vert][1] - er);
+
+            if( pri == 1 || pri == 3)
                 pri = 2;
             else if(pri == 2)
                 pri = 3;
             else if(pri == 0)
                 pri = 1;
-			
-			print(vert + " " + (vert + poiDel) +" "+map[vert][i] + " " + dis[vert + poiDel] + " " + pri + " " + par[vert][0]+" "+ par[vert][1]);
-				
-			if((parseInt(map[vert][er],10) == 1) && (dis[(vert + poiDel)] > (dis[vert] + pri)))
-			{
-				par[(vert + poiDel)][0] = vert;
-				par[(vert + poiDel)][1] = er;
-				dis[(vert + poiDel)] = dis[vert] + pri;
-				q.push(vert + poiDel);
-			}
-		}
-	}
-	print(fnPoin);
-	if(dis[fnPoin] != 100000)
-	{
-		var para = fnPoin;
-		q.push(para);
 
-		while(par[para][0] != -1)
-		{
-			para = par[para][0];
-			q.push(para);
-		}
-		
-		//print(q.length);
+            print(vert + " " + (vert + poiDel) +" "+map[vert][i] + " " + dis[vert + poiDel] + " " + pri + " " + par[vert][0]+" "+ par[vert][1]);
 
-		var previs = q.pop();
-		var prib = 0;
-		print(previs);
+            if((parseInt(map[vert][er],10) == 1) && (dis[(vert + poiDel)] > (dis[vert] + pri)))
+            {
+                par[(vert + poiDel)][0] = vert;
+                par[(vert + poiDel)][1] = er;
+                dis[(vert + poiDel)] = dis[vert] + pri;
+                q.push(vert + poiDel);
+            }
+        }
+    }
+    print(fnPoin);
+    if(dis[fnPoin] != 100000)
+    {
+        var para = fnPoin;
+        q.push(para);
 
-		while(q.length > 0)
-		{
-			var cur = q.pop();
+        while(par[para][0] != -1)
+        {
+            para = par[para][0];
+            q.push(para);
+        }
 
-			print(cur);
-			if(abs(dis[cur]-dis[previs]) == 3)
-			{
-				for(var j = 0;j<2;j++)
-				{
-					rotate(90);
-				}
-			}
-			else if(abs(dis[cur]-dis[previs]) == 2)
-			{
-				if(rot == 0 || rot == 1)
-				{
-					if((cur - previs) > 0)
-						rotate(90);
-					else if(cur - previs < 0)
-						rotate(-90);
-				}
-				else if(rot == 2 || rot == 3)
-				{
-					if(cur - previs > 0)
-						rotate(-90);
-					else if(cur - previs < 0)
-						rotate(90);
-				}
-			}
-			forward();
-			previs = cur;
-		}
-		newInfo();
-		return 1;
-	}
-	else
-	{	
-		print("No path");
-		return 0;
-	}
+        //print(q.length);
+
+        var previs = q.pop();
+        var prib = 0;
+        print(previs);
+
+        while(q.length > 0)
+        {
+            var cur = q.pop();
+
+            print(cur);
+            if(abs(dis[cur]-dis[previs]) == 3)
+            {
+                for(var j = 0; j<2; j++)
+                {
+                    rotate(90);
+                }
+            }
+            else if(abs(dis[cur]-dis[previs]) == 2)
+            {
+                if(rot == 0 || rot == 1)
+                {
+                    if((cur - previs) > 0)
+                        rotate(90);
+                    else if(cur - previs < 0)
+                        rotate(-90);
+                }
+                else if(rot == 2 || rot == 3)
+                {
+                    if(cur - previs > 0)
+                        rotate(-90);
+                    else if(cur - previs < 0)
+                        rotate(90);
+                }
+            }
+            forward();
+            previs = cur;
+        }
+        newInfo();
+        return 1;
+    }
+    else
+    {
+        print("No path");
+        return 0;
+    }
 }
 
 spST = 47;
 spFN = 70;
 lerr = 0;
-
-function doWhall()
-{
-	sp=60;
-	sens=s[1].read();
-	while(sens>7)
-	{
-		sens=s[1].read();
-		erol = abs(ER.read());
-		elol = abs(EL.read());
-		err = (erol) - (elol) - 0;
-		P = err * 3;
-		I = (lerr + err) * 0;
-		D = (lerr - err) * 1.5;
-		mot = P+I+D;
-		MR(sp - mot);
-		ML(sp + mot);
-		lerr = err;
-		wait(35);
-	}
-	ML(-5);
-	MR(-5);
-	wait(50);	
-}
 
+function doWhall()
+{
+    sp=60;
+    sens=s[1].read();
+    while(sens>7)
+    {
+        sens=s[1].read();
+        erol = abs(ER.read());
+        elol = abs(EL.read());
+        err = (erol) - (elol) - 0;
+        P = err * 3;
+        I = (lerr + err) * 0;
+        D = (lerr - err) * 1.5;
+        mot = P+I+D;
+        MR(sp - mot);
+        ML(sp + mot);
+        lerr = err;
+        wait(35);
+    }
+    ML(-5);
+    MR(-5);
+    wait(50);
+}
+//
+function _0to1()
+{
+    EL.reset();
+    ER.reset();
+    iter = 1;
+    sp=60;
+    flag = 1;
+    trueLeft=0;
+    trueRight=0;
+    _0 = s[0].read();
+    _2 = s[2].read();
+    if(_2>26&&_0>26)
+    {
+        while(flag==1)
+        {
+            trueLeft += EL.read();
+            trueRight += ER.read();
+            err = rasu - s[2].read();
+            if(s[2].read()>26)
+            {
+                erol = abs(ER.read());
+                elol = abs(EL.read());
+                err = (erol) - (elol) - 0;
+                P = err * 3;
+                I = (lerr - err) * 0;
+                D = (lerr + err) * 1.5;
+                mot = P+I+D;
+                MR(sp + mot);
+                ML(sp - mot);
+                lerr = err;
+                if((463-Math.floor((trueLeft+trueRight)/2))<=0)
+                {
+                    stop();
+                    valSen()
+                    print(sz[0]+" "+sz[1]+" "+sz[2]);
+                    flag=0;
+                }
+            }
+            else
+            {
+                MR(-4);
+                ML(-4);
+                wait(200);
+                stop();
+                turnForw(135);
+                ER.reset();
+                EL.reset();
+                erol = abs(ER.read());
+                elol = abs(EL.read());
+                err = rasu - s[2].read();
+                while((erol+elol)/2<420)
+                {
+                    err = rasu - s[2].read();
+                    erol = abs(ER.read());
+                    elol = abs(EL.read());
+                    P = err * 3;
+                    I = (lerr - err) * 0;
+                    D = (lerr + err) * 1.5;
+                    mot = P+I+D;
+                    MR(sp - mot);
+                    ML(sp + mot);
+                    lerr=err;
+                    wait(10);
+                }
+                MR(-2);
+                ML(-2);
+                wait(200);
+                valSen()
+                print(sz[0]+" "+sz[1]+" "+sz[2]);
+                stop();
+                flag=0;
+            }
+            EL.reset();
+            ER.reset();
+            lerr = err;
+            wait(50);
+        }
+        stop();
+    }
+    else if((_2>26&&_0<=26)||(_0<=26))
+    {
+		print("tut")
+        pram1();
+    }
+}
+//
+
+
+function extra_1to0()
+{
+    EL.reset();
+    ER.reset();
+    iter = 1;
+    sp=60;
+    flag = 1;
+    trueLeft=0;
+    trueRight=0;
+    while(flag==1)
+    {
+        trueLeft += EL.read();
+        trueRight += ER.read();
+        err = 12 - s[2].read();
+        if(s[2].read()>6&&s[2].read()<=24)
+        {
+            P = err * 2.5;
+            I = (lerr + err) * 0;
+            D = (lerr - err) * 1.2;
+            mot = P+I+D;
+            MR(sp + mot);
+            ML(sp - mot);
+
+            if((463-Math.floor((trueLeft+trueRight)/2))<=0)
+            {
+                stop();
+                valSen()
+                print(sz[0]+" "+sz[1]+" "+sz[2]);
+                flag=0;
+            }
+        }
+        else
+        {
+            MR(-4);
+            ML(-4);
+            wait(200);
+            stop();
+            turnForw(60);
+            sz[2]=s[2].read();
+            if(sz[2] > 20)
+                sz[2] = 1;
+            else
+                sz[2] = 0;
+
+            sz[0]=s[0].read();
+            if(sz[0] > 25)
+                sz[0] = 1;
+            else
+                sz[0] = 0;
+            if(sz[0]==1)
+            {
+                turnForw(310);
+                stop();
+                sz[1]=s[1].read();
+                if(sz[1] > 25)
+                    sz[1] = 1;
+                else
+                    sz[1] = 0;
+            }
+            else
+            {
+                ER.reset();
+                EL.reset();
+                erol = abs(ER.read());
+                elol = abs(EL.read());
+                __0=s[0].read();
+                while((erol+elol)/2<325)
+                {
+                    erol = abs(ER.read());
+                    elol = abs(EL.read());
+                    err = __0 - s[0].read();
+                    P = err * 2.5;
+                    I = (lerr + err) * 0;
+                    D = (lerr - err) * 1.5;
+                    mot = P+I+D;
+                    MR(sp - mot);
+                    ML(sp + mot);
+                    lerr = err
+                           wait(40);
+                }
+                MR(-4);
+                ML(-4);
+                wait(200);
+                stop();
+                sz[1]=s[1].read();
+                if(sz[1] > 25)
+                    sz[1] = 1;
+                else
+                    sz[1] = 0;
+
+            }
+            flag=0;
+        }
+        EL.reset();
+        ER.reset();
+        lerr = err;
+        wait(50);
+    }
+    stop();
+}
+//
 function _1to0()
 {
-	EL.reset();
-	ER.reset();
-	iter = 1;
-	sp=60;
-	flag = 1;
-	trueLeft=0;
-	trueRight=0;
+    EL.reset();
+    ER.reset();
+    iter = 1;
+    sp=60;
+    flag = 1;
+    trueLeft=0;
+    trueRight=0;
 	while(flag==1)
 	{
 		trueLeft += EL.read();
 		trueRight += ER.read();
-		err = rasu - s[0].read();
-		if(s[0].read()>26)
+		err = 12 - s[0].read();
+		if(s[0].read()>26&&s[2].read()>26)
 		{
 			erol = abs(ER.read());
 			elol = abs(EL.read());
-			err = (erol) - (elol) - 0;
+			err = (erol) - (elol) + 0.3;
 			P = err * 3;
 			I = (lerr + err) * 0;
 			D = (lerr - err) * 1.5;
@@ -321,20 +574,42 @@ function _1to0()
 			EL.reset();
 			erol = abs(ER.read());
 			elol = abs(EL.read());
-			err = rasu - s[0].read();
-			while((erol+elol)/2<420)
+			err = rasu - s[0].read();
+			_0 = s[0].read();
+			_2 = s[2].read();
+			if(_0<26)
 			{
-				err = rasu - s[0].read();
-				erol = abs(ER.read());
-				elol = abs(EL.read());
-				P = err * 3;
-				I = (lerr + err) * 0;
-				D = (lerr - err) * 1.5;
-				mot = P+I+D;
-				MR(sp - mot);
-				ML(sp + mot);
-				lerr=err;
-				wait(10);
+				while((erol+elol)/2<420)
+				{
+					err = rasu - s[0].read();
+					erol = abs(ER.read());
+					elol = abs(EL.read());
+					P = err * 3;
+					I = (lerr + err) * 0;
+					D = (lerr - err) * 1.5;
+					mot = P+I+D;
+					MR(sp - mot);
+					ML(sp + mot);
+					lerr=err;
+					wait(40);
+				}
+			}
+			else if(_2<26)
+			{
+				while((erol+elol)/2<420)
+				{
+					err = 11 - s[2].read();
+					erol = abs(ER.read());
+					elol = abs(EL.read());
+					P = err * 3;
+					I = (lerr + err) * 0;
+					D = (lerr - err) * 1.5;
+					mot = P+I+D;
+					MR(sp + mot);
+					ML(sp - mot);
+					lerr=err;
+					wait(40);
+				}
 			}
 			MR(-2);
 			ML(-2);
@@ -350,348 +625,312 @@ function _1to0()
 		wait(50);
 	}
 	stop();
+   
 }
 
 function turnDown(_dist)
 {
-	ER.reset();
-	EL.reset();
-	erol = abs(ER.read());
-	elol = abs(EL.read());
-	sp=-55;
-	while((erol+elol)/2<_dist)
-	{
-		erol = abs(ER.read());
-		elol = abs(EL.read());
-		err = (elol) - (erol) - 1;
-		P = err * 1.5;
-		I = (lerr + err) * 0;
-		D = (lerr - err) * 0.8;
-		mot = P+I+D;
-		MR(sp - mot);
-		ML(sp + mot);
-		lerr = err;
-		wait(5);
-	}
-	ML(5);
-	MR(5);
-	wait(50);
-	
+    ER.reset();
+    EL.reset();
+    erol = abs(ER.read());
+    elol = abs(EL.read());
+    sp=-55;
+    while((erol+elol)/2<_dist)
+    {
+        erol = abs(ER.read());
+        elol = abs(EL.read());
+        err = (elol) - (erol) - 1;
+        P = err * 1.5;
+        I = (lerr + err) * 0;
+        D = (lerr - err) * 0.8;
+        mot = P+I+D;
+        MR(sp - mot);
+        ML(sp + mot);
+        lerr = err;
+        wait(10);
+    }
+    ML(5);
+    MR(5);
+    wait(100);
+
 }
 
 function pram1()
 {
-	EL.reset();
-	ER.reset();
-	iter = 1;
-	sp=60;
-	flag = 1;
-	trueLeft=0;
-	trueRight=0;
-	while(flag==1)
-	{
-		trueLeft += EL.read();
-		trueRight += ER.read();
-		err = rasu - s[0].read();
-		if(s[0].read()>6&&s[0].read()<=24)
-		{
-			P = err * 3;
-			I = (lerr + err) * 0;
-			D = (lerr - err) * 1.5;
-			mot = P+I+D;
-			MR(sp - mot);
-			ML(sp + mot);
-			
-			if((463-Math.floor((trueLeft+trueRight)/2))<=0)
-			{
-				stop();
-				valSen()
-				print(sz[0]+" "+sz[1]+" "+sz[2]);
-				flag=0;
-			}
-		}
-		else
-		{
-			MR(-4);
-			ML(-4);
-			wait(200);
-			stop();
-			turnForw(60);
-			sz[0]=s[0].read();
-			if(sz[0] > 20)
-				sz[0] = 1;
-			else
-				sz[0] = 0;
-			
-			sz[2]=s[2].read();
-			if(sz[2] > 25)
-				sz[2] = 1;
-			else
-				sz[2] = 0;
-			if(sz[2]==1)
-			{
-				turnForw(330);
-				stop();
-				sz[1]=s[1].read();
-				if(sz[1] > 25)
-					sz[1] = 1;
-				else
-					sz[1] = 0;
-			}
-			else
-			{
-				ER.reset();
-				EL.reset();
-				erol = abs(ER.read());
-				elol = abs(EL.read());
-				__2=s[2].read();
-				while((erol+elol)/2<320)
-				{
-					erol = abs(ER.read());
-					elol = abs(EL.read());
-					err = __2 - s[2].read();
-					P = err * 2.5;
-					I = (lerr + err) * 0;
-					D = (lerr - err) * 1.5;
-					mot = P+I+D;
-					MR(sp + mot);
-					ML(sp - mot);
-					lerr = err
-					wait(40);
-				}
-				MR(-4);
-				ML(-4);
-				wait(200);
-				stop();
-				sz[1]=s[1].read();
-				if(sz[1] > 25)
-					sz[1] = 1;
-				else
-					sz[1] = 0;
-				
-			}
-			flag=0;
-		}
-		EL.reset();
-		ER.reset();
-		lerr = err;
-		wait(50);
-	}
-	stop();
+    EL.reset();
+    ER.reset();
+    iter = 1;
+    sp=60;
+    flag = 1;
+    trueLeft=0;
+    trueRight=0;
+    while(flag==1)
+    {
+        trueLeft += EL.read();
+        trueRight += ER.read();
+        err = rasu - s[0].read();
+        if(s[0].read()>6&&s[0].read()<=24)
+        {
+            P = err * 3;
+            I = (lerr + err) * 0;
+            D = (lerr - err) * 1.5;
+            mot = P+I+D;
+            MR(sp - mot);
+            ML(sp + mot);
+
+            if((463-Math.floor((trueLeft+trueRight)/2))<=0)
+            {
+                stop();
+                valSen()
+                print(sz[0]+" "+sz[1]+" "+sz[2]);
+                flag=0;
+            }
+        }
+        else
+        {
+            MR(-4);
+            ML(-4);
+            wait(200);
+            stop();
+            turnForw(60);
+            sz[0]=s[0].read();
+            if(sz[0] > 20)
+                sz[0] = 1;
+            else
+                sz[0] = 0;
+
+            sz[2]=s[2].read();
+            if(sz[2] > 25)
+                sz[2] = 1;
+            else
+                sz[2] = 0;
+            if(sz[2]==1)
+            {
+                turnForw(320);
+                stop();
+                sz[1]=s[1].read();
+                if(sz[1] > 25)
+                    sz[1] = 1;
+                else
+                    sz[1] = 0;
+            }
+            else
+            {
+                ER.reset();
+                EL.reset();
+                erol = abs(ER.read());
+                elol = abs(EL.read());
+                __2=s[2].read();
+                while((erol+elol)/2<315)
+                {
+                    erol = abs(ER.read());
+                    elol = abs(EL.read());
+                    err = __2 - s[2].read();
+                    P = err * 2.5;
+                    I = (lerr + err) * 0;
+                    D = (lerr - err) * 1.5;
+                    mot = P+I+D;
+                    MR(sp + mot);
+                    ML(sp - mot);
+                    lerr = err
+                           wait(40);
+                }
+                MR(-4);
+                ML(-4);
+                wait(200);
+                stop();
+                sz[1]=s[1].read();
+                if(sz[1] > 25)
+                    sz[1] = 1;
+                else
+                    sz[1] = 0;
+
+            }
+            flag=0;
+        }
+        EL.reset();
+        ER.reset();
+        lerr = err;
+        wait(50);
+    }
+    stop();
 }
 
 function rotate(_deg)
 {
-	
-	var elLast=EL.read();
-	var erLast=ER.read();
-	var rightEnc=0;
-	var leftEnc=0;
-	var _err=0;
-	var sgn=sign(_deg);
-	if(sgn>0)
-		_rot=219
-	else
-		_rot=220
-	while((abs(leftEnc)+abs(rightEnc))/2<_rot)
-	{
-		rightEnc=ER.read()-erLast;
-		leftEnc=EL.read()-elLast;
-		_err=(abs(leftEnc)-abs(rightEnc));
-		ML((65-_err)*sgn);
-		MR((-65-_err)*sgn);
-		wait(10);
-	}
-	ML((-18)*sgn);
-	MR((18)*sgn);
-	wait(100);
-	stop();
-	
-	
+
+    var elLast=EL.read();
+    var erLast=ER.read();
+    var rightEnc=0;
+    var leftEnc=0;
+    var _err=0;
+    var sgn=sign(_deg);
+    if(sgn>0)
+        _rot=219
+             else
+                 _rot=220
+                      while((abs(leftEnc)+abs(rightEnc))/2<_rot)
+            {
+                rightEnc=ER.read()-erLast;
+                leftEnc=EL.read()-elLast;
+                _err=(abs(leftEnc)-abs(rightEnc));
+                ML((65-_err)*sgn);
+                MR((-65-_err)*sgn);
+                wait(10);
+            }
+    ML((-18)*sgn);
+    MR((18)*sgn);
+    wait(100);
+    stop();
+
+
 }
 function normForPram()
 {
-	erol = abs(ER.read());
-	elol = abs(EL.read());
-	iter = 1;
-	sp=spST;
-	fla = 1;
-	while(fla && ER.read() < sectr)
-	{
-		err = ((abs(ER.read()) - erol) - (abs(EL.read()) - elol)) - 0;
-		if(abs(rasu - s[0].read()) < lefu)
-		{
-			fla = 0;
-		}
-		P = err * 0.9;
-		I = (lerr + err) * 0;
-		D = (lerr - err) * 0.2;
-		mot = P+I+D;
-		if(sp + iter < spFN)
-			sp = sp + iter;
-		print(sp);
-		MR(sp - mot);
-		ML(sp + mot);
-		lerr = err;
-		wait(50);
-	}
+    erol = abs(ER.read());
+    elol = abs(EL.read());
+    iter = 1;
+    sp=spST;
+    fla = 1;
+    while(fla && ER.read() < sectr)
+    {
+        err = ((abs(ER.read()) - erol) - (abs(EL.read()) - elol)) - 0;
+        if(abs(rasu - s[0].read()) < lefu)
+        {
+            fla = 0;
+        }
+        P = err * 0.9;
+        I = (lerr + err) * 0;
+        D = (lerr - err) * 0.2;
+        mot = P+I+D;
+        if(sp + iter < spFN)
+            sp = sp + iter;
+        print(sp);
+        MR(sp - mot);
+        ML(sp + mot);
+        lerr = err;
+        wait(50);
+    }
 }
 function turnForw(_dist)
 {
-	ER.reset();
-	EL.reset();
-	erol = abs(ER.read());
-	elol = abs(EL.read());
-	sp=60;
-	while((erol+elol)/2<_dist)
-	{
-		erol = abs(ER.read());
-		elol = abs(EL.read());
-		err = (erol) - (elol) - 0;
-		P = err * 2;
-		I = (lerr + err) * 0;
-		D = (lerr - err) * 1.1;
-		mot = P+I+D;
-		MR(sp - mot);
-		ML(sp + mot);
-		lerr = err;
-		wait(10);
-	}
-	ML(-5);
-	MR(-5);
-	wait(75);
-	
-}
+    ER.reset();
+    EL.reset();
+    erol = abs(ER.read());
+    elol = abs(EL.read());
+    sp=60;
+    while((erol+elol)/2<_dist)
+    {
+        erol = abs(ER.read());
+        elol = abs(EL.read());
+        err = (erol) - (elol) - 0;
+        P = err * 2;
+        I = (lerr + err) * 0;
+        D = (lerr - err) * 1.1;
+        mot = P+I+D;
+        MR(sp - mot);
+        ML(sp + mot);
+        lerr = err;
+        wait(10);
+    }
+    ML(-5);
+    MR(-5);
+    wait(75);
 
+}
+//
 
 function normForward()
 {
-	erol = abs(ER.read());
-	elol = abs(EL.read());
-	iter = 1;
-	sp=spST;
-	fla = 1;
-	while(fla)
-	{
-		err = ((abs(ER.read()) - erol) - (abs(EL.read()) - elol)) - 0;
-		if(abs(rasu - s[0].read()) < lefu)
-		{
-			fla = 0;
-		}
-		P = err * 0.9;
-		I = (lerr + err) * 0;
-		D = (lerr - err) * 0.2;
-		mot = P+I+D;
-		if(sp + iter < spFN)
-			sp = sp + iter;
-		print(sp);
-		MR(sp - mot);
-		ML(sp + mot);
-		lerr = err;
-		wait(50);
-	}
+    erol = abs(ER.read());
+    elol = abs(EL.read());
+    iter = 1;
+    sp=spST;
+    fla = 1;
+    while(fla)
+    {
+        err = ((abs(ER.read()) - erol) - (abs(EL.read()) - elol)) - 0;
+        if(abs(rasu - s[0].read()) < lefu)
+        {
+            fla = 0;
+        }
+        P = err * 0.9;
+        I = (lerr + err) * 0;
+        D = (lerr - err) * 0.2;
+        mot = P+I+D;
+        if(sp + iter < spFN)
+            sp = sp + iter;
+        print(sp);
+        MR(sp - mot);
+        ML(sp + mot);
+        lerr = err;
+        wait(50);
+    }
 }
-
+//
 function normForLe()
 {
-	iter = 1;
-	sp=spST;
-	flag = 1;
-	while(flag)
-	{
-		err = rasu - s[0].read();
-		if(abs(err) > lefu)
-		{	
-			print(err);
-			err = 0;
-			lerr = 0;
-			flag = 0;
-			normForward();
-		}
-		if(abs(s[1].read() < upu))
-		{
-			MR(-100);
-			ML(-100);
-			wait(50);
-			MR(0);
-			ML(0);
-			wait(1000);
-			rotate(90);
-			stop();
-			script.wait(1000);
-		}
-		P = err * 3;
-		I = (lerr + err) * 0;
-		D = (lerr - err) * 1;
-		mot = P+I+D;
-		if(sp + iter < spFN)
-			sp = sp + iter;
-		print(sp);
-		if(flag)
-		{
-			MR(sp - mot);
-			ML(sp + mot);
-		}
-		else
-		{
-			ML(0);
-			MR(0);
-			flag = 1;
-		}
-		lerr = err;
-		wait(50);
-	}
+    iter = 1;
+    sp=spST;
+    flag = 1;
+    while(flag)
+    {
+        err = rasu - s[0].read();
+        if(abs(err) > lefu)
+        {
+            print(err);
+            err = 0;
+            lerr = 0;
+            flag = 0;
+            normForward();
+        }
+        if(abs(s[1].read() < upu))
+        {
+            MR(-100);
+            ML(-100);
+            wait(50);
+            MR(0);
+            ML(0);
+            wait(1000);
+            rotate(90);
+            stop();
+            script.wait(1000);
+        }
+        P = err * 3;
+        I = (lerr + err) * 0;
+        D = (lerr - err) * 1;
+        mot = P+I+D;
+        if(sp + iter < spFN)
+            sp = sp + iter;
+        print(sp);
+        if(flag)
+        {
+            MR(sp - mot);
+            ML(sp + mot);
+        }
+        else
+        {
+            ML(0);
+            MR(0);
+            flag = 1;
+        }
+        lerr = err;
+        wait(50);
+    }
 }
 
 function forward()
 {
-	//newInfo();
-		
-	//ER.reset()
-	//EL.reset()
-	
-	
-	deg = (700/(pi*56))*360;
-	if(rot == 0)
-		direction = -90;
-	else if(rot == 1)
-		direction = 0;
-	else if(rot == 2)
-		direction = 90;
-	else if(rot == 3)
-		direction = -180;
-	iter = 1;
-	while((EL.read()+ER.read())/2 < deg)
-	{
-		gyro = brick.gyroscope().read()[6]/1000;
-		if(rot == 3)
-		{
-			if(gyro < 0)
-				direction = -180;
-			else 
-				direction = 180;
-		}
-		mm = spST + iter
-		if(mm > spFN)
-			mm = spFN;
-		err = direction - gyro;
-		ML(mm+(err*1))
-		MR(mm-(err*1))
-		wait(2);
-		iter +=1;
-	}
-	stop();
-	
-	if(rot == 0)
-		point-=h;
-	else if(rot == 1)
-		point+=1;
-	else if(rot == 2)
-		point+=h;
-	else if(rot == 3)
-		point-=1;
-	
-	//newInfo();
+    valSen();
+	print(sz[0]+" "+sz[1]+" "+sz[2])
+	if(sz[0]==0)
+		pram1();
+	else
+		if(sz[0]==1&&sz[2]==0)
+			extra_1to0();
+	else
+		if(sz[0]==1&&sz[2]==1)
+			_1to0();
 }
 
 rotcont = 1;
@@ -699,75 +938,75 @@ rotcont = 1;
 
 function newInfo()
 {
-	valSen();
-	//print(sz[0]+" "+sz[1]+" "+sz[2]);
-	for(var _i = 0;_i < 3;_i++)
-	{
-		var curre = (rot + _i - 1);
-		//print(curre);
-		curre = cuboid(curre);
-		map[point][curre] = sz[_i];
-		if(curre == 0)
-		{
-			if(map[(point - h)][2] == -1 && sz[_i] == 1)
-			{
-				map[(point - h)][2] = sz[_i];
-				nonplace.push(point-h);
-			}
-		}
-		else if(curre == 1)
-		{
-			if(map[(point + 1)][3] == -1 && sz[_i] == 1)
-			{
-				map[(point + 1)][3] = sz[_i];
-				nonplace.push(point+1);
-			}
-		}
-		else if(curre == 2)
-		{
-			if(map[(point+ h)][0] == -1 && sz[_i] == 1)
-			{
-				map[(point + h)][0] = sz[_i];
-				nonplace.push(point+h);
-			}
-		}
-		else if(curre == 3)
-		{
-			if(map[(point - 1)][1] == -1 && sz[_i] == 1)
-			{
-				map[(point - 1)][1] = sz[_i];
-				nonplace.push(point-1);
-			}
-		}
-		//print(map[pr]);
-	}
+    valSen();
+    //print(sz[0]+" "+sz[1]+" "+sz[2]);
+    for(var _i = 0; _i < 3; _i++)
+    {
+        var curre = (rot + _i - 1);
+        //print(curre);
+        curre = cuboid(curre);
+        map[point][curre] = sz[_i];
+        if(curre == 0)
+        {
+            if(map[(point - h)][2] == -1 && sz[_i] == 1)
+            {
+                map[(point - h)][2] = sz[_i];
+                nonplace.push(point-h);
+            }
+        }
+        else if(curre == 1)
+        {
+            if(map[(point + 1)][3] == -1 && sz[_i] == 1)
+            {
+                map[(point + 1)][3] = sz[_i];
+                nonplace.push(point+1);
+            }
+        }
+        else if(curre == 2)
+        {
+            if(map[(point+ h)][0] == -1 && sz[_i] == 1)
+            {
+                map[(point + h)][0] = sz[_i];
+                nonplace.push(point+h);
+            }
+        }
+        else if(curre == 3)
+        {
+            if(map[(point - 1)][1] == -1 && sz[_i] == 1)
+            {
+                map[(point - 1)][1] = sz[_i];
+                nonplace.push(point-1);
+            }
+        }
+        //print(map[pr]);
+    }
 }
 
 
 
 function moveSmall()
 {
-	ER.reset();
-	EL.reset();
-	deg = (88/(pi*56))*360;
+    ER.reset();
+    EL.reset();
+    deg = (88/(pi*56))*360;
 
-	while((EL.read()+ER.read())/2 < deg)
-	{
-		err =  brick.gyroscope().read()[6]/1000 - fullRot;
-		ML(50-err*0.5);
-		MR(50+err*0.5);
-		script.wait(1);
-	}
-	stop();
+    while((EL.read()+ER.read())/2 < deg)
+    {
+        err =  brick.gyroscope().read()[6]/1000 - fullRot;
+        ML(50-err*0.5);
+        MR(50+err*0.5);
+        script.wait(1);
+    }
+    stop();
 }
 
 function cuboid(_a)
 {
-	if(_a > 3)
-		return _a-4;
-	if(_a < 0)
-		return _a+4;
-	return _a;
+    if(_a > 3)
+        return _a-4;
+    if(_a < 0)
+        return _a+4;
+    return _a;
 }
 
 
@@ -787,8 +1026,8 @@ iA = 0, jA = 0, iB = 0, jB = 0, iC = 0, jC = 0, iD = 0, jD = 0;
 
 function getData(num)
 {
-	var raw = script.readAll("input.txt");
-	var mn;
+    var raw = script.readAll("input.txt");
+    var mn;
     if(num==0)
     {
 
@@ -1111,7 +1350,7 @@ function getARTagValue(number)
     }
     //else
     //{
-        //print("Error: Incorrect ARTag\n");
+    //print("Error: Incorrect ARTag\n");
     //    return [X, Y, NUM];
     //}
     //print(values[0][0]+" "+values[0][1]+" "+values[0][2]);
@@ -1120,12 +1359,12 @@ function getARTagValue(number)
     //code ="";
     code=(values[0][1]*8+values[1][0]*4+values[1][2]*2+values[2][1]);
     //print(code);
-	//if(code>=8)
-	//	code=code-8;
+    //if(code>=8)
+    //	code=code-8;
     //X = values[1][3] * 4 + values[2][0] * 2 + values[2][2];
     //Y = values[2][3] * 4 + values[3][1] * 2 + values[3][2];
     //NUM = values[1][0] * 2 + values[1][2];
-   // string = "" + X + " " + Y + " " + NUM;
+    // string = "" + X + " " + Y + " " + NUM;
 
     // brick.display().addLabel(string,10,10);
     return code;
