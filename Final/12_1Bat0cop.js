@@ -81,7 +81,8 @@ function localiz()
 		var info = [map[point][0],map[point][1],map[point][2],map[point][3]];
 		for(i = 0;i<3;i++)
 		{
-			print(sz[0]+" "+sz[1]+" "+sz[2]);
+			print(sz[0]+" "+sz[1]+" "+sz[2]);
+			print(info);
 			var curre = rot + i - 1;
 			curre = cuboid(curre);
 			if(sz[i] == 1 && info[curre] == -1)
@@ -112,11 +113,13 @@ function localiz()
 		if(!test && iter == 0 && !pa)
 		{
 			pa = true;
-			right();
+			robotRotation();
 			test = true;
 		}
 		iter++;
-	}
+	}
+	
+	print("++++++++++++++++++++++");
 	
 	newInfo();
 	
@@ -186,7 +189,9 @@ function localiz()
 var main = function()
 {
 	//_1to0();
-	
+	print("_______________________________");
+	print("");
+	print("");
 	//forward();
 	//left();
 	//forward();
@@ -408,10 +413,7 @@ function findPath(stPoin,fnPoin)
             print(cur);
             if(abs(dis[cur]-dis[previs]) == 3)
             {
-                for(var j = 0; j<2; j++)
-                {
-                   right()
-                }
+				robotRotation();
             }
             else if(abs(dis[cur]-dis[previs]) == 2)
             {
@@ -451,23 +453,23 @@ function doWhall()
 {
     sp=60;
     sens=s[1].read();
-    while(sens>8)
+    while(sens>7)
     {
         sens=s[1].read();
         erol = abs(ER.read());
         elol = abs(EL.read());
         err = (erol) - (elol) - 0;
-        P = err * 3;
+        P = err * 2.5;
         I = (lerr + err) * 0;
         D = (lerr - err) * 1.5;
         mot = P+I+D;
         MR(sp - mot);
         ML(sp + mot);
         lerr = err;
-        wait(35);
+        wait(30);
     }
-    ML(-5);
-    MR(-5);
+    ML(-10);
+    MR(-10);
     wait(50);
 }
 //
@@ -832,7 +834,7 @@ function rotate(_deg)
     if(sgn>0)
         _rot=223
 	else
-		 _rot=223
+		 _rot=221
 	while((abs(leftEnc)+abs(rightEnc))/2<_rot)
 		{
 			rightEnc=ER.read()-erLast;
@@ -882,7 +884,7 @@ function forward()
 	
 	valSen();
 	newInfo();
-	print(sz[0]+" "+sz[1]+" "+sz[2])
+	//print(sz[0]+" "+sz[1]+" "+sz[2])
 	if(sz[0]==0)
 		pram1();
 	else
@@ -914,41 +916,52 @@ function newInfo()
         var curre = (rot + _i - 1);
         //print(curre);
         curre = cuboid(curre);
-		for(var _j = 0;_j<4;_j++)
-			map[point][_j] = sz[_i];
+		map[point][curre] = sz[_i];
         if(curre == 0)
         {
             if(map[(point - h)][2] == -1 && sz[_i] == 1)
-            {
-				for(var _j = 0;_j<4;_j++)
-					map[(point - h)][_j] = sz[_i];
+            {
+				if(sz[_i] == 0)
+					for(var _j = 0;_j<4;_j++)
+						map[(point - h)][_j] = sz[_i];
+				else
+					map[(point - h)][2] = sz[_i];
                 nonplace.push(point-h);
             }
         }
         else if(curre == 1)
         {
             if(map[(point + 1)][3] == -1 && sz[_i] == 1)
-            {
-				for(var _j = 0;_j<4;_j++)
-					map[(point + 1)][_j] = sz[_i];
+            {
+				if(sz[_i] == 0)
+					for(var _j = 0;_j<4;_j++)
+						map[(point + 1)][_j] = sz[_i];
+				else
+					map[(point + 1)][3] = sz[_i];
                 nonplace.push(point+1);
             }
         }
         else if(curre == 2)
         {
             if(map[(point+ h)][0] == -1 && sz[_i] == 1)
-            {
-				for(var _j = 0;_j<4;_j++)
-					map[(point + h)][_j] = sz[_i];
+            {
+				if(sz[_i] == 0)
+					for(var _j = 0;_j<4;_j++)
+						map[(point + h)][_j] = sz[_i];
+				else
+					map[(point + h)][0] = sz[_i];
                 nonplace.push(point+h);
             }
         }
         else if(curre == 3)
         {
             if(map[(point - 1)][1] == -1 && sz[_i] == 1)
-            {
-				for(var _j = 0;_j<4;_j++)
-					map[(point - 1)][_j] = sz[_i];
+            {
+				if(sz[_i] == 0)
+					for(var _j = 0;_j<4;_j++)
+						map[(point - 1)][_j] = sz[_i];
+				else
+					map[(point - 1)][1] = sz[_i];
                 nonplace.push(point-1);
             }
         }
