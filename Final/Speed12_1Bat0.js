@@ -192,9 +192,15 @@ var main = function()
 	//extra_1to0()
 	//forward();
 	//pram1()
-	//left();
-	//right();
-	//while(1);
+	//left();
+	//right();
+	//turnForw(200);
+	turnDown(200);
+	while(1);
+	{
+		rotate(-90);
+		script.wait(500);
+	}
 	//_1to0();
 	x=1;
 	y=0;
@@ -265,9 +271,9 @@ function left()
 	_1 = s[1].read();
 	_2 = s[2].read();
 	if(_1>20)
-	{
-		turnForw(125);
-		rotate(-90);
+	{
+		turnForw(125);
+		rotate(-90);
 		turnDown(130);
 	}
 	else
@@ -354,9 +360,12 @@ function valSen()
 
 function stop()
 {
-    MR(0)
-    ML(0)
-    wait(75)
+    MR(2) 
+    ML(2)
+    wait(50)
+	MR(0) 
+    ML(0)
+    wait(50)
 }
 
 function findPath(stPoin,fnPoin)
@@ -683,56 +692,22 @@ function _1to0()
 	stop();
    
 }
-//
-function boom()
-{
-	ER.reset();
-    EL.reset();
-    erol = abs(ER.read());
-    elol = abs(EL.read());
-    sp=-50;
-	_start = 0;
-    while(_start<10)
-    {
-        erol = abs(ER.read());
-        elol = abs(EL.read());
-        err = (elol) - (erol);
-        P = err * 1.2;
-        I = (lerr + err) * 0.003;
-        D = (lerr - err) * 0;
-        mot = P+I+D;
-        MR(sp - mot);
-        ML(sp + mot);
-        lerr = err;
-        wait(10);
-    }
-    ML(90);
-    MR(90);
-    wait(2);
-	stop();
-}
 //
-function extraStop()
+function boom()
 {
-	ML(-80);
-	MR(-80);
-	wait(15);
-}
-
-function turnDown(_dist)
-{
-    ER.reset();
+	ER.reset();
     EL.reset();
     erol = abs(ER.read());
     elol = abs(EL.read());
     sp=-50;
-    while((erol+elol)/2<_dist)
+	_start = 0;
+    while(_start<10)
     {
         erol = abs(ER.read());
         elol = abs(EL.read());
-        err = (elol) - (erol) - 1;
-        P = err * 1.1;
-        I = (lerr + err) * 0;
+        err = (elol) - (erol);
+        P = err * 1.2;
+        I = (lerr + err) * 0.003;
         D = (lerr - err) * 0;
         mot = P+I+D;
         MR(sp - mot);
@@ -742,7 +717,41 @@ function turnDown(_dist)
     }
     ML(90);
     MR(90);
-    wait(10);
+    wait(2);
+	stop();
+}
+//
+function extraStop()
+{
+	ML(-50,false);
+	MR(-50,false);
+	wait(20);
+}
+
+function turnDown(_dist)
+{
+    ER.reset();
+    EL.reset();
+    erol = abs(ER.read());
+    elol = abs(EL.read());
+    sp=-20;
+    while((erol+elol)/2<_dist)
+    {
+        erol = abs(ER.read());
+        elol = abs(EL.read());
+        err = (elol) - (erol) - 1;
+        P = err * 1.1;
+        I = (lerr + err) * 0;
+        D = (lerr - err) * 0;
+        mot = P+I+D;
+        MR(sp - mot,false);
+        ML(sp + mot,false);
+        lerr = err;
+        wait(10);
+    }
+    ML(60,false);
+    MR(60,false);
+    wait(10);
 	stop();
 
 }
@@ -781,7 +790,7 @@ function pram1()
             }
         }
         else
-        {
+        {
 			extraStop();
             turnForw(50);
             sz[0]=s[0].read();
@@ -872,31 +881,31 @@ function rotate(_deg)
     var _err=0;
     var sgn=sign(_deg);
     if(sgn>0)
-        _rot=217
+        _rot=224
 	else
-		 _rot=218
+		 _rot=224
 	while((abs(leftEnc)+abs(rightEnc))/2<_rot)
 		{
 			rightEnc=ER.read()-erLast;
 			leftEnc=EL.read()-elLast;
 			_err=(abs(leftEnc)-abs(rightEnc));
-			ML((65-_err)*sgn);
-			MR((-65-_err)*sgn);
-			wait(10);
+			ML((25-_err)*sgn,false);
+			MR((-25-_err)*sgn,false);
+			wait(5);
 		}
-    ML((-5)*sgn);
-    MR((5)*sgn);
-    wait(10);
+    ML((-50)*sgn,false);
+    MR((50)*sgn,false);
+    wait(20);
     stop();
 }
 //
 function turnForw(_dist)
-{
+{
 	_dist += (trueLeft+trueRight)/2;
     erol = abs(ER.read());
     elol = abs(EL.read());
-    sp=60;
-    while((erol+elol)/2<_dist)
+    sp=20;
+    while((erol)<_dist)
     {
         erol = abs(ER.read());
         elol = abs(EL.read());
@@ -905,14 +914,15 @@ function turnForw(_dist)
         I = (lerr + err) * 0;
         D = (lerr - err) * 0;
         mot = P+I+D;
-        MR(sp - mot);
-        ML(sp + mot);
+        MR(sp - mot,false);
+        ML(sp + mot,false);
         lerr = err;
         wait(10);
-    }
-	trueLeft = EL.read();
+    }
+	trueLeft = EL.read();
 	trueRight = ER.read();
-    extraStop();
+    extraStop();
+	stop();
 
 }
 //
