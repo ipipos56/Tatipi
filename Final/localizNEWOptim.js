@@ -92,7 +92,7 @@ var main = function()
 	while(pa)
 	{
 		pa = false;
-		var info = [map[point][0],map[point][1],map[point][2],map[point][3]];
+		var info = [map[point-h],map[point+1],map[point+h],map[point-1]];
 		for(i = 0;i<3;i++)
 		{
 			print(sz[0]+" "+sz[1]+" "+sz[2]);
@@ -868,43 +868,48 @@ rotcont = 1;
 
 function newInfo()
 {
-    valSen();
+    //valSen();
     //print(sz[0]+" "+sz[1]+" "+sz[2]);
     for(var _i = 0; _i < 3; _i++)
     {
         var curre = (rot + _i - 1);
         //print(curre);
-        curre = cuboid(curre);
-        map[point][curre] = sz[_i];
+        curre = cuboid(curre);
+		for(var _j = 0;_j<4;_j++)
+			map[point][_j] = sz[_i];
         if(curre == 0)
         {
             if(map[(point - h)][2] == -1 && sz[_i] == 1)
-            {
-                map[(point - h)][2] = sz[_i];
+            {
+				for(var _j = 0;_j<4;_j++)
+					map[(point - h)][_j] = sz[_i];
                 nonplace.push(point-h);
             }
         }
         else if(curre == 1)
         {
             if(map[(point + 1)][3] == -1 && sz[_i] == 1)
-            {
-                map[(point + 1)][3] = sz[_i];
+            {
+				for(var _j = 0;_j<4;_j++)
+					map[(point + 1)][_j] = sz[_i];
                 nonplace.push(point+1);
             }
         }
         else if(curre == 2)
         {
             if(map[(point+ h)][0] == -1 && sz[_i] == 1)
-            {
-                map[(point + h)][0] = sz[_i];
+            {
+				for(var _j = 0;_j<4;_j++)
+					map[(point + h)][_j] = sz[_i];
                 nonplace.push(point+h);
             }
         }
         else if(curre == 3)
         {
             if(map[(point - 1)][1] == -1 && sz[_i] == 1)
-            {
-                map[(point - 1)][1] = sz[_i];
+            {
+				for(var _j = 0;_j<4;_j++)
+					map[(point - 1)][_j] = sz[_i];
                 nonplace.push(point-1);
             }
         }
