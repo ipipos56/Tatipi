@@ -146,6 +146,32 @@ function turnForw(_dist)
 }
 //
 
+function doWhall()
+{
+    sp=40;
+    _s1=s[1].read();
+	ER.reset();
+	EL.reset();
+	lerr=0;
+    while(_s1>7)
+    {
+        _s1=s[1].read();
+        erol = abs(ER.read());
+        elol = abs(EL.read());
+        err = (erol) - (elol) - 0;
+        P = err * 1.2;
+        I = (lerr + err) * 0;
+        D = (lerr - err) * 0;
+        mot = P+I+D;
+        MR(sp - mot);
+        ML(sp + mot);
+        lerr = err;
+        wait(15);
+    }
+	extraStop();
+	stop();
+}
+
 /*function robot()
 {
 	if(trick)
@@ -208,7 +234,8 @@ var main = function()
 {
 	//ML(5,true);
 	//MR(5,true);
-	forward();
+	//forward();
+	doWhall();
 	while(1);
 	{
 		script.wait(10);
