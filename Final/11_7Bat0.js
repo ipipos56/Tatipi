@@ -251,30 +251,30 @@ function findPath(stPoin,fnPoin)
 spST = 47;
 spFN = 70;
 lerr = 0;
-
-function doWhall()
-{
-	sp=60;
-	sens=s[1].read();
-	while(sens>7)
-	{
-		sens=s[1].read();
-		erol = abs(ER.read());
-		elol = abs(EL.read());
-		err = (erol) - (elol) - 0;
-		P = err * 3;
-		I = (lerr + err) * 0;
-		D = (lerr - err) * 1.5;
-		mot = P+I+D;
-		MR(sp - mot);
-		ML(sp + mot);
-		lerr = err;
-		wait(35);
-	}
-	ML(-5);
-	MR(-5);
-	wait(50);	
-}
+
+function doWhall()
+{
+	sp=60;
+	sens=s[1].read();
+	while(sens>7)
+	{
+		sens=s[1].read();
+		erol = abs(ER.read());
+		elol = abs(EL.read());
+		err = (erol) - (elol) - 0;
+		P = err * 3;
+		I = (lerr + err) * 0;
+		D = (lerr - err) * 1.5;
+		mot = P+I+D;
+		MR(sp - mot);
+		ML(sp + mot);
+		lerr = err;
+		wait(35);
+	}
+	ML(-5);
+	MR(-5);
+	wait(50);	
+}
 
 function _1to0()
 {
@@ -322,7 +322,7 @@ function _1to0()
 			erol = abs(ER.read());
 			elol = abs(EL.read());
 			err = rasu - s[0].read();
-			while((erol+elol)/2<463)
+			while((erol+elol)/2<463)
 			while((erol+elol)/2<463)
 			{
 				err = rasu - s[0].read();
@@ -401,7 +401,7 @@ function pram1()
 			D = (lerr - err) * 1.5;
 			mot = P+I+D;
 			MR(sp - mot);
-			ML(sp + mot);
+			ML(sp + mot);
 			
 			if((463-Math.floor((trueLeft+trueRight)/2))<=0)
 			{

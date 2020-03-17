@@ -419,16 +419,16 @@ iA = 0, jA = 0, iB = 0, jB = 0, iC = 0, jC = 0, iD = 0, jD = 0;
 
 function getData(num)
 {
-	var raw = script.readAll("input.txt");
+	var raw = getPhoto();//script.readAll("input.txt");
 	var mn;
-	raw = raw[0].split(" ");
+	//raw = raw[0].split(" ");
     for (i = 0; i < height; ++i)
     {
         image[i] = [];
         for (j = 0; j < width; ++j)
         {
             color = raw[i * width + j];
-            color='0x'+color;
+            //color='0x'+color;
             image[i][j] = ((color & 0xff0000) >> 18) + ((color & 0xff00) >> 10) + ((color & 0xff)>>2);
         }
     }
@@ -785,8 +785,12 @@ function findPoint()
 			itd++;
 		}
 		itd++;
-	}
-	//print(values)
+	}
+	print("val")
+	for(lo=0;lo<7;lo++)
+	print(values[lo])
+	print(" ");
+	
 /*	
 	
 	image[AM[0]][AM[1]]=6

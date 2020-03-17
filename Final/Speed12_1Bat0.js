@@ -1,4 +1,4 @@
-var __interpretation_started_timestamp__;
+var __interpretation_started_timestamp__; 
 pi = 3.141592653589793;
 wait = script.wait;
 sign = function(n)
@@ -187,11 +187,17 @@ function localiz()
 
 
 var main = function()
-{
-	
-	extra_1to0()
-	while(1);
+{
+	
+	//extra_1to0()
+	//forward();
+	//pram1()
+	//left();
+	//right();
+	//while(1);
 	//_1to0();
+	x=1;
+	y=0;
 	print("_______________________________");
 	print("");
 	print("");
@@ -257,17 +263,18 @@ function left()
 	valSen();
 	newInfo();
 	_1 = s[1].read();
-	if(_1>26)
-	{
-		turnForw(130);
-		rotate(-90);
-		turnDown(140);
+	_2 = s[2].read();
+	if(_1>20)
+	{
+		turnForw(125);
+		rotate(-90);
+		turnDown(130);
 	}
 	else
 	{
 		doWhall();
 		rotate(-90);
-		turnDown(140);
+		turnDown(130);
 	}
 	rot-=1;
 	rot = cuboid(rot);
@@ -280,15 +287,15 @@ function right()
 	_1 = s[1].read();
 	if(_1>20)
 	{
-		turnForw(130);
+		turnForw(90);
 		rotate(90);
-		turnDown(135);
+		turnDown(130);
 	}
 	else
 	{
 		doWhall();
 		rotate(90);
-		turnDown(135);
+		turnDown(130);
 	}
 	rot+=1;
 	rot = cuboid(rot);
@@ -323,11 +330,23 @@ function valSen()
 {
     for(var _i = 0; _i<3; _i++)
     {
-        sz[_i] = s[_i].read();
-        if(sz[_i] > 20)
-            sz[_i] = 1;
-        else
-            sz[_i] = 0;
+		if(_i==0||_i==2)
+		{
+			sz[_i] = s[_i].read();
+			if(sz[_i] > 20)
+				sz[_i] = 1;
+			else
+				sz[_i] = 0;
+		}
+		else
+		{
+			sz[_i] = s[_i].read();
+			if(sz[_i] > 21)
+				sz[_i] = 1;
+			else
+				sz[_i] = 0;
+		}
+			
     }
 
 }
@@ -456,24 +475,22 @@ function doWhall()
 {
     sp=60;
     sens=s[1].read();
-    while(sens>7)
+    while(sens>9)
     {
         sens=s[1].read();
         erol = abs(ER.read());
         elol = abs(EL.read());
         err = (erol) - (elol) - 0;
-        P = err * 2.5;
+        P = err * 1.2;
         I = (lerr + err) * 0;
-        D = (lerr - err) * 1.5;
+        D = (lerr - err) * 0;
         mot = P+I+D;
         MR(sp - mot);
         ML(sp + mot);
         lerr = err;
-        wait(30);
+        wait(10);
     }
-    ML(-10);
-    MR(-10);
-    wait(50);
+   extraStop();
 }
 //
 
@@ -483,27 +500,28 @@ function extra_1to0()
 {
     EL.reset();
     ER.reset();
-    sp=70;
+    sp=65;
     flag = 1;
     trueLeft=0;
     trueRight=0;
 	_2=s[2].read();
     while(flag==1)
     {
-        trueLeft += EL.read();
-        trueRight += ER.read();
-        err = _2 - s[2].read();
+        trueLeft = EL.read();
+        trueRight = ER.read();
+        err = 12 - s[2].read();
         if(s[2].read()>4&&s[2].read()<=20)
         {
-            P = err * 3;
-            I = (lerr + err) * 0;
-            D = (lerr - err) * 10;
+            P = err * 2.5;
+            I = (lerr + err) * 0.0021;
+            D = (lerr - err) * 1.5;
             mot = P+I+D;
             MR(sp + mot);
             ML(sp - mot);
 			lerr=err;
-            if((475-Math.floor((trueLeft+trueRight)/2))<=0)
+            if((610-(trueLeft+trueRight)/2)<=0)
             {
+				extraStop()
                 stop();
                 valSen()
                 //print(sz[0]+" "+sz[1]+" "+sz[2]);
@@ -512,11 +530,8 @@ function extra_1to0()
         }
         else
         {
-            MR(-4);
-            ML(-4);
-            wait(200);
-            stop();
-            turnForw(60);
+            extraStop()
+            turnForw(50);
             sz[2]=s[2].read();
             if(sz[2] > 20)
                 sz[2] = 1;
@@ -530,10 +545,10 @@ function extra_1to0()
                 sz[0] = 0;
             if(sz[0]==1)
             {
-                turnForw(330);
+                turnForw(240);
                 stop();
                 sz[1]=s[1].read();
-                if(sz[1] > 20)
+                if(sz[1] > 25)
                     sz[1] = 1;
                 else
                     sz[1] = 0;
@@ -545,26 +560,26 @@ function extra_1to0()
                 erol = abs(ER.read());
                 elol = abs(EL.read());
                 __0=s[0].read();
-                while((erol+elol)/2<325)
+                while((erol+elol)/2<240)
                 {
                     erol = abs(ER.read());
                     elol = abs(EL.read());
-                    err = __0 - s[0].read();
+                    err = 12 - s[0].read();
                     P = err * 2.5;
-                    I = (lerr + err) * 0.01;
+                    I = (lerr + err) * 0.0021;
                     D = (lerr - err) * 1.5;
                     mot = P+I+D;
                     MR(sp - mot);
                     ML(sp + mot);
                     lerr = err
-                           wait(40);
+                    wait(20);
                 }
-                MR(-4);
-                ML(-4);
-                wait(200);
+                MR(-25);
+                ML(-25);
+                wait(100);
                 stop();
                 sz[1]=s[1].read();
-                if(sz[1] > 20)
+                if(sz[1] > 25)
                     sz[1] = 1;
                 else
                     sz[1] = 0;
@@ -572,8 +587,6 @@ function extra_1to0()
             }
             flag=0;
         }
-        EL.reset();
-        ER.reset();
         wait(50);
     }
     stop();
@@ -583,28 +596,28 @@ function _1to0()
 {
     EL.reset();
     ER.reset();
-    sp=70;
+    sp=60;
     flag = 1;
     trueLeft=0;
     trueRight=0;
 	while(flag==1)
 	{
-		trueLeft += EL.read();
-		trueRight += ER.read();
-		err = 13 - s[0].read();
-		if(s[0].read()>20&&s[2].read()>20)
+		trueLeft = EL.read();
+		trueRight = ER.read();
+		err = 12 - s[0].read();
+		if(s[0].read()>18&&s[2].read()>18)
 		{
 			erol = abs(ER.read());
 			elol = abs(EL.read());
 			err = (erol) - (elol) ;
-			P = err * 1.5;
-			I = (lerr + err) * 0;
-			D = (lerr - err) * 0.8;
+			P = err * 1.1;
+			I = (lerr + err) * 0.0021;
+			D = (lerr - err) * 0;
 			mot = P+I+D;
 			MR(sp - mot);
 			ML(sp + mot);
 			lerr = err;
-			if((475-Math.floor((trueLeft+trueRight)/2))<=0)
+			if((610-Math.floor((trueLeft+trueRight)/2))<=0)
 			{
 				stop();
 				valSen()
@@ -614,11 +627,9 @@ function _1to0()
 		}
 		else
 		{
-			MR(-5);
-			ML(-5);
-			wait(200);
+			extraStop();
 			stop();
-			turnForw(135);
+			turnForw(80);
 			stop();
 			ER.reset();
 			EL.reset();
@@ -629,54 +640,85 @@ function _1to0()
 			_2 = s[2].read();
 			if(_0<=25)
 			{
-				while((erol+elol)/2<400)
+				while((erol+elol)/2<340)
 				{
-					err = 13 - s[0].read();
+					err = 12 - s[0].read();
 					erol = abs(ER.read());
 					elol = abs(EL.read());
-					P = err * 2;
-					I = (lerr + err) * 0;
-					D = (lerr - err) * 5;
+					P = err * 2.5;
+					I = (lerr + err) * 0.0021;
+					D = (lerr - err) * 1.3;
 					mot = P+I+D;
 					MR(sp - mot);
 					ML(sp + mot);
 					lerr=err;
-					wait(50);
+					wait(10);
 				}
 			}
 			else if(_2<=25)
 			{
-				while((erol+elol)/2<400)
+				while((erol+elol)/2<340)
 				{
-					err = 13 - s[2].read();
+					err = 12 - s[2].read();
 					erol = abs(ER.read());
 					elol = abs(EL.read());
-					P = err * 3;
-					I = (lerr + err) * 0;
-					D = (lerr - err) * 1.5;
+					P = err * 2.5;
+					I = (lerr + err) * 0.0021;
+					D = (lerr - err) * 1.3;
 					mot = P+I+D;
 					MR(sp + mot);
 					ML(sp - mot);
 					lerr=err;
-					wait(50);
+					wait(10);
 				}
 			}
-			MR(-4);
-			ML(-4);
-			wait(200);
+			extraStop();
 			valSen()
 			//print(sz[0]+" "+sz[1]+" "+sz[2]);
 			stop();
 			flag=0;
 		}
-		EL.reset();
-		ER.reset();
-		wait(50);
+		wait(10);
 	}
 	stop();
    
 }
+//
+function boom()
+{
+	ER.reset();
+    EL.reset();
+    erol = abs(ER.read());
+    elol = abs(EL.read());
+    sp=-50;
+	_start = 0;
+    while(_start<10)
+    {
+        erol = abs(ER.read());
+        elol = abs(EL.read());
+        err = (elol) - (erol);
+        P = err * 1.2;
+        I = (lerr + err) * 0.003;
+        D = (lerr - err) * 0;
+        mot = P+I+D;
+        MR(sp - mot);
+        ML(sp + mot);
+        lerr = err;
+        wait(10);
+    }
+    ML(90);
+    MR(90);
+    wait(2);
+	stop();
+}
 //
+function extraStop()
+{
+	ML(-80);
+	MR(-80);
+	wait(15);
+}
+
 function turnDown(_dist)
 {
     ER.reset();
@@ -689,18 +731,19 @@ function turnDown(_dist)
         erol = abs(ER.read());
         elol = abs(EL.read());
         err = (elol) - (erol) - 1;
-        P = err * 1.5;
+        P = err * 1.1;
         I = (lerr + err) * 0;
-        D = (lerr - err) * 0.8;
+        D = (lerr - err) * 0;
         mot = P+I+D;
         MR(sp - mot);
         ML(sp + mot);
         lerr = err;
         wait(10);
     }
-    ML(8);
-    MR(8);
-    wait(100);
+    ML(90);
+    MR(90);
+    wait(10);
+	stop();
 
 }
 //
@@ -710,26 +753,27 @@ function pram1()
 {
     EL.reset();
     ER.reset();
-    sp=75;
+    sp=65;
     flag = 1;
     trueLeft=0;
     trueRight=0;
     while(flag==1)
     {
-        trueLeft += EL.read();
-        trueRight += ER.read();
-        err = 13 - s[0].read();
-        if(s[0].read()>6&&s[0].read()<=20)
+        trueLeft = EL.read();
+        trueRight = ER.read();
+        err = 12 - s[0].read();
+        if(s[0].read()>6&&s[0].read()<=18)
         {
-            P = err * 2;
+            P = err * 2.1;
             I = (lerr + err) * 0;
-            D = (lerr - err) * 0.8;
+            D = (lerr - err) * 1.2;
             mot = P+I+D;
             MR(sp - mot);
             ML(sp + mot);
 			lerr = err;
-            if((475-Math.floor((trueLeft+trueRight)/2))<=0)
+            if((610-Math.floor((trueLeft+trueRight)/2))<=0)
             {
+				extraStop()
                 stop();
                 valSen()
                 //print(sz[0]+" "+sz[1]+" "+sz[2]);
@@ -737,12 +781,9 @@ function pram1()
             }
         }
         else
-        {
-            MR(-4);
-            ML(-4);
-            wait(200);
-            stop();
-            turnForw(60);
+        {
+			extraStop();
+            turnForw(50);
             sz[0]=s[0].read();
             if(sz[0] > 20)
                 sz[0] = 1;
@@ -757,10 +798,10 @@ function pram1()
             if(sz[2]==1)
             {
 				print("sz[0] "+sz[0])
-                turnForw(330);
+                turnForw(240);
                 stop();
                 sz[1]=s[1].read();
-                if(sz[1] > 20)
+                if(sz[1] > 25)
                     sz[1] = 1;
                 else
                     sz[1] = 0;
@@ -777,26 +818,24 @@ function pram1()
                 erol = abs(ER.read());
                 elol = abs(EL.read());
 				sp=65;
-                while((erol+elol)/2<330)
+                while((erol+elol)/2<220)
                 {
                     erol = abs(ER.read());
                     elol = abs(EL.read());
-                    err = 13 - s[2].read();
-                    P = err * 2.5;
+                    err = 12 - s[2].read();
+                    P = err * 2.1;
                     I = (lerr + err) * 0;
-                    D = (lerr - err) * 1.5;
+                    D = (lerr - err) * 1.1;
                     mot = P+I+D;
                     MR(sp + mot);
                     ML(sp - mot);
                     lerr = err
-                    script.wait(30);
+                    script.wait(10);
                 }
-                MR(-8);
-                ML(-8);
-                wait(200);
+                extraStop()
                 stop();
                 sz[1]=s[1].read();
-                if(sz[1] > 20)
+                if(sz[1] > 25)
                     sz[1] = 1;
                 else
                     sz[1] = 0;
@@ -815,9 +854,7 @@ function pram1()
             }
             flag=0;
         }
-        EL.reset();
-        ER.reset();
-        wait(50);
+        wait(10);
     }
     stop();
 }
@@ -835,9 +872,9 @@ function rotate(_deg)
     var _err=0;
     var sgn=sign(_deg);
     if(sgn>0)
-        _rot=223
+        _rot=217
 	else
-		 _rot=221
+		 _rot=218
 	while((abs(leftEnc)+abs(rightEnc))/2<_rot)
 		{
 			rightEnc=ER.read()-erLast;
@@ -847,16 +884,15 @@ function rotate(_deg)
 			MR((-65-_err)*sgn);
 			wait(10);
 		}
-    ML((-25)*sgn);
-    MR((25)*sgn);
-    wait(100);
+    ML((-5)*sgn);
+    MR((5)*sgn);
+    wait(10);
     stop();
 }
 //
 function turnForw(_dist)
-{
-    ER.reset();
-    EL.reset();
+{
+	_dist += (trueLeft+trueRight)/2;
     erol = abs(ER.read());
     elol = abs(EL.read());
     sp=60;
@@ -865,18 +901,18 @@ function turnForw(_dist)
         erol = abs(ER.read());
         elol = abs(EL.read());
         err = (erol) - (elol) - 0;
-        P = err * 1.5;
+        P = err * 1.2;
         I = (lerr + err) * 0;
-        D = (lerr - err) * 0.7;
+        D = (lerr - err) * 0;
         mot = P+I+D;
         MR(sp - mot);
         ML(sp + mot);
         lerr = err;
         wait(10);
-    }
-    ML(-8);
-    MR(-8);
-    wait(75);
+    }
+	trueLeft = EL.read();
+	trueRight = ER.read();
+    extraStop();
 
 }
 //
