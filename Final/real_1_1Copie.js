@@ -271,14 +271,14 @@ MR_REQUIRED=0;
 
 function Left_()
 {
-	turnForw(150);
+	turnForw(140);
 	rotate(-90);
 	turnDown(140);
 }
 //
 function Right_()
 {
-	turnForw(150);
+	turnForw(140);
 	rotate(90);
 	turnDown(140);
 }
