@@ -62,7 +62,7 @@ function motors(_ml,_mr)
 function forward(_path_deg)
 {
 	path_sm=42;
-	var path_deg = 580;//path_sm * 240/(8.2*pi);
+	var path_deg = 590;//path_sm * 240/(8.2*pi);
 	EL.reset();
 	ER.reset();
 	lLast = EL.read();
@@ -82,15 +82,17 @@ function forward(_path_deg)
 		curL=abs(EL.read());
 		curR=abs(ER.read());
 		err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.3)*1.2
+		_s0 = s[0].read();
+		_s2 = s[2].read();
 		if(bortnum==0)
 		{
-			s0=13.4;
-			s2=13.6;
+			s0=14;
+			s2=14;
 		}
 		else
 		{
-			s0=13.4;
-			s2=13.6;
+			s0=14;
+			s2=14;
 		}
 		if(_s0<20)
 		{
@@ -99,7 +101,7 @@ function forward(_path_deg)
 			err_sensor2=err_sensor1;
 			err_sensor1=s0-s[0].read();
 			err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
-			motors(speed+err+err_sensor*2,speed-err-err_sensor*2)
+			motors(speed+err+err_sensor*2.5,speed-err-err_sensor*2.5)
 			
 		}
 		else
@@ -112,7 +114,7 @@ function forward(_path_deg)
 				err_sensor2=err_sensor1;
 				err_sensor1=s2-s[2].read();
 				err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
-				motors(speed+err-err_sensor*2,speed-err+err_sensor*2)	
+				motors(speed+err-err_sensor*2.5,speed-err+err_sensor*2.5)	
 			}
 			else
 			{
@@ -269,16 +271,16 @@ MR_REQUIRED=0;
 
 function Left_()
 {
-	turnForw(140);
+	turnForw(150);
 	rotate(-90);
-	turnDown(135);
+	turnDown(140);
 }
 //
 function Right_()
 {
-	turnForw(140);
+	turnForw(150);
 	rotate(90);
-	turnDown(135);
+	turnDown(140);
 }
 EL_OLD=0;
 ER_OLD=0;
@@ -672,7 +674,7 @@ function rotate(_deg)
 var main = function()
 {
 	
-	raw = "3 3 3 2 2 3 3 3 1 1 2";
+	raw = "3 3 3 2 3 3 2 3 3 1 3 3 3 3 3 2 3 3 3 1 1";
 	raw = raw.split(" ");
 	
 	for(var i = 0;i<raw.length;i++)
@@ -689,10 +691,10 @@ var main = function()
 					i++;
 				}
 				else
-					rotate(90);
+					Right_();
 			}
 			else
-				rotate(90);
+				Right_();
 		}
 		else if(raw[i] == '1')
 		{
@@ -704,10 +706,10 @@ var main = function()
 					i++;		
 				}
 				else
-					rotate(-90);
+					Left_();
 			}
 			else
-				rotate(-90);
+				Left_();
 		}
 	}
 	
