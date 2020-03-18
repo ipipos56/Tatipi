@@ -81,25 +81,23 @@ function forward(_path_deg)
 	{
 		curL=abs(EL.read());
 		curR=abs(ER.read());
-		err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.3)*1.2
-		_s0=s[0].read();
-		_s2=s[2].read();
+		err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.3)*1.2
 		if(bortnum==0)
 		{
-			_s0=13.4;
-			_s2=13.6;
+			s0=13.4;
+			s2=13.6;
 		}
 		else
 		{
-			_s0=13.4;
-			_s2=13.6;
+			s0=13.4;
+			s2=13.6;
 		}
 		if(_s0<20)
 		{
 			err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.3)*1.2
 			err_sensor3=err_sensor2;
 			err_sensor2=err_sensor1;
-			err_sensor1=_s0-s[0].read();
+			err_sensor1=s0-s[0].read();
 			err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
 			motors(speed+err+err_sensor*2,speed-err-err_sensor*2)
 			
@@ -112,7 +110,7 @@ function forward(_path_deg)
 				err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.3)*1.2
 				err_sensor3=err_sensor2;
 				err_sensor2=err_sensor1;
-				err_sensor1=_s2-s[2].read();
+				err_sensor1=s2-s[2].read();
 				err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
 				motors(speed+err-err_sensor*2,speed-err+err_sensor*2)	
 			}
