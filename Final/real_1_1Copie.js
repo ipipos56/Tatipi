@@ -67,7 +67,7 @@ function forward(_path_deg)
 	ER.reset();
 	lLast = EL.read();
 	rLast = ER.read();
-	var speed=25;
+	var speed=27;
 	var err_sensor=0;
 	var err_sensor1=0
 	var err_sensor2=0
@@ -81,40 +81,40 @@ function forward(_path_deg)
 	{
 		curL=abs(EL.read());
 		curR=abs(ER.read());
-		err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.3)*1.2
+		err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.5)*1.2
 		_s0 = s[0].read();
 		_s2 = s[2].read();
 		if(bortnum==0)
 		{
-			s0=14;
-			s2=14;
+			s0=15;
+			s2=15;
 		}
 		else
 		{
-			s0=14;
-			s2=14;
+			s0=15;
+			s2=15;
 		}
-		if(_s0<20)
+		if(_s0<22)
 		{
-			err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.3)*1.2
+			err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.5)*1.2
 			err_sensor3=err_sensor2;
 			err_sensor2=err_sensor1;
 			err_sensor1=s0-s[0].read();
 			err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
-			motors(speed+err+err_sensor*2.5,speed-err-err_sensor*2.5)
+			motors(speed+err/2+err_sensor*2.2,speed-err/2-err_sensor*2.2)
 			
 		}
 		else
 		{
 			_s2=s[2].read();
-			if(_s2<20)
+			if(_s2<22)
 			{
-				err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.3)*1.2
+				err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.5)*1.2
 				err_sensor3=err_sensor2;
 				err_sensor2=err_sensor1;
 				err_sensor1=s2-s[2].read();
 				err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
-				motors(speed+err-err_sensor*2.5,speed-err+err_sensor*2.5)	
+				motors(speed+err/2-err_sensor*2.2,speed-err/2+err_sensor*2.2)	
 			}
 			else
 			{
@@ -136,7 +136,7 @@ function valSen()
 		if(_i==0||_i==2)
 		{
 			sz[_i] = s[_i].read();
-			if(sz[_i] > 24)
+			if(sz[_i] > 20)
 				sz[_i] = 1;
 			else
 				sz[_i] = 0;
@@ -271,14 +271,14 @@ MR_REQUIRED=0;
 
 function Left_()
 {
-	turnForw(140);
+	turnForw(145);
 	rotate(-90);
 	turnDown(140);
 }
 //
 function Right_()
 {
-	turnForw(140);
+	turnForw(145);
 	rotate(90);
 	turnDown(140);
 }
@@ -517,7 +517,7 @@ function robotRotation(_r)
 				stop();
 				turnDown(100);
 				wait(100);
-				left(470,-468)
+				left(469,-468)
 				_dist=150;
 				ER.reset();
 				EL.reset();
@@ -551,7 +551,7 @@ function robotRotation(_r)
 			else
 			{
 				turnForw(120);
-				left(470,-468);
+				left(469,-468);
 				turnDown(125);
 			}
 		break;
@@ -590,7 +590,7 @@ function robotRotation(_r)
 				stop();
 				turnDown(100);
 				wait(100);
-				left(-468,470)
+				right(-468,469)
 				_dist=150;
 				ER.reset();
 				EL.reset();
@@ -624,7 +624,7 @@ function robotRotation(_r)
 			else
 			{
 				turnForw(120);
-				left(-468,470);
+				right(-468,469);
 				turnDown(125);
 			}
 		break;
@@ -656,17 +656,17 @@ function rotate(_deg)
     var sgn=sign(_deg);
 	if(bortnum==0)
 	{
-		if(sgn>0)
-			_rot=224
-		else
-			 _rot=224
+		if(sgn>0)
+			right(-236,237)
+		else
+			 left(237,-236)
 	}
 	else
 	{
 		if(sgn>0)
-			right(-234,235)
+			right(-236,237)
 		else
-			 left(234,-233)
+			 left(237,-236)
 	}
 }
 //
@@ -674,7 +674,7 @@ function rotate(_deg)
 var main = function()
 {
 	
-	raw = "3 3 3 2 3 3 2 3 3 1 3 3 3 3 3 2 3 3 3 1 1";
+	raw = "1 1";
 	raw = raw.split(" ");
 	
 	for(var i = 0;i<raw.length;i++)
