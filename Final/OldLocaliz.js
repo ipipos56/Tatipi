@@ -27,9 +27,9 @@ var code;
 
 
 s = new Array(3);
-s[0] = brick.sensor(A3);
-s[1] = brick.sensor(A1);
-s[2] = brick.sensor(A2);
+s[0] = brick.sensor(A2);
+s[1] = brick.sensor(D1);
+s[2] = brick.sensor(A1);
 
 sz = [0,0,0];
 
@@ -77,12 +77,15 @@ var main = function()
     print(x+" "+y);
 	*/
 	
-	x = 2;
-	y = 7;
-	
-	xmax = 0;
-	ymax = 0;
-	xmin = 0;
+	var raw = script.readAll("input.txt");
+	var texp = raw[1].split(" ");
+	
+	x = texp[0];
+	y = texp[1];
+	
+	xmax = 0;
+	ymax = 0;
+	xmin = 0;
 	ymin = 0;
 	
 	ER.reset()
