@@ -469,78 +469,156 @@ function left(_ML_FINISH,_MR_FINISH){
 //
 
 
-function robotRotation()
+function robotRotation(_r)
 {
-	var doupor=false;
-	if(s[1].read()<23)
-		doupor=true;
-	//turnForw(140);
-	if(doupor==1)
+	switch(_r)
 	{
-		ER.reset();
-		EL.reset();
-		erol = abs(ER.read());
-		elol = abs(EL.read());
-		_dist=120;
-		lerr=0;
-		sp=25;
-		while((erol+elol)/2<_dist)
-		{
-			erol = abs(ER.read());
-			elol = abs(EL.read());
-			err = (erol) - (elol) - 0;
-			P = err * 1.2;
-			I = (lerr + err) * 0;
-			D = (lerr - err) * 0;
-			mot = P+I+D;
-			MR(sp - mot,false);
-			ML(sp + mot,false);
-			lerr = err;
-			wait(10);
-		}
-		MR(sp,false);
-		ML(sp,false);
-		script.wait(800);
-		extraStop();
-		stop();
-		turnDown(100);
-		wait(100);
-		left(470,-468)
-		_dist=150;
-		ER.reset();
-		EL.reset();
-		erol = abs(ER.read());
-		elol = abs(EL.read());
-		lerr=0;
-		sp=-25;
-		while((erol+elol)/2<_dist)
-		{
-			erol = abs(ER.read());
-			elol = abs(EL.read());
-			err = (elol) - (erol) - 1;
-			P = err * 1.1;
-			I = (lerr + err) * 0;
-			D = (lerr - err) * 0;
-			mot = P+I+D;
-			MR(sp - mot,false);
-			ML(sp + mot,false);
-			lerr = err;
-			wait(10);
-		}
-		ML(sp,false);
-		MR(sp,false);
-		script.wait(650);
-		ML(30,false);
-		MR(30,false);
-		wait(20);
-		stop();
-		turnForw(60);
-	}
-	else
-	{
-		turnForw(120);
-		left(470,-468);
-		turnDown(125);
+		case 0:
+			var doupor=false;
+			if(s[1].read()<23)
+				doupor=true;
+			//turnForw(140);
+			if(doupor==1)
+			{
+				ER.reset();
+				EL.reset();
+				erol = abs(ER.read());
+				elol = abs(EL.read());
+				_dist=120;
+				lerr=0;
+				sp=25;
+				while((erol+elol)/2<_dist)
+				{
+					erol = abs(ER.read());
+					elol = abs(EL.read());
+					err = (erol) - (elol) - 0;
+					P = err * 1.2;
+					I = (lerr + err) * 0;
+					D = (lerr - err) * 0;
+					mot = P+I+D;
+					MR(sp - mot,false);
+					ML(sp + mot,false);
+					lerr = err;
+					wait(10);
+				}
+				MR(sp,false);
+				ML(sp,false);
+				script.wait(800);
+				extraStop();
+				stop();
+				turnDown(100);
+				wait(100);
+				left(470,-468)
+				_dist=150;
+				ER.reset();
+				EL.reset();
+				erol = abs(ER.read());
+				elol = abs(EL.read());
+				lerr=0;
+				sp=-25;
+				while((erol+elol)/2<_dist)
+				{
+					erol = abs(ER.read());
+					elol = abs(EL.read());
+					err = (elol) - (erol) - 1;
+					P = err * 1.1;
+					I = (lerr + err) * 0;
+					D = (lerr - err) * 0;
+					mot = P+I+D;
+					MR(sp - mot,false);
+					ML(sp + mot,false);
+					lerr = err;
+					wait(10);
+				}
+				ML(sp,false);
+				MR(sp,false);
+				script.wait(650);
+				ML(30,false);
+				MR(30,false);
+				wait(20);
+				stop();
+				turnForw(60);
+			}
+			else
+			{
+				turnForw(120);
+				left(470,-468);
+				turnDown(125);
+			}
+		break;
+		case 1:
+			var doupor=false;
+			if(s[1].read()<23)
+				doupor=true;
+			//turnForw(140);
+			if(doupor==1)
+			{
+				ER.reset();
+				EL.reset();
+				erol = abs(ER.read());
+				elol = abs(EL.read());
+				_dist=120;
+				lerr=0;
+				sp=25;
+				while((erol+elol)/2<_dist)
+				{
+					erol = abs(ER.read());
+					elol = abs(EL.read());
+					err = (erol) - (elol) - 0;
+					P = err * 1.2;
+					I = (lerr + err) * 0;
+					D = (lerr - err) * 0;
+					mot = P+I+D;
+					MR(sp - mot,false);
+					ML(sp + mot,false);
+					lerr = err;
+					wait(10);
+				}
+				MR(sp,false);
+				ML(sp,false);
+				script.wait(800);
+				extraStop();
+				stop();
+				turnDown(100);
+				wait(100);
+				left(-468,470)
+				_dist=150;
+				ER.reset();
+				EL.reset();
+				erol = abs(ER.read());
+				elol = abs(EL.read());
+				lerr=0;
+				sp=-25;
+				while((erol+elol)/2<_dist)
+				{
+					erol = abs(ER.read());
+					elol = abs(EL.read());
+					err = (elol) - (erol) - 1;
+					P = err * 1.1;
+					I = (lerr + err) * 0;
+					D = (lerr - err) * 0;
+					mot = P+I+D;
+					MR(sp - mot,false);
+					ML(sp + mot,false);
+					lerr = err;
+					wait(10);
+				}
+				ML(sp,false);
+				MR(sp,false);
+				script.wait(650);
+				ML(30,false);
+				MR(30,false);
+				wait(20);
+				stop();
+				turnForw(60);
+			}
+			else
+			{
+				turnForw(120);
+				left(-468,470);
+				turnDown(125);
+			}
+		break;
 	}
 }
 //
@@ -588,7 +666,7 @@ var main = function()
 {
 	//ML(5,true);
 	//MR(5,true);
-	robotRotation();
+	robotRotation(1);
 	//Right_();
 	//right();
 	//rotate(90);
