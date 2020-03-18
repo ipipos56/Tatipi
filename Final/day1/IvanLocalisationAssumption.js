@@ -170,6 +170,39 @@ var main = function()
 			minx=min(minx,xpos);
 			miny=min(miny,ypos);
 			
+			movementStep();
+			
+			
+			maxx=max(maxx,xpos);
+			maxy=max(maxy,ypos);
+			minx=min(minx,xpos);
+			miny=min(miny,ypos);
+		}
+		err=false
+		
+		xfin=28;
+		yfin=28;
+	}
+	
+	xfin=xfinpre+minx
+	yfin=yfinpre+miny
+	
+	calculatePath();
+	while(!(xpos==xfin&&ypos==yfin)){
+		movementStep();
+	}
+	
+	
+	
+	
+    brick.display().addLabel("finish",1,1) //вывод ответа
+    brick.display().redraw()
+    script.wait(10000)
+
+    return;
+}
+function movementStep(){
+	
 			valMap();
 			print((maxx-minx)+" "+(maxy-miny))
 			//printMapPaint(mapPaint)
@@ -287,26 +320,6 @@ var main = function()
 				}
 			}
 			
-			
-			
-			maxx=max(maxx,xpos);
-			maxy=max(maxy,ypos);
-			minx=min(minx,xpos);
-			miny=min(miny,ypos);
-		}
-		err=false
-		
-		xfin=28;
-		yfin=28;
-	}
-	
-	
-	
-    brick.display().addLabel("finish",1,1) //вывод ответа
-    brick.display().redraw()
-    script.wait(10000)
-
-    return;
 }
 function valMap(){
 	valSen();
