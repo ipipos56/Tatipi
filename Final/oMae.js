@@ -76,7 +76,11 @@ function forward(_path_deg)
 	var err_sensor5=0
 	print(path_deg);
 	var curL=abs(EL.read());
-	var curR=abs(ER.read());
+	var curR=abs(ER.read());
+	if(bortnum == 0)
+		__err=0.3;
+	else
+		_err=0;
 	while(((curL-lLast)+(curR-rLast))/2<path_deg)
 	{
 		curL=abs(EL.read());
@@ -648,16 +652,16 @@ function rotate(_deg)
 	if(bortnum==0)
 	{
 		if(sgn>0)
-			_rot=224
+			right(-234,235)
 		else
-			 _rot=224
+			left(234,-233)
 	}
 	else
 	{
 		if(sgn>0)
 			right(-234,235)
 		else
-			 left(234,-233)
+			left(234,-233)
 	}
 }
 //
@@ -666,10 +670,10 @@ var main = function()
 {
 	//ML(5,true);
 	//MR(5,true);
-	robotRotation(1);
+	//robotRotation(1);
 	//Right_();
 	//right();
 	//rotate(90);
-	//forward();
+	forward();
 	//doWhall();
 }
