@@ -1,7 +1,7 @@
 var __interpretation_started_timestamp__;
 var pi = 3.141592653589793;
 var trick=false;
-var bortnum = 0//mailbox.myHullNumber();
+var bortnum = 1//mailbox.myHullNumber();
 
 
 wait = script.wait;
@@ -85,6 +85,11 @@ function forward(_path_deg)
 		_s0=s[0].read();
 		_s2=s[2].read();
 		if(bortnum==0)
+		{
+			_s0=13.4;
+			_s2=13.6;
+		}
+		else
 		{
 			_s0=13.4;
 			_s2=13.6;
