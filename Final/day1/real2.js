@@ -176,17 +176,29 @@ var main = function()
 				}
 			}
 		}
+		
+		//Right_();
+		//Left_();
+		//forward(1);
+		//robotRotation(<0==left>)
+		
 		if(!(rot==0 && movedir==3) && (rot<movedir || (rot==3 && movedir==0))){
-			while(rot!=movedir){
-				valMap();
+			//while(rot!=movedir){
+			if(abs(rot-movedir)<2){
+				//valMap();
 				turn_right();
+			}else{
+				robotRotation(0)
 			}
 		}else{
-			while(rot!=movedir){
-				valMap();
+			if(abs(rot-movedir)<2){
+				//valMap();
 				turn_left();
+			}else{
+				robotRotation(0)
 			}
 		}
+		
 		valMap();
 		valSen();
 		if(sz[1]){
@@ -203,7 +215,7 @@ var main = function()
 				print("left")
 			}
 			wait(1000);
-			forward();
+			forward(1);
 			if(rot==0){
 				ypos-=2;
 			}
@@ -1104,12 +1116,6 @@ function robotRotation(_r)
 	}
 }
 //
-
-
-
-
-
-
 
 
 function stop()
