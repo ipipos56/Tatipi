@@ -137,7 +137,7 @@ var main = function()
 	script.wait(4050);
 	moveSmall();
 	
-	var raw = script.readAll("C:/Users/ipipos/Desktop/Tatipi/Final/input.txt");
+	var raw = script.readAll("input.txt");
 	raw2=raw[1];
 	raw = raw[0].split(" ");
 	raw2 = raw2.split(" ");
@@ -153,10 +153,11 @@ var main = function()
 	print(xpos+" "+ypos+" "+rot+" "+xfin+" "+yfin+"\n")
 	
 	while(!(xpos==xfin&&ypos==yfin)){
+		valMap();
 		calculatePath();
-		printMapPaint(mapPaint)
-		printMapPaint(map)
-		print()
+		//printMapPaint(mapPaint)
+		//printMapPaint(map)
+		//print()
 		movedir=0;
 		if(mapPaint[xpos+1][ypos]<mapPaint[xpos][ypos]){
 			movedir=1;
@@ -227,7 +228,8 @@ var main = function()
 function valMap(){
 	valSen();
 		if(!sz[1]){
-			if(rot==0){
+			if(rot==0 && map[xpos][ypos-1]!=1){
+				print("Wall Up")
 				map[xpos][ypos-1]=1;
 				map[xpos][ypos-2]=1;
 				map[xpos][ypos-3]=1;
@@ -238,7 +240,8 @@ function valMap(){
 				map[xpos+1][ypos-2]=1;
 				map[xpos+1][ypos-3]=1;
 			}
-			if(rot==1){
+			if(rot==1 && map[xpos+1][ypos]!=1){
+				print("Wall Right")
 				map[xpos+1][ypos]=1;
 				map[xpos+2][ypos]=1;
 				map[xpos+3][ypos]=1;
@@ -249,7 +252,8 @@ function valMap(){
 				map[xpos+2][ypos+1]=1;
 				map[xpos+3][ypos+1]=1;
 			}
-			if(rot==2){
+			if(rot==2 && map[xpos][ypos+1]!=1){
+				print("Wall Down")
 				map[xpos][ypos+1]=1;
 				map[xpos][ypos+2]=1;
 				map[xpos][ypos+3]=1;
@@ -260,7 +264,8 @@ function valMap(){
 				map[xpos+1][ypos+2]=1;
 				map[xpos+1][ypos+3]=1;
 			}
-			if(rot==3){
+			if(rot==3 && map[xpos-1][ypos]!=1){
+				print("Wall Left")
 				map[xpos-1][ypos]=1;
 				map[xpos-2][ypos]=1;
 				map[xpos-3][ypos]=1;
@@ -275,7 +280,8 @@ function valMap(){
 		}
 		
 		if(!sz[0]){
-			if(rot==1){
+			if(rot==1 && map[xpos][ypos-1]!=1){
+				print("Wall Up")
 				map[xpos][ypos-1]=1;
 				map[xpos][ypos-2]=1;
 				map[xpos][ypos-3]=1;
@@ -286,7 +292,8 @@ function valMap(){
 				map[xpos+1][ypos-2]=1;
 				map[xpos+1][ypos-3]=1;
 			}
-			if(rot==2){
+			if(rot==2 && map[xpos+1][ypos]!=1){
+				print("Wall Right")
 				map[xpos+1][ypos]=1;
 				map[xpos+2][ypos]=1;
 				map[xpos+3][ypos]=1;
@@ -297,7 +304,8 @@ function valMap(){
 				map[xpos+2][ypos+1]=1;
 				map[xpos+3][ypos+1]=1;
 			}
-			if(rot==3){
+			if(rot==3 && map[xpos][ypos+1]!=1){
+				print("Wall Down")
 				map[xpos][ypos+1]=1;
 				map[xpos][ypos+2]=1;
 				map[xpos][ypos+3]=1;
@@ -308,7 +316,8 @@ function valMap(){
 				map[xpos+1][ypos+2]=1;
 				map[xpos+1][ypos+3]=1;
 			}
-			if(rot==0){
+			if(rot==0 && map[xpos-1][ypos]!=1){
+				print("Wall Left")
 				map[xpos-1][ypos]=1;
 				map[xpos-2][ypos]=1;
 				map[xpos-3][ypos]=1;
@@ -322,7 +331,8 @@ function valMap(){
 			//print("Wall badLuck=new Wall();")
 		}
 		if(!sz[2]){
-			if(rot==3){
+			if(rot==3 && map[xpos][ypos-1]!=1){
+				print("Wall Up")
 				map[xpos][ypos-1]=1;
 				map[xpos][ypos-2]=1;
 				map[xpos][ypos-3]=1;
@@ -333,7 +343,8 @@ function valMap(){
 				map[xpos+1][ypos-2]=1;
 				map[xpos+1][ypos-3]=1;
 			}
-			if(rot==0){
+			if(rot==0 && map[xpos+1][ypos]!=1){
+				print("Wall Right")
 				map[xpos+1][ypos]=1;
 				map[xpos+2][ypos]=1;
 				map[xpos+3][ypos]=1;
@@ -344,7 +355,8 @@ function valMap(){
 				map[xpos+2][ypos+1]=1;
 				map[xpos+3][ypos+1]=1;
 			}
-			if(rot==1){
+			if(rot==1 && map[xpos][ypos+1]!=1){
+				print("Wall Down")
 				map[xpos][ypos+1]=1;
 				map[xpos][ypos+2]=1;
 				map[xpos][ypos+3]=1;
@@ -355,7 +367,8 @@ function valMap(){
 				map[xpos+1][ypos+2]=1;
 				map[xpos+1][ypos+3]=1;
 			}
-			if(rot==2){
+			if(rot==2 && map[xpos-1][ypos]!=1){
+				print("Wall Left")
 				map[xpos-1][ypos]=1;
 				map[xpos-2][ypos]=1;
 				map[xpos-3][ypos]=1;
