@@ -372,7 +372,7 @@ function Left_()
 	doupor=false;
 	if(s[2].read()<25)
 		doupor=true;
-	turnForward(140);
+	turnForward(135);
 	rotate(-90);
 	if(doupor==false)
 		turnDown(150);
@@ -449,7 +449,7 @@ function Right_()
 		}
 		ML(sp,false);
 		MR(sp,false);
-		script.wait(650);
+		script.wait(800);
 		ML(30,false);
 		MR(30,false);
 		wait(20);
@@ -688,9 +688,9 @@ function robotRotation(_r)
 					lerr = err;
 					wait(10);
 				}
-				MR(sp,false);
-				ML(sp,false);
-				script.wait(800);
+				MR(sp+5,false);
+				ML(sp+5,false);
+				script.wait(900);
 				extraStop();
 				stop();
 				turnDown(100);
@@ -719,7 +719,7 @@ function robotRotation(_r)
 				}
 				ML(sp,false);
 				MR(sp,false);
-				script.wait(650);
+				script.wait(800);
 				ML(30,false);
 				MR(30,false);
 				wait(20);
@@ -841,9 +841,9 @@ function rotate(_deg)
 	else
 	{
 		if(sgn>0)
-			right(-236,237)
+			right(-237,237)
 		else
-			 left(236,-235)
+			 left(237,-236)
 	}
 }
 //
@@ -855,7 +855,7 @@ var main = function()
 	//Right_();
 	//Left_();
 	//while(1);
-	raw = "1 1 3 3 3 2 3 3 3 2 3 1 3 1 1 3 1 3 2 3 1 1 3 2 3 1 3 3 1 3 2 3 1 3 3 3 3 1 1 3 2 3 1 3";
+	raw = "";
 	raw = raw.split(" ");
 	
 	for(var i = 0;i<raw.length;i++)
