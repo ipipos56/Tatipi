@@ -3,15 +3,15 @@ var pi = 3.141592653589793;
 var trick=false;
 var bortnum = 1//mailbox.myHullNumber();
 sensorDist=0;
-	if(bortnum==0)
-		{
-			s0=15;
-			s2=15;
-		}
-		else
-		{
-			s0=16;
-			s2=16;
+	if(bortnum==0)
+		{
+			s0=15;
+			s2=15;
+		}
+		else
+		{
+			s0=16;
+			s2=16;
 		}
 wait = script.wait;
 sign = function(n)
@@ -142,7 +142,7 @@ function forward(_path_deg)
 				motors(speed+err/3-err_sensor*1.7,speed-err/3+err_sensor*1.7)	
 			}
 			else
-			{
+			{
 				err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.1
 				motors(speed+err,speed-err)
 			}
@@ -196,7 +196,7 @@ function turnForw(_dist,_off)
 	var err_sensor4=0
 	var err_sensor5=0
 	var curL=abs(EL.read());
-	var curR=abs(ER.read());
+	var curR=abs(ER.read());
 
 	while(((curL-lLast)+(curR-rLast))/2<path_deg)
 	{
@@ -254,44 +254,44 @@ function turnForward(_dist)//dlya povorota
 	var err_sensor5=0
 	var curL=abs(EL.read());
 	var curR=abs(ER.read());
-
-	while(((curL-lLast)+(curR-rLast))/2<path_deg)
-	{
-		curL=abs(EL.read());
-		curR=abs(ER.read());
-		err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.2
-		_s0 = s[0].read();
-		_s2 = s[2].read();
-		if(_s0<20)
-		{
-			err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.2
-			err_sensor3=err_sensor2;
-			err_sensor2=err_sensor1;
-			err_sensor1=s0-_s0;
-			err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
-			motors(speed+err/3+err_sensor*1.7,speed-err/3-err_sensor*1.7)
-		}
-		else
-		{
-			_s2=s[2].read();
-			if(_s2<20)
-			{
-				err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.2
-				err_sensor3=err_sensor2;
-				err_sensor2=err_sensor1;
-				err_sensor1=s2-_s2;
-				err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
-				motors(speed+err/3-err_sensor*1.7,speed-err/3+err_sensor*1.7)	
-			}
-			else
-			{
-				motors(speed+err,speed-err)
-			}
-		}
-		wait(30);
-	}
-	print((abs(EL.read())-lLast)+"\n");
-	extraStop();
+
+	while(((curL-lLast)+(curR-rLast))/2<path_deg)
+	{
+		curL=abs(EL.read());
+		curR=abs(ER.read());
+		err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.2
+		_s0 = s[0].read();
+		_s2 = s[2].read();
+		if(_s0<20)
+		{
+			err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.2
+			err_sensor3=err_sensor2;
+			err_sensor2=err_sensor1;
+			err_sensor1=s0-_s0;
+			err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
+			motors(speed+err/3+err_sensor*1.7,speed-err/3-err_sensor*1.7)
+		}
+		else
+		{
+			_s2=s[2].read();
+			if(_s2<20)
+			{
+				err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.2
+				err_sensor3=err_sensor2;
+				err_sensor2=err_sensor1;
+				err_sensor1=s2-_s2;
+				err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
+				motors(speed+err/3-err_sensor*1.7,speed-err/3+err_sensor*1.7)	
+			}
+			else
+			{
+				motors(speed+err,speed-err)
+			}
+		}
+		wait(30);
+	}
+	print((abs(EL.read())-lLast)+"\n");
+	extraStop();
 	stop();
 
 }
@@ -377,7 +377,7 @@ function Left_()
 	if(doupor==false)
 		turnDown(150);
 	else
-	{
+	{
 		print("doupor")
 		_dist=150;
 		ER.reset();
@@ -419,12 +419,12 @@ function Right_()
 	if(s[0].read()<25)
 		doupor=true;
 	turnForward(130);
-	rotate(90);
+	rotate(90);
 	stop();
 	if(doupor==false)
 		turnDown(150);
 	else
-	{
+	{
 		print("doupor")
 		_dist=150;
 		ER.reset();
@@ -815,8 +815,8 @@ function robotRotation(_r)
 
 
 function stop()
-{
-	brick.motor(M3).brake(100);
+{
+	brick.motor(M3).brake(100);
 	brick.motor(M4).brake(100);
     //MR(0) 
     //ML(0)
@@ -841,7 +841,7 @@ function rotate(_deg)
 	else
 	{
 		if(sgn>0)
-			right(-237,237)
+			right(-236,237)
 		else
 			 left(237,-236)
 	}
@@ -850,12 +850,13 @@ function rotate(_deg)
 
 
 var main = function()
-{
+{
+	Left_()
 	//Right_();
-	//Right_();
-	//Left_();
+	//Right_();
+	//Left_();
 	//while(1);
-	raw = "";
+	raw = "3 2 3 1 3 2 3 3 2 3 3 1 3 3 1 1 3 2 3 1 3 2 3 1 3";
 	raw = raw.split(" ");
 	
 	for(var i = 0;i<raw.length;i++)
