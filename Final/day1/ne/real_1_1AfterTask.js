@@ -10,7 +10,7 @@ sign = function(n)
     return n > 0 ? 1 : n = 0 ? 0 : -1;
 }
 trueLeft=0;
-trueRight=0;
+trueRight=0;
 rot = 0;
 
 sign = function(n)
@@ -59,7 +59,7 @@ function valSen()
 	for(var _i = 0;_i<3;_i++)
 	{
 		sz[_i] = s[_i].read();
-		if(sz[_i] < 50)
+		if(sz[_i] < 24)
 			sz[_i] = 0;
 		else
 			sz[_i] = 1;
@@ -92,7 +92,7 @@ function motors(_ml,_mr)
 function forward(_path_deg)
 {
 	path_sm=42;
-	var path_deg = 590;//path_sm * 240/(8.2*pi);
+	var path_deg = 585;//path_sm * 240/(8.2*pi);
 	EL.reset();
 	ER.reset();
 	lLast = EL.read();
@@ -111,47 +111,47 @@ function forward(_path_deg)
 	{
 		curL=abs(EL.read());
 		curR=abs(ER.read());
-		err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.5)*1.2
+		err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.2)*1.2
 		_s0 = s[0].read();
 		_s2 = s[2].read();
 		if(bortnum==0)
 		{
-			s0=15;
-			s2=15;
+			s0=16;
+			s2=16;
 		}
 		else
 		{
-			s0=15;
-			s2=15;
+			s0=16;
+			s2=16;
 		}
-		if(_s0<22)
+		if(_s0<20)
 		{
-			err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.5)*1.2
+			err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.2)*1.2
 			err_sensor3=err_sensor2;
 			err_sensor2=err_sensor1;
 			err_sensor1=s0-s[0].read();
 			err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
-			motors(speed+err/2+err_sensor*2.2,speed-err/2-err_sensor*2.2)
+			motors(speed+err/3+err_sensor*2.7,speed-err/3-err_sensor*2.7)
 			
 		}
 		else
 		{
 			_s2=s[2].read();
-			if(_s2<22)
+			if(_s2<20)
 			{
 				err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)+0.5)*1.2
 				err_sensor3=err_sensor2;
 				err_sensor2=err_sensor1;
 				err_sensor1=s2-s[2].read();
 				err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
-				motors(speed+err/2-err_sensor*2.2,speed-err/2+err_sensor*2.2)	
+				motors(speed+err/3-err_sensor*2.7,speed-err/3+err_sensor*2.7)	
 			}
 			else
 			{
 				motors(speed+err,speed-err)
 			}
 		}
-		wait(30);
+		wait(50);
 	}
 	print((abs(EL.read())-lLast)+"\n");
 	extraStop();
@@ -291,7 +291,7 @@ function Left_()
 {
 	turnForw(145);
 	rotate(-90);
-	turnDown(140);
+	turnDown(150);
 	rot--;
 	rot = cuboid(rot);
 }
@@ -300,7 +300,7 @@ function Right_()
 {
 	turnForw(145);
 	rotate(90);
-	turnDown(140);
+	turnDown(150);
 	rot++;
 	rot = cuboid(rot);
 }
