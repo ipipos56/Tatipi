@@ -368,7 +368,14 @@ function turnForward(_dist)//dlya povorota
 	stop();
 
 }
-//
+//
+
+function extraStop()
+{
+	ML(-30,false);
+	MR(-30,false);
+	wait(30);
+}
 var main = function()
 {
 	
@@ -376,14 +383,20 @@ var main = function()
 	var d2=brick.sensor(D2).read();
 	wait(50);
 	if(d2<40)
-		var otv = getARTagValue(0);
+	{
+		save();
+		var otv = getARTagValue(0);
+	}
     else
 	{
 		rotate(-90);
 		var d2=brick.sensor(D2).read();
 		wait(50);
 		if(d2<40)
+		{
+			save();
 			var otv = getARTagValue(0);
+		}
 		else
 		{
 			rotate(-90);
@@ -391,11 +404,14 @@ var main = function()
 			var d2=brick.sensor(D2).read();
 			wait(50);
 			if(d2<40)
+			{
+				save();
 				var otv = getARTagValue(0);
+			}
 			else
 			{
 				rotate(-90);
-				var otv = getARTagValue(0);
+				save();
 				var otv = getARTagValue(0);
 			}
 		}
@@ -821,7 +837,40 @@ function printSelectedImage()
         print(str);
     }
 }
-
+
+
+
+function save()
+{
+	ER.reset();
+	EL.reset();
+	erol = abs(ER.read());
+	elol = abs(EL.read());
+	_dist=50;
+	lerr=0;
+	sp=25;
+	while((erol+elol)/2<_dist)
+	{
+		erol = abs(ER.read());
+		elol = abs(EL.read());
+		err = (erol) - (elol) - 0;
+		P = err * 1.2;
+		I = (lerr + err) * 0;
+		D = (lerr - err) * 0;
+		mot = P+I+D;
+		MR(sp - mot,false);
+		ML(sp + mot,false);
+		lerr = err;
+		wait(10);
+	}
+	MR(sp+10,false);
+	ML(sp+10,false);
+	script.wait(900);
+	extraStop();
+	stop();
+	turnDown(120);
+	wait(100);
+}
 function getCorners()
 {
     iMin = 0, iMax = 0, jMin = 0, jMax = 0;
@@ -1245,7 +1294,9 @@ function getARTagValue(number)
 			vivo += String(kom[i]) + String(" ");
 		else
 			vivo += String(kom[i]);
-	print(vivo);
+	print(vivo);
+	brick.playSound("media/beep.wav");
+	wait(1000);
 	brick.display().addLabel(vivo,1,1) //вывод ответа
     brick.display().redraw()
     script.wait(15000)
