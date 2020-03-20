@@ -235,7 +235,7 @@ function movementStep(){
 				}
 				if(rot==3){
 					xpos-=1;
-				}
+				}
 				print(xpos+", "+ypos)
 			}
 			
@@ -333,11 +333,18 @@ function valSen()
 {
 	for(var _i = 0;_i<3;_i++)
 	{
-		sz[_i] = s[_i].read();
-		if(sz[_i] < 24)
-			sz[_i] = 0;
-		else
-			sz[_i] = 1;
+		sz[_i] = s[_i].read();
+		if(sz[_i] == -1)
+		{
+			sz[_i] = 1;
+		}
+		else
+		{
+			if(sz[_i] < 24)
+				sz[_i] = 0;
+			else
+				sz[_i] = 1;
+		}
 	}
 }
 //
@@ -1109,29 +1116,29 @@ function rotate(_deg)
 		else
 			 left(237,-236)
 	}
-}
-chesum = 0;
-
-function ssurec()
-{
-	mailbox.send(0,"Need");
-	coor = mailbox.receive();
-	coor = coor.split(" ");
-	//print("EEEEEEEEEEEEEE");
-	chesum = 0;
-	indizm = -1;
-	for(var tes = 0;tes < 4;tes++)
-	{
-		if((senrob2[tes] > 45 || senrob2[tes] == -1) && (tes == 1 || tes == 3))
-			senrob2[tes] = 45;
-		if((senrob2[tes] > 55 || senrob2[tes] == -1) && (tes == 2 || tes == 0))
-			senrob2[tes] = 55;
-		if(abs(senrob2[tes] - coor[tes]) > 15)
-		{
-			chesum++;
-			indizm = tes;
-		}
-	}	
+}
+chesum = 0;
+
+function ssurec()
+{
+	mailbox.send(0,"Need");
+	coor = mailbox.receive();
+	coor = coor.split(" ");
+	//print("EEEEEEEEEEEEEE");
+	chesum = 0;
+	indizm = -1;
+	for(var tes = 0;tes < 4;tes++)
+	{
+		if((senrob2[tes] > 45 || senrob2[tes] == -1) && (tes == 1 || tes == 3))
+			senrob2[tes] = 45;
+		if((senrob2[tes] > 55 || senrob2[tes] == -1) && (tes == 2 || tes == 0))
+			senrob2[tes] = 55;
+		if(abs(senrob2[tes] - coor[tes]) > 15)
+		{
+			chesum++;
+			indizm = tes;
+		}
+	}	
 }
 //
 function sendRec()
@@ -1140,29 +1147,29 @@ function sendRec()
 	{
 		ssurec();
 		if(senrob2[0] != -1 && senrob2[1] != -1 && senrob2[2] != -1 && senrob2[3] != -1 && chesum == 1)
-		{
-			wait(100);
+		{
+			wait(100);
 			ssurec();
 			mailbox.send(0,"Found");
 			robotFound = true;
 			if(indizm == 0){
 				secX=xpos+1
-				secY=ypos
+				secY=ypos
 				print("na3")
 			}
 			if(indizm == 1){
 				secX=xpos
-				secY=ypos+1
+				secY=ypos+1
 				print("na0")
 			}
 			if(indizm == 2){
 				secX=xpos-1
-				secY=ypos
+				secY=ypos
 				print("na1")
 			}
 			if(indizm == 3){
 				secX=xpos
-				secY=ypos-1
+				secY=ypos-1
 				print("na2")
 			}
 			mailbox.send(0,"(" + secX + "," + secY + ")");
@@ -1200,7 +1207,7 @@ var main = function()
 			visits[i][j]=0;
 		}
 	}
-	rot = 3;
+	rot = 2;
 	secX = -1;
 	secY = -1;
 	senrob2 = [-1,-1,-1,-1];
@@ -1291,12 +1298,12 @@ var main = function()
 			map[maxx+1][miny+i]=1;
 			map[minx+i][maxy+1]=1;
 		}
-		
-		wait(1000);
-		brick.display().addLabel("(" + (xpos - minx) + "," + (ypos-miny) + ")",1,1);
-		brick.display().redraw();
-		script.wait(12000);
-		
+		
+		wait(1000);
+		brick.display().addLabel("(" + (xpos - minx) + "," + (ypos-miny) + ")",1,1);
+		brick.display().redraw();
+		script.wait(12000);
+		
 		
 		xfin=-1;
 		yfin=-1;
