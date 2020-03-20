@@ -227,10 +227,10 @@ function right(_ML_FINISH,_MR_FINISH){
 
 //sz = [0,0,0];
 
-ML = brick.motor(M4).setPower; 
-MR = brick.motor(M3).setPower; 
-EL = brick.encoder(E4); 
-ER = brick.encoder(E3); 
+ML = brick.motor(M3).setPower; 
+MR = brick.motor(M4).setPower; 
+EL = brick.encoder(E3); 
+ER = brick.encoder(E4); 
 bortnum =1;
 
 
@@ -255,8 +255,9 @@ function rotate(_deg)
 		if(sgn>0)
 			right(-236,237)
 		else
-			 left(236,-236)
-	}
+			 left(237,-237)
+	}
+	stop();
 }
 
 rotCnt = 0;
@@ -373,24 +374,27 @@ var main = function()
 	
 	
 	var d2=brick.sensor(D2).read();
+	wait(50);
 	if(d2<40)
 		var otv = getARTagValue(0);
     else
 	{
-		rotate(90);
+		rotate(-90);
 		var d2=brick.sensor(D2).read();
+		wait(50);
 		if(d2<40)
 			var otv = getARTagValue(0);
 		else
 		{
-			rotate(90);
-			turnDown(10);
+			rotate(-90);
+			
 			var d2=brick.sensor(D2).read();
+			wait(50);
 			if(d2<40)
 				var otv = getARTagValue(0);
 			else
 			{
-				rotate(90);
+				rotate(-90);
 				var otv = getARTagValue(0);
 				var otv = getARTagValue(0);
 			}
@@ -528,11 +532,13 @@ var main = function()
 	*/
 }
 //
-
-function stop(){
-	MR(0)
-	ML(0)
-	wait(50)
+function stop()
+{
+	brick.motor(M3).brake(100);
+	brick.motor(M4).brake(100);
+    //MR(0) 
+    //ML(0)
+    //wait(200)
 }
 
 function findPath(stPoin,fnPoin)
