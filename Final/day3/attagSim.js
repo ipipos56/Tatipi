@@ -991,54 +991,69 @@ function getARTagValue(number)
 
     // brick.display().addLabel(string,10,10);
 	
-	
-	/*ham = [0,0,0,0,0];
-	ham[0]+=values[0][3] + values[1][0] + values[1][2] + values[1][4] + values[2][0] + values[2][2] + values[2][4] + values[3][0] + values[3][2] + values[3][4] + values[4][0] + values[4][2] + values[4][4] + values[5][1] + values[5][3];
-	ham[0] = ham[0]%2;
-	ham[1]+=values[0][3] + values[1][1] + values[1][2]+ values[1][5] + values[2][0] + values[2][3] + values[2][4] + values[3][1] + values[3][2] + values[3][5] + values[4][0] + values[4][3] + values[4][4] + values[5][2] + values[5][3];
-	ham[1] = ham[1]%2;
-	ham[2] = values[1][0] + values[1][1] + values[1][2] + values[2][1] + values[2][2] + values[2][3] + values[2][4] + values[3][3] + values[3][4] + values[3][5] + values[4][0] + values[4][5] + values[5][1] + values[5][2] + values[5][3];
-	ham[2] = ham[2]%2;
-	ham[3] = values[1][3] + values[1][4] + values[1][5] + values[2][0] + values[2][1] + values[2][2] + values[2][3] + values[2][4] + values[4][1] + values[4][2] + values[4][3] + values[4][4] + values[4][5] + values[5][1] + values[5][2] + values[5][3];
-	ham[3] = ham[3]%2;
-	ham[4] = 0;
+	lineValues=[0,values[0][1],values[0][2],values[0][3],values[0][4],values[1][0],values[1][1],values[1][2],values[1][3],values[1][4],values[1][5],values[2][0],values[2][1],values[2][2],values[2][3],values[2][4],values[2][5],values[3][0],values[3][1],values[3][2],values[3][3],values[3][4],values[3][5],values[4][0],values[4][1],values[4][2],values[4][3],values[4][4],values[4][5],values[5][1],values[5][2],values[5][3],values[5][4]]
+	controlBits=[0,0,0,0,0,0]
+	for(var i=1; i<32;i++){
+		if(i%2==1){
+			controlBits[0]+=lineValues[i];
+			controlBits[0]=controlBits[0]%2;
+		}
+		if(i%4>=2){
+			controlBits[1]+=lineValues[i];
+			controlBits[1]=controlBits[1]%2;
+		}
+		if(i%8>=4){
+			controlBits[2]+=lineValues[i];
+			controlBits[2]=controlBits[2]%2;
+		}
+		if(i%16>=8){
+			controlBits[3]+=lineValues[i];
+			controlBits[3]=controlBits[3]%2;
+		}
+		if(i%32>=16){
+			controlBits[4]+=lineValues[i];
+			controlBits[4]=controlBits[4]%2;
+		}
+	}
+	controlBits[5]=lineValues[32]
+	
 	tusum = 0;
-	if(ham[0] != values[0][1])
+	if(controlBits[0] != lineValues[1])
 		tusum +=1;
-	if(ham[1] != values[0][2])
+	if(controlBits[1] != lineValues[2])
 		tusum +=2;
-	if(ham[2] != values[0][4])
+	if(controlBits[2] != lineValues[4])
 		tusum +=4;
-	if(ham[3] != values[1][3])
+	if(controlBits[3] != lineValues[8])
 		tusum +=8;
-	if(ham[4] != values[2][5])
+	if(controlBits[4] != lineValues[16])
 		tusum +=16;
-	if(tusum == 3)
-		values[0][3] = (values[0][3] + 1)%2;
-	else if(tusum == 29)
-		values[5][1] = (values[5][1] + 1)%2;
-	else if(tusum == 30)
-		values[5][2] = (values[5][2] + 1)%2;
-	else if(tusum == 31)
-		values[5][3] = (values[5][3] + 1)%2;
-	else
-	{
-		values[tusum/6 - tusum/6%1][tusum%6] = (values[tusum/6 - tusum/6%1][tusum%6] + 1)%2;
-	}*/
+	if(controlBits[5] != lineValues[32])
+		tusum +=32;
+	
+	
+	if(controlBits[tusum]==1){
+		lineValues[tusum]=0
+	}else{
+		lineValues[tusum]=1
+	}
+	
+	
+
 	kom = [0,0,0,0,0,0,0,0,0,0,0,0,0];
-	kom[0] = values[0][3] * 2 + values[1][0];
-	kom[1] = values[1][1] * 2 + values[1][2];
-	kom[2] = values[1][4] * 2 + values[1][5];
-	kom[3] = values[2][0] * 2 + values[2][1];
-	kom[4] = values[2][2] * 2 + values[2][3];
-	kom[5] = values[2][4] * 2 + values[3][0];
-	kom[6] = values[3][1] * 2 + values[3][2];
-	kom[7] = values[3][3] * 2 + values[3][4];
-	kom[8] = values[3][5] * 2 + values[4][0];
-	kom[9] = values[4][1] * 2 + values[4][2];
-	kom[10] = values[4][3] * 2 + values[4][4];
-	kom[11] = values[4][5] * 2 + values[5][1];
-	kom[12] = values[5][2] * 2 + values[5][3];
+	kom[0] = lineValues[3] * 2 + lineValues[5];
+	kom[1] = lineValues[6] * 2 + lineValues[7];
+	kom[2] = lineValues[9] * 2 + lineValues[10];
+	kom[3] = lineValues[11] * 2 + lineValues[12];
+	kom[4] = lineValues[13] * 2 + lineValues[14];
+	kom[5] = lineValues[15] * 2 + lineValues[17];
+	kom[6] = lineValues[18] * 2 + lineValues[19];
+	kom[7] = lineValues[20] * 2 + lineValues[21];
+	kom[8] = lineValues[22] * 2 + lineValues[23];
+	kom[9] = lineValues[24] * 2 + lineValues[25];
+	kom[10] = lineValues[26] * 2 + lineValues[27];
+	kom[11] = lineValues[28] * 2 + lineValues[29];
+	kom[12] = lineValues[30] * 2 + lineValues[31];
 	vivo = "";
 	for(var i = 0;i<13;i++)
 		if(i != 12)
