@@ -139,14 +139,14 @@ var main = function()
 	script.wait(4050);
 	moveSmall();
 	
-	var raw = script.readAll("C:/Users/ipipos/Desktop/Tatipi/Final/input.txt");
-	raw2=raw[1];
-	raw = raw[0];
-	raw2 = raw2.split(" ");
+//	var raw = [];
+	//raw2=raw[1];
+	//raw = raw[0];
+	//raw2 = raw2.split(" ");
 	
 	//xpos=parseInt(raw[0],10)*2+1;
 	//ypos=parseInt(raw[1],10)*2+1;
-	rot=parseInt(raw,10);
+	rot=2;
 	iznrot = rot - 1;
 	iznrot = cuboid(iznrot);
 	xfinpre=parseInt(raw2[0],10);
@@ -182,15 +182,15 @@ var main = function()
 		
 		xfin=28;
 		yfin=28;
-	}
-	
-	
-	for(var i=0;i<8;i++){
-		map[minx-1][miny+i]=1;
-		map[minx+i][miny-1]=1;
-		map[maxx+1][miny+i]=1;
-		map[minx+i][maxy+1]=1;
-	}
+	}
+	
+	
+	for(var i=0;i<8;i++){
+		map[minx-1][miny+i]=1;
+		map[minx+i][miny-1]=1;
+		map[maxx+1][miny+i]=1;
+		map[minx+i][maxy+1]=1;
+	}
 	
 	
 	xfin=xfinpre+minx

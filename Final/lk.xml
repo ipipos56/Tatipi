@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root version="20190819">
+    <world>
+        <walls>
+            <wall id="{040de144-7a6f-4afb-aac7-f4be1da696ed}" fill="#ff000000" begin="0:0" stroke-width="5" stroke="#ff000000" stroke-style="none" end="0:200"/>
+            <wall id="{1f62c201-8723-425c-99e0-7fc78d10d47e}" fill="#ff000000" begin="0:1000" stroke-width="5" stroke="#ff000000" stroke-style="none" end="0:1200"/>
+            <wall id="{2874bbda-b5e5-4260-863d-0147f6292377}" fill="#ff000000" begin="800:0" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1000:0"/>
+            <wall id="{3c0fc77d-99bf-4596-9ff2-bcc22a000dec}" fill="#ff000000" begin="1200:600" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1200.22:404.188"/>
+            <wall id="{4eea2523-0262-471e-80a8-c6b7aa153b01}" fill="#ff000000" begin="0:1600" stroke-width="5" stroke="#ff000000" stroke-style="none" end="350:1600"/>
+            <wall id="{56b522a3-5c7c-46e2-bfbc-cd9c2ff7b09e}" fill="#ff000000" begin="1200:0" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1600:0"/>
+            <wall id="{58e93446-e01b-4467-ac81-aa74f6100032d}" fill="#ff000000" begin="0:200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="0:400"/>
+            <wall id="{6259eff6-f304-44b2-adaa-7a0cb6e9b25f}" fill="#ff000000" begin="1600:1600" stroke-width="5" stroke="#ff000000" stroke-style="none" end="350:1600"/>
+            <wall id="{66fbb1bc-9b68-4372-b662-0df09cdcfce7}" fill="#ff000000" begin="0:800" stroke-width="5" stroke="#ff000000" stroke-style="none" end="0:1000"/>
+            <wall id="{69c7c389-2d66-4f30-b457-0b97ce171f1d}" fill="#ff000000" begin="0:400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="0:600"/>
+            <wall id="{6c9a8506-c0dc-48bb-97c2-f6b87eb73d07}" fill="#ff000000" begin="1600:0" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1600:400"/>
+            <wall id="{72ae5ff8-5f50-414f-8a74-bdf530ed760c}" fill="#ff000000" begin="1200:3200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="4400:3200"/>
+            <wall id="{89bde907-f287-4caf-81c2-51a4ac98550f}" fill="#ff000000" begin="600:0" stroke-width="5" stroke="#ff000000" stroke-style="none" end="800:0"/>
+            <wall id="{8d7fa5f1-3d4c-42aa-b34f-e90ebfeb39f9}" fill="#ff000000" begin="0:600" stroke-width="5" stroke="#ff000000" stroke-style="none" end="0:800"/>
+            <wall id="{8e0cb31e-f24f-41ce-b44a-37951d29d651}" fill="#ff000000" begin="200:0" stroke-width="5" stroke="#ff000000" stroke-style="none" end="400:0"/>
+            <wall id="{9fcd364e-1aa1-4f37-a8db-8ff676f4d383}" fill="#ff000000" begin="1000:200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1000:400"/>
+            <wall id="{aaabe6ec-8c84-4d9e-a005-99b5fb37d153}" fill="#ff000000" begin="0:0" stroke-width="5" stroke="#ff000000" stroke-style="none" end="200:0"/>
+            <wall id="{aef47fd5-ed95-41a8-9833-c4b7753c015a}" fill="#ff000000" begin="1600:1000" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1600:400"/>
+            <wall id="{d8f2ac0c-c426-4ca9-83fa-72ad0733dbbc}" fill="#ff000000" begin="1000:0" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1200:0"/>
+            <wall id="{de654a82-30ad-4296-a1ad-40e07030a493}" fill="#ff000000" begin="1600:1000" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1600:1600"/>
+            <wall id="{df0c339b-2932-4ea9-b5af-c9b6cdad3023}" fill="#ff000000" begin="1000:600" stroke-width="5" stroke="#ff000000" stroke-style="none" end="800:600"/>
+            <wall id="{e3ba069f-ad0c-4960-b795-84e15d9027a5}" fill="#ff000000" begin="0:1200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="0:1600"/>
+            <wall id="{fbbf6aa2-2e72-43a3-8451-3f44f080826f}" fill="#ff000000" begin="400:0" stroke-width="5" stroke="#ff000000" stroke-style="none" end="600:0"/>
+            <wall id="{2a1cbe4d-2c1b-4ffe-afdd-8d8dfe48e1f6}" fill="#ff000000" begin="400:400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="400:600"/>
+            <wall id="{7e8577fa-f52c-4394-9284-56049ea21ab5}" fill="#ff000000" begin="1400:400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1400.62:602.437"/>
+            <wall id="{b01ae299-3ef3-41cb-9ca7-4b0005f63d4b}" fill="#ff000000" begin="800:1000" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1000:1000"/>
+            <wall id="{5e4a95b9-7f7c-48bc-88ed-6225d83656cc}" fill="#ff000000" begin="600:1400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="400:1400"/>
+            <wall id="{a968f975-2e39-48c9-a61f-90ea4c0dbd96}" fill="#ff000000" begin="200:1400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="202.438:1200"/>
+            <wall id="{cf7474ac-49b7-4c0e-87ab-2b6d8960cf1e}" fill="#ff000000" begin="200:1400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="0:1398.31"/>
+            <wall id="{413f3714-3063-4be0-8a55-cbaa9eb3369f}" fill="#ff000000" begin="1000:1400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1200:1400"/>
+            <wall id="{86344659-a914-41f8-a73c-7424b9af9870}" fill="#ff000000" begin="400:1200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="602.167:1200"/>
+            <wall id="{ed15fe0f-fa32-4f9a-84e6-1acd95243ff6}" fill="#ff000000" begin="1000:1000" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1000:800"/>
+            <wall id="{24dcd69c-6008-490c-a97e-424f7083b404}" fill="#ff000000" begin="600:200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="600:200"/>
+            <wall id="{f32452a9-c16d-483a-bc5a-3ab5a9c9da1d}" fill="#ff000000" begin="600:800" stroke-width="5" stroke="#ff000000" stroke-style="none" end="600:1000"/>
+            <wall id="{1cfacf87-f6ea-46da-b807-d04d7aca4ab3}" fill="#ff000000" begin="200:200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="200:0"/>
+            <wall id="{8b193666-aa6a-4d5f-9ed2-47879605dec8}" fill="#ff000000" begin="200:200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="0:200"/>
+            <wall id="{6b1826fa-9842-4a98-900d-d620fdf516c2}" fill="#ff000000" begin="200:600" stroke-width="5" stroke="#ff000000" stroke-style="none" end="400:600"/>
+            <wall id="{29ec86ba-4853-494b-8b58-6cb2ef5b42bf}" fill="#ff000000" begin="600:800" stroke-width="5" stroke="#ff000000" stroke-style="none" end="600:600"/>
+            <wall id="{1fe9e227-4ae4-48a4-a362-28cadf932a8b}" fill="#ff000000" begin="600:400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="600:200"/>
+            <wall id="{0ab6ebde-cb23-40c4-9978-d033fd040d62}" fill="#ff000000" begin="600:600" stroke-width="5" stroke="#ff000000" stroke-style="none" end="800:600"/>
+            <wall id="{b200c203-8368-4fd8-891d-96ef845e470d}" fill="#ff000000" begin="600:1000" stroke-width="5" stroke="#ff000000" stroke-style="none" end="800:1000"/>
+            <wall id="{27857d7e-30a4-4743-a71c-ddb8e1d23760}" fill="#ff000000" begin="1000:600" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1000:800"/>
+            <wall id="{e478e9c6-6546-4947-a882-ae5649e386e7}" fill="#ff000000" begin="1400:0" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1400:200"/>
+            <wall id="{63e13e57-14c1-4e3d-a92a-efd7ecba5e19}" fill="#ff000000" begin="1400:1000" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1400:1200"/>
+            <wall id="{a795f23d-37c0-4011-abe6-b3f464445f02}" fill="#ff000000" begin="1400:1400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1200:1400"/>
+            <wall id="{276f4d5e-e5eb-4fe3-9006-7ff4ab459ea0}" fill="#ff000000" begin="1200:1000" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1200:1200"/>
+            <wall id="{9b8a2454-560d-433a-bcf9-5be570af0c8d}" fill="#ff000000" begin="1200:1200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1000:1200"/>
+            <wall id="{cfb90a38-14a3-4c11-b56d-0e2253706a8e}" fill="#ff000000" begin="400:1000" stroke-width="5" stroke="#ff000000" stroke-style="none" end="200:1000"/>
+            <wall id="{132f547d-fd26-4892-87b7-6cb9f9b5930d}" fill="#ff000000" begin="200:1400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="400:1400"/>
+            <wall id="{313dfbbc-5395-4828-b457-f77468513f24}" fill="#ff000000" begin="1400:1400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1600:1400"/>
+            <wall id="{8f2f712c-f869-4c88-97fc-818a2fb7dec8}" fill="#ff000000" begin="600:200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="400:200"/>
+            <wall id="{33329b11-6ca9-4fda-ac5e-b210d387e300}" fill="#ff000000" begin="400.48:200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="200:200"/>
+            <wall id="{d202d7ae-734a-48cb-8fb5-b2ebe30b69bf}" fill="#ff000000" begin="1200:200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1001.25:200"/>
+            <wall id="{ac12b861-a283-4e0f-b4fe-a1aab1736f11}" fill="#ff000000" begin="1400:200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1200:200"/>
+            <wall id="{261278a0-5872-4f5c-908d-b317c2120fb9}" fill="#ff000000" begin="1200:400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1002.32:400"/>
+            <wall id="{b354fc56-e254-47e2-b582-6954a204b439}" fill="#ff000000" begin="200:400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="201.895:201.05"/>
+            <wall id="{456e45ec-5815-4e12-aebd-e62ec8ba93b0}" fill="#ff000000" begin="200:600" stroke-width="5" stroke="#ff000000" stroke-style="none" end="200:398.479"/>
+            <wall id="{c85e791b-90fd-4754-a7a8-46ed1706e4fe}" fill="#ff000000" begin="200:1200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="201.895:999.12"/>
+            <wall id="{e079f7f9-a2b9-4eae-b4dc-4de9e8cc0ec6}" fill="#ff000000" begin="400:1200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="402.503:1000"/>
+            <wall id="{165b1ee0-5b37-41b8-9700-0de854dd8149}" fill="#ff000000" begin="200:1600" stroke-width="5" stroke="#ff000000" stroke-style="none" end="202.931:1398"/>
+            <wall id="{8e1abd79-8d47-485f-8d9e-3d315d928e5e}" fill="#ff000000" begin="600:1400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="600:1200"/>
+            <wall id="{1a49db46-6596-4ced-8e02-637f5779e2c3}" fill="#ff000000" begin="1000:1400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="999.409:1199.3"/>
+            <wall id="{ab0300bf-65ef-4ee6-9aa8-213a85d0b6cc}" fill="#ff000000" begin="1400:1400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1401.15:1600.94"/>
+            <wall id="{4da23ac4-8bbf-4043-bb59-328390c40797}" fill="#ff000000" begin="1400:1000" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1203.26:1001.29"/>
+            <wall id="{0c2d3432-d4c9-4ac2-a832-2df86090b965}" fill="#ff000000" begin="1400:1200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1401.15:1400.72"/>
+            <wall id="{6e9c195a-5000-43fc-b6bd-098b9c74e90d}" fill="#ff000000" begin="1400:600" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1204.58:603.616"/>
+            <wall id="{23eeb27b-81aa-4398-9215-e6ce1c38b674}" fill="#ff000000" begin="1400:200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1400:400"/>
+            <wall id="{e53c50de-f5d3-4c12-b647-3b38b43d9465}" fill="#ff000000" begin="600:400" stroke-width="5" stroke="#ff000000" stroke-style="none" end="395.675:397.763"/>
+            <wall id="{3da658dc-4147-4f3a-9212-f2d5e6dcd30f}" fill="#ff000000" begin="1600:200" stroke-width="5" stroke="#ff000000" stroke-style="none" end="1398.53:199.994"/>
+        </walls>
+        <skittles/>
+        <balls/>
+        <colorFields/>
+        <images/>
+        <regions>
+            <region filled="true" id="(5,2)" type="rectangle" textX="0" textY="0" height="200" x="1000" text="(5,2)" y="400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(5,3)" type="rectangle" textX="0" textY="0" height="200" x="1000" text="(5,3)" y="600" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="start" type="rectangle" textX="0" textY="0" height="200" x="600" text="start" y="200" color="#0000ff" width="200" visible="true"/>
+            <region filled="true" id="(5,4)" type="rectangle" textX="0" textY="0" height="200" x="1000" text="(5,4)" y="800" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(5,6)" type="rectangle" textX="0" textY="0" height="200" x="1000" text="(5,6)" y="1200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(5,7)" type="rectangle" textX="0" textY="0" height="200" x="1000" text="(5,7)" y="1400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(5,5)" type="rectangle" textX="0" textY="0" height="200" x="1000" text="(5,5)" y="1000" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(5,1)" type="rectangle" textX="0" textY="0" height="200" x="1000" text="(5,1)" y="200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(4,2)" type="rectangle" textX="0" textY="0" height="200" x="800" text="(4,2)" y="400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(4,3)" type="rectangle" textX="0" textY="0" height="200" x="800" text="(4,3)" y="600" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(5,0)" type="rectangle" textX="0" textY="0" height="200" x="1000" text="(5,0)" y="0" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(4,4)" type="rectangle" textX="0" textY="0" height="200" x="800" text="(4,4)" y="800" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(4,6)" type="rectangle" textX="0" textY="0" height="200" x="800" text="(4,6)" y="1200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(4,7)" type="rectangle" textX="0" textY="0" height="200" x="800" text="(4,7)" y="1400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(4,5)" type="rectangle" textX="0" textY="0" height="200" x="800" text="(4,5)" y="1000" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(6,0)" type="rectangle" textX="0" textY="0" height="200" x="1200" text="(6,0)" y="0" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(7,2)" type="rectangle" textX="0" textY="0" height="200" x="1400" text="(7,2)" y="400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(7,3)" type="rectangle" textX="0" textY="0" height="200" x="1400" text="(7,3)" y="600" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(6,1)" type="rectangle" textX="0" textY="0" height="200" x="1200" text="(6,1)" y="200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(7,4)" type="rectangle" textX="0" textY="0" height="200" x="1400" text="(7,4)" y="800" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(7,6)" type="rectangle" textX="0" textY="0" height="200" x="1400" text="(7,6)" y="1200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(7,7)" type="rectangle" textX="0" textY="0" height="200" x="1400" text="(7,7)" y="1400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(7,5)" type="rectangle" textX="0" textY="0" height="200" x="1400" text="(7,5)" y="1000" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(7,1)" type="rectangle" textX="0" textY="0" height="200" x="1400" text="(7,1)" y="200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(6,2)" type="rectangle" textX="0" textY="0" height="200" x="1200" text="(6,2)" y="400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(6,3)" type="rectangle" textX="0" textY="0" height="200" x="1200" text="(6,3)" y="600" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(7,0)" type="rectangle" textX="0" textY="0" height="200" x="1400" text="(7,0)" y="0" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(6,4)" type="rectangle" textX="0" textY="0" height="200" x="1200" text="(6,4)" y="800" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(6,6)" type="rectangle" textX="0" textY="0" height="200" x="1200" text="(6,6)" y="1200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(6,7)" type="rectangle" textX="0" textY="0" height="200" x="1200" text="Blocked" y="1400" color="#87cefa" width="200" visible="true"/>
+            <region filled="true" id="(6,5)" type="rectangle" textX="0" textY="0" height="200" x="1200" text="(6,5)" y="1000" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(4,1)" type="rectangle" textX="0" textY="0" height="200" x="800" text="(4,1)" y="200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(1,0)" type="rectangle" textX="0" textY="0" height="200" x="200" text="(1,0)" y="0" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(1,1)" type="rectangle" textX="0" textY="0" height="200" x="200" text="(1,1)" y="200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(4,0)" type="rectangle" textX="0" textY="0" height="200" x="800" text="(4,0)" y="0" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(1,2)" type="rectangle" textX="0" textY="0" height="200" x="200" text="(1,2)" y="400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(1,4)" type="rectangle" textX="0" textY="0" height="200" x="200" text="(1,4)" y="800" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(1,5)" type="rectangle" textX="0" textY="0" height="200" x="200" text="(1,5)" y="1000" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(1,3)" type="rectangle" textX="0" textY="0" height="200" x="200" text="(1,3)" y="600" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(0,7)" type="rectangle" textX="0" textY="0" height="200" x="0" text="(0,7)" y="1400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(0,0)" type="rectangle" textX="0" textY="0" height="200" x="0" text="(0,0)" y="0" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(0,1)" type="rectangle" textX="0" textY="0" height="200" x="0" text="(0,1)" y="200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(0,6)" type="rectangle" textX="0" textY="0" height="200" x="0" text="(0,6)" y="1200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(0,2)" type="rectangle" textX="0" textY="0" height="200" x="0" text="(0,2)" y="400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(0,4)" type="rectangle" textX="0" textY="0" height="200" x="0" text="(0,4)" y="800" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(0,5)" type="rectangle" textX="0" textY="0" height="200" x="0" text="(0,5)" y="1000" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(0,3)" type="rectangle" textX="0" textY="0" height="200" x="0" text="(0,3)" y="600" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(1,6)" type="rectangle" textX="0" textY="0" height="200" x="200" text="(1,6)" y="1200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(3,2)" type="rectangle" textX="0" textY="0" height="200" x="600" text="(3,2)" y="400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(3,3)" type="rectangle" textX="0" textY="0" height="200" x="600" text="(3,3)" y="600" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(1,7)" type="rectangle" textX="0" textY="0" height="200" x="200" text="(1,7)" y="1400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(3,4)" type="rectangle" textX="0" textY="0" height="200" x="600" text="(3,4)" y="800" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(3,6)" type="rectangle" textX="0" textY="0" height="200" x="600" text="(3,6)" y="1200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(3,7)" type="rectangle" textX="0" textY="0" height="200" x="600" text="(3,7)" y="1400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(3,5)" type="rectangle" textX="0" textY="0" height="200" x="600" text="(3,5)" y="1000" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(3,0)" type="rectangle" textX="0" textY="0" height="200" x="600" text="(3,0)" y="0" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(2,0)" type="rectangle" textX="0" textY="0" height="200" x="400" text="(2,0)" y="0" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(2,1)" type="rectangle" textX="0" textY="0" height="200" x="400" text="(2,1)" y="200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(2,7)" type="rectangle" textX="0" textY="0" height="200" x="400" text="(2,7)" y="1400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(2,2)" type="rectangle" textX="0" textY="0" height="200" x="400" text="(2,2)" y="400" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(2,3)" type="rectangle" textX="0" textY="0" height="200" x="400" text="(2,3)" y="600" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(2,6)" type="rectangle" textX="0" textY="0" height="200" x="400" text="(2,6)" y="1200" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(2,4)" type="rectangle" textX="0" textY="0" height="200" x="400" text="(2,4)" y="800" color="#87cefa" width="200" visible="false"/>
+            <region filled="true" id="(2,5)" type="rectangle" textX="0" textY="0" height="200" x="400" text="(2,5)" y="1000" color="#87cefa" width="200" visible="false"/>
+        </regions>
+    </world>
+    <robots>
+        <robot position="675:275" id="trikKitRobot" direction="90">
+            <sensors>
+                <sensor port="A2###input######sensorA2" position="25:25" type="trik::robotModel::parts::TrikInfraredSensor" direction="90"/>
+                <sensor port="A1###input###А1###sensorA1" position="26:21" type="trik::robotModel::parts::TrikInfraredSensor" direction="-90"/>
+                <sensor port="D2###input###D2###sensorD2" position="25:25" type="trik::robotModel::parts::TrikSonarSensor" direction="180"/>
+                <sensor port="D1###input###D1###sensorD1" position="25:25" type="trik::robotModel::parts::TrikSonarSensor" direction="0"/>
+            </sensors>
+            <startPosition id="{2dc946d6-a1f5-43bf-8f65-94bdab4fe125}" direction="2" x="700" y="300"/>
+            <wheels right="M3###output###М3###" left="M4###output###М4###"/>
+        </robot>
+    </robots>
+    <settings realisticMotors="false" realisticPhysics="false" realisticSensors="false"/>
+    <constraints>
+        <timelimit value="360000"/>
+        <constraint checkOnce="true" failMessage="У робота не должно быть лишних датчиков!">
+            <conditions glue="and">
+                <equals>
+                    <typeOf objectId="robot1.A3"/>
+                    <string value="undefined"/>
+                </equals>
+                <equals>
+                    <typeOf objectId="robot1.A4"/>
+                    <string value="undefined"/>
+                </equals>
+                <equals>
+                    <typeOf objectId="robot1.A5"/>
+                    <string value="undefined"/>
+                </equals>
+                <equals>
+                    <typeOf objectId="robot1.A6"/>
+                    <string value="undefined"/>
+                </equals>
+            </conditions>
+        </constraint>
+        <constraint checkOnce="true" failMessage="Робот должен находиться в зоне старта перед запуском!">
+            <inside objectId="robot1" regionId="start"/>
+        </constraint>
+        <event settedUpInitially="true">
+            <conditions glue="and">
+                <inside objectId="robot1" regionId="(6,7)"/>
+                <greater>
+                    <objectState object="robot1.display.labels.size"/>
+                    <int value="0"/>
+                </greater>
+                <not>
+                    <equals>
+                        <objectState object="robot1.display.labels.first.text"/>
+                        <string value="finish"/>
+                    </equals>
+                </not>
+            </conditions>
+            <trigger>
+                <fail message="cheating detected"/>
+            </trigger>
+        </event>
+        <event settedUpInitially="true">
+            <conditions glue="and">
+                <inside objectId="robot1" regionId="(6,7)"/>
+                <greater>
+                    <objectState object="robot1.display.labels.size"/>
+                    <int value="0"/>
+                </greater>
+                <equals>
+                    <objectState object="robot1.display.labels.first.text"/>
+                    <string value="finish"/>
+                </equals>
+            </conditions>
+            <trigger>
+                <success/>
+            </trigger>
+        </event>
+        <event settedUpInitially="true">
+            <conditions glue="and">
+                <inside objectId="robot1" regionId="(7,7)"/>
+                <greater>
+                    <objectState object="robot1.display.labels.size"/>
+                    <int value="0"/>
+                </greater>
+                <not>
+                    <equals>
+                        <objectState object="robot1.display.labels.first.text"/>
+                        <string value="finish"/>
+                    </equals>
+                </not>
+            </conditions>
+            <trigger>
+                <fail message="cheating detected"/>
+            </trigger>
+        </event>
+        <event settedUpInitially="true">
+            <conditions glue="and">
+                <inside objectId="robot1" regionId="(7,7)"/>
+                <greater>
+                    <objectState object="robot1.display.labels.size"/>
+                    <int value="0"/>
+                </greater>
+                <equals>
+                    <objectState object="robot1.display.labels.first.text"/>
+                    <string value="finish"/>
+                </equals>
+            </conditions>
+            <trigger>
+                <success/>
+            </trigger>
+        </event>
+    </constraints>
+</root>

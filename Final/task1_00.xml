@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root version="20190819">
+    <world>
+        <walls>
+            <wall fill="#ff000000" stroke-style="none" begin="0:0" end="0:200" stroke-width="5" id="{040de144-7a6f-4afb-aac7-f4be1da696ed}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1200:800" end="1400:800" stroke-width="5" id="{08b6d0a6-af74-4fca-8a80-9aaabf47bd5c}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1200:1400" end="1200:1200" stroke-width="5" id="{1b388fbd-e5e0-4793-825a-ae388b17964d}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="0:1000" end="0:1200" stroke-width="5" id="{1f62c201-8723-425c-99e0-7fc78d10d47e}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="800:1400" end="1000:1400" stroke-width="5" id="{25dd8e73-52d0-433a-80d5-10a1098ae7c7}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="800:0" end="1000:0" stroke-width="5" id="{2874bbda-b5e5-4260-863d-0147f6292377}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="200:1600" end="200:1400" stroke-width="5" id="{448d7415-a1d6-4449-ab18-6cd8c70fc077}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="0:1600" end="350:1600" stroke-width="5" id="{4eea2523-0262-471e-80a8-c6b7aa153b01}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1200:0" end="1600:0" stroke-width="5" id="{56b522a3-5c7c-46e2-bfbc-cd9c2ff7b09e}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="0:200" end="0:400" stroke-width="5" id="{58e93446-e01b-4467-ac81-aa74f6100032d}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1600:1600" end="350:1600" stroke-width="5" id="{6259eff6-f304-44b2-adaa-7a0cb6e9b25f}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="0:800" end="0:1000" stroke-width="5" id="{66fbb1bc-9b68-4372-b662-0df09cdcfce7}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="0:400" end="0:600" stroke-width="5" id="{69c7c389-2d66-4f30-b457-0b97ce171f1d}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1600:0" end="1600:400" stroke-width="5" id="{6c9a8506-c0dc-48bb-97c2-f6b87eb73d07}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1200:3200" end="4400:3200" stroke-width="5" id="{72ae5ff8-5f50-414f-8a74-bdf530ed760c}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="200:400" end="200:200" stroke-width="5" id="{789998a4-66d3-4b75-a0f1-fc374acc6a6f}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="600:0" end="800:0" stroke-width="5" id="{89bde907-f287-4caf-81c2-51a4ac98550f}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="0:600" end="0:800" stroke-width="5" id="{8d7fa5f1-3d4c-42aa-b34f-e90ebfeb39f9}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="200:0" end="400:0" stroke-width="5" id="{8e0cb31e-f24f-41ce-b44a-37951d29d651}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="200:200" end="400:200" stroke-width="5" id="{98dabd18-a080-4e28-b9d1-129721b2c67b}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="0:0" end="200:0" stroke-width="5" id="{aaabe6ec-8c84-4d9e-a005-99b5fb37d153}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1600:1000" end="1600:400" stroke-width="5" id="{aef47fd5-ed95-41a8-9833-c4b7753c015a}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1000:1400" end="1000:1200" stroke-width="5" id="{b4c10b66-32ec-4048-adb0-d20ac524d84b}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="200:1000" end="200:1200" stroke-width="5" id="{c07a1bd3-04b0-49fa-a0f3-666f2595f353}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1000:1400" end="1200:1400" stroke-width="5" id="{c3c2f915-2cbe-453b-afc0-0d19147e0cb0}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="200:800" end="200:600" stroke-width="5" id="{c8569bfa-2a53-431c-bb1e-b903053013b2}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1000:0" end="1200:0" stroke-width="5" id="{d8f2ac0c-c426-4ca9-83fa-72ad0733dbbc}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1600:1000" end="1600:1600" stroke-width="5" id="{de654a82-30ad-4296-a1ad-40e07030a493}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1000:600" end="800:600" stroke-width="5" id="{df0c339b-2932-4ea9-b5af-c9b6cdad3023}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="0:1200" end="0:1600" stroke-width="5" id="{e3ba069f-ad0c-4960-b795-84e15d9027a5}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="600:200" end="1000:200" stroke-width="5" id="{f1aa06fa-6fbc-41bc-83a1-30a9de0a80ac}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="400:0" end="600:0" stroke-width="5" id="{fbbf6aa2-2e72-43a3-8451-3f44f080826f}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="200:400" end="0:400" stroke-width="5" id="{7eb61d5e-f4db-8000-a882-061de0b10239}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="400:400" end="400:600" stroke-width="5" id="{2a1cbe4d-2c1b-4ffe-afdd-8d8dfe48e1f6}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="400:200" end="600:200" stroke-width="5" id="{6145438b-c395-43e2-acfd-b5110ea56267}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="400:600" end="600:600" stroke-width="5" id="{aacc2aaa-2009-41e0-8cd2-bcf973148c68}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="0:800" end="200:800" stroke-width="5" id="{f3c2d180-703a-4b65-951f-af6d8a82b2ba}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="400:800" end="600:800" stroke-width="5" id="{a3904ef0-93db-42c8-8951-eac6c243e6a5}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="800:400" end="800:600" stroke-width="5" id="{ae6ee371-f673-496a-a00c-64ddb10a950d}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1000:200" end="1200:200" stroke-width="5" id="{02d385c2-88f3-464a-974f-47d97ae857e1}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1400:200" end="1400:400" stroke-width="5" id="{6412357c-91ef-4b9f-b007-eed130d4103f}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1400:600" end="1600:600" stroke-width="5" id="{690cecdc-b64b-40aa-9f08-72568630e3b5}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1000:800" end="1200:800" stroke-width="5" id="{4d4692ca-0957-4cd4-9b88-7379dd187aad}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1000:800" end="1000:1000" stroke-width="5" id="{2145f0e7-d901-4433-9c1e-62a710e7455c}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1000:1000" end="1200:1000" stroke-width="5" id="{b3fcf824-0ed4-48e6-9467-b461c6253ec2}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1400:1000" end="1400:1200" stroke-width="5" id="{93ab3695-e01c-4b49-b374-48465cd065fa}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1000:1200" end="1200:1200" stroke-width="5" id="{72784799-31ca-48d3-99ae-1a06d4777b51}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="600:800" end="600:1000" stroke-width="5" id="{461285a6-f1ba-48a6-b8bb-3767334b61b1}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="400:1000" end="600:1000" stroke-width="5" id="{e7f1daaf-9792-4c60-99ad-d6e844d46201}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="400:800" end="400:1000" stroke-width="5" id="{4676a6e7-3f88-4cf7-ab90-5eb5f536eaa0}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="0:1000" end="200:1000" stroke-width="5" id="{89f19353-01a9-4973-9b9f-bb9c321e506a}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="400:1200" end="600:1200" stroke-width="5" id="{990ce8a1-d2a9-47b7-b2cb-950e435e6d69}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1400:1400" end="1600:1400" stroke-width="5" id="{d8ed370c-fa3d-4100-b882-f065bc1a8883}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="600:1200" end="600:1400" stroke-width="5" id="{d9e54e2d-ca46-47f7-a6a4-c48eb6e5c2b6}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="800:1400" end="600:1400" stroke-width="5" id="{bc0c868d-99fb-4925-a2ee-febcd866f18c}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="400:1200" end="400:1400" stroke-width="5" id="{5f3789b9-ea6d-44b8-b6e9-9d96cf7d80d5}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="600:1400" end="400:1400" stroke-width="5" id="{5e4a95b9-7f7c-48bc-88ed-6225d83656cc}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="0:1400" end="200:1400" stroke-width="5" id="{d974e7c5-7102-4a49-bd35-88fc802044c1}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="600:1400" end="600:1600" stroke-width="5" id="{a0ff127b-4005-43ac-9007-13296894b41e}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1400:1400" end="1400:1600" stroke-width="5" id="{8d16245d-95f4-40cc-893d-6ca579fd5a59}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="200:1200" end="0:1200" stroke-width="5" id="{8c6ae066-898a-4868-8577-129df7852e75}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1400:1200" end="1600:1200" stroke-width="5" id="{71981fb7-bedf-4072-a32c-4c199e75fd05}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="400:400" end="600:400" stroke-width="5" id="{a1296f0c-bc14-44fc-924c-cd625af8543f}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="600:400" end="600:600" stroke-width="5" id="{8fe849c1-da2d-4e51-9667-8466d2b4bda4}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="200:600" end="0:600" stroke-width="5" id="{d4263985-caad-4577-9c36-d13ed904c6ef}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1400:400" end="1200:400" stroke-width="5" id="{2b2ec3b3-7b66-4bfe-8632-2ec0c9dcd392}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1200:400" end="1200:200" stroke-width="5" id="{fbc4abce-e665-40c9-b16b-a5a87f2a1142}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="800:400" end="1000:400" stroke-width="5" id="{a81e4fe7-4659-4fe6-9f65-d12aaa56ccd0}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1000:400" end="1000:600" stroke-width="5" id="{15855493-d160-4710-a937-3f8db46f9921}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1200:1000" end="1400:1000" stroke-width="5" id="{88f0c24e-8a61-4bbb-9865-0a92698a28aa}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1000:1400" end="1000:1600" stroke-width="5" id="{4a96cb61-b8b0-45e4-a140-6d6a3af05930}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1400:600" end="1400:800" stroke-width="5" id="{55e2b01c-1a69-4dc0-92ce-562191b7eca4}" stroke="#ff000000"/>
+            <wall fill="#ff000000" stroke-style="none" begin="1400:200" end="1600:200" stroke-width="5" id="{8095801d-c3ce-43a4-bf66-abf995f99641}" stroke="#ff000000"/>
+        </walls>
+        <skittles/>
+        <balls/>
+        <colorFields/>
+        <images/>
+        <regions>
+            <region textX="0" height="200" visible="true" color="#ff0000" type="rectangle" filled="true" y="200" textY="0" x="600" text="Finish" id="finish" width="200"/>
+            <region textX="0" height="200" visible="true" color="#0000ff" type="rectangle" filled="true" y="1400" textY="0" x="200" text="Start" id="start" width="200"/>
+        </regions>
+    </world>
+    <robots>
+        <robot position="275:1475" direction="90" id="trikKitRobot">
+            <sensors>
+                <sensor type="trik::robotModel::parts::TrikSonarSensor" port="D1###input###D1###sensorD1" position="25:25" direction="0"/>
+                <sensor type="trik::robotModel::parts::TrikSonarSensor" port="D2###input###D2###sensorD2" position="25:25" direction="180"/>
+                <sensor type="trik::robotModel::parts::TrikInfraredSensor" port="A1###input###А1###sensorA1" position="25:25" direction="90"/>
+                <sensor type="trik::robotModel::parts::TrikInfraredSensor" port="A2###input######sensorA2" position="25:25" direction="-90"/>
+            </sensors>
+            <startPosition y="1500" x="300" direction="90" id="{ff4ce37a-75ec-4b53-9409-3eb41c4ef88d}"/>
+            <wheels right="M3###output###М3###" left="M4###output###М4###"/>
+        </robot>
+    </robots>
+    <settings realisticPhysics="false" realisticSensors="false" realisticMotors="false"/>
+    <constraints>
+        <timelimit value="900000"/>
+        <constraint checkOnce="true" failMessage="У робота не должно быть лишних датчиков!">
+            <conditions glue="and">
+                <equals>
+                    <typeOf objectId="robot1.A3"/>
+                    <string value="undefined"/>
+                </equals>
+                <equals>
+                    <typeOf objectId="robot1.A4"/>
+                    <string value="undefined"/>
+                </equals>
+                <equals>
+                    <typeOf objectId="robot1.A5"/>
+                    <string value="undefined"/>
+                </equals>
+                <equals>
+                    <typeOf objectId="robot1.A6"/>
+                    <string value="undefined"/>
+                </equals>
+            </conditions>
+        </constraint>
+        <constraint checkOnce="true" failMessage="Робот должен находиться в зоне старта перед запуском!">
+            <inside objectId="robot1" regionId="start"/>
+        </constraint>
+        <event settedUpInitially="true">
+            <conditions glue="and">
+                <not>
+                    <inside objectId="robot1" regionId="finish"/>
+                </not>
+                <greater>
+                    <objectState object="robot1.display.labels.size"/>
+                    <int value="0"/>
+                </greater>
+                <equals>
+                    <objectState object="robot1.display.labels.first.text"/>
+                    <string value="finish"/>
+                </equals>
+            </conditions>
+            <trigger>
+                <fail message="Неверный ответ!"/>
+            </trigger>
+        </event>
+        <event settedUpInitially="true">
+            <conditions glue="and">
+                <inside objectId="robot1" regionId="finish"/>
+                <greater>
+                    <objectState object="robot1.display.labels.size"/>
+                    <int value="0"/>
+                </greater>
+                <equals>
+                    <objectState object="robot1.display.labels.first.text"/>
+                    <string value="finish"/>
+                </equals>
+            </conditions>
+            <trigger>
+                <success/>
+            </trigger>
+        </event>
+    </constraints>
+</root>
