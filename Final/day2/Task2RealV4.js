@@ -330,21 +330,35 @@ function printMapPaint(msn){
 
 
 function valSen()
-{
-	for(var _i = 0;_i<3;_i++)
-	{
-		sz[_i] = s[_i].read();
-		if(sz[_i] == -1)
-		{
-			sz[_i] = 1;
-		}
-		else
-		{
-			if(sz[_i] < 24)
-				sz[_i] = 0;
-			else
-				sz[_i] = 1;
-		}
+{
+	switch(bortnum)
+	{
+		case 0;
+			for(var _i = 0;_i<4;_i++)
+			{
+				sz[_i] = s[_i].read();
+
+				{
+					if(sz[_i] < 20&&sz[_i]>0)
+						sz[_i] = 0;
+					else
+						sz[_i] = 1;
+				}
+			}
+		break;
+		case 1;
+			for(var _i = 0;_i<3;_i++)
+			{
+				sz[_i] = s[_i].read();
+
+				{
+					if(sz[_i] < 20&&sz[_i]>0)
+						sz[_i] = 0;
+					else
+						sz[_i] = 1;
+				}
+			}
+		break;
 	}
 }
 //
