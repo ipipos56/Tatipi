@@ -850,7 +850,7 @@ function rotate(_deg)
 
 
 var main = function()
-{
+{
 	Left_()
 	//Right_();
 	//Right_();

@@ -192,20 +192,7 @@ var main = function()
     return;
 	*/
 }
-
-function valSen()
-{
-	for(var _i = 0;_i<3;_i++)
-	{
-		sz[_i] = s[_i].read();
-		if(sz[_i] < 50)
-			sz[_i] = 0;
-		else
-			sz[_i] = 1;
-	}
-	
-}
-
+//
 
 function stop(){
 	MR(0)
@@ -786,10 +773,7 @@ function findPoint()
 		}
 		itd++;
 	}
-	print("val")
-	for(lo=0;lo<7;lo++)
-	print(values[lo])
-	print(" ");
+
 	
 /*	
 	
@@ -843,7 +827,7 @@ function rotate_clockwise(times)
         {
             for (z = 0; z < 6; z = z + 1)
             {
-                values_temp[z][2-j] = values[j][z]
+                values_temp[z][5-j] = values[j][z]
             }
         }
         values = values_temp;
@@ -854,7 +838,7 @@ function getARTagValue(number)
 {
     getData(number);
     binarization();
-  //  printImage();
+    //printImage();
     getCorners();
     findPoint();
 	
@@ -874,6 +858,10 @@ function getARTagValue(number)
     {
         rotate_clockwise(3)
     }
+		print("val")
+	for(lo=0;lo<7;lo++)
+	print(values[lo])
+	print(" ");
     //else
     //{
         //print("Error: Incorrect ARTag\n");
