@@ -139,7 +139,7 @@ var main = function()
 	script.wait(4050);
 	moveSmall();
 	
-	var raw = script.readAll("input.txt");
+	var raw = script.readAll("C:/Users/ipipos/Desktop/Tatipi/Final/input.txt");
 	//raw2=raw[1];
 	rot=parseInt(raw[0],10)
 	//xpos=parseInt(raw[0],10)*2+1;

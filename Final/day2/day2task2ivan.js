@@ -139,18 +139,18 @@ var main = function()
 	script.wait(4050);
 	moveSmall();
 	
-	var raw = script.readAll("/home/ivan/Загрузки/sim_tests/sim2/task2_01.txt");
-	//raw2=raw[1];
-	raw = raw[0].split(" ");
-	//raw2 = raw2.split(" ");
+	var raw = script.readAll("C:/Users/ipipos/Desktop/Tatipi/Final/input.txt");
+	raw2=raw[1];
+	raw = raw[0];
+	raw2 = raw2.split(" ");
 	
 	//xpos=parseInt(raw[0],10)*2+1;
 	//ypos=parseInt(raw[1],10)*2+1;
-	//rot=parseInt(raw[2],10);
+	rot=parseInt(raw,10);
 	iznrot = rot - 1;
 	iznrot = cuboid(iznrot);
-	xfinpre=parseInt(raw[0],10);
-	yfinpre=parseInt(raw[1],10);
+	xfinpre=parseInt(raw2[0],10);
+	yfinpre=parseInt(raw2[1],10);
 	
 	//print(xpos+" "+ypos+" "+rot+" "+xfin+" "+yfin+"\n")
 	
@@ -182,18 +182,27 @@ var main = function()
 		
 		xfin=28;
 		yfin=28;
-	}
+	}
+	
+	
+	for(var i=0;i<8;i++){
+		map[minx-1][miny+i]=1;
+		map[minx+i][miny-1]=1;
+		map[maxx+1][miny+i]=1;
+		map[minx+i][maxy+1]=1;
+	}
+	
 	
 	xfin=xfinpre+minx
 	yfin=yfinpre+miny
-	
+	print("finished! Now moving to "+xfin+" "+yfin)
 	calculatePath();
 	err=false
-	while(!(err)){
-		map[xfin][xfin]=0;
+	while(!  ( (abs(xfin-xpos)<=1 && abs(yfin-ypos)<=0) ||  (abs(xfin-xpos)<=0 && abs(yfin-ypos)<=1)  )){
+		map[xfin][yfin]=0;
 		movementStep();
 	}
-	
+	print("finish!")
 	
 	
 	
@@ -206,7 +215,7 @@ var main = function()
 function movementStep(){
 	
 			valMap();
-			print((maxx-minx)+" "+(maxy-miny))
+			//print((maxx-minx)+" "+(maxy-miny))
 			//printMapPaint(mapPaint)
 			//printMapPaint(map)
 			//print()
@@ -446,7 +455,7 @@ function forward()
 	EL.reset()
 	
 	//print("rot " + rot);
-	deg = (700/(pi*56))*360;
+	deg = (690/(pi*56))*360;
 	newrot = rot - iznrot;
 	newrot = cuboid(newrot);
 	if(newrot == 0)
@@ -468,8 +477,8 @@ function forward()
 				direction = 180;
 		}
 		err = direction - gyro;
-		ML(50+(err*1))
-		MR(50-(err*1))
+		ML(100+(err*1))
+		MR(100-(err*1))
 		wait(2);
 	}
 	stop();
@@ -491,9 +500,9 @@ function turn_left() {
 	ER.reset()
 	EL.reset()
 
-	deg = (174/56)*90
-	ML(-50)
-	MR(50)
+	deg = (167/56)*90
+	ML(-100)
+	MR(100)
 	while(abs(ER.read()) < deg)
 	{
 		wait(2)
@@ -511,9 +520,9 @@ function turn_right()
 	ER.reset()
 	EL.reset()
 	
-	deg = (174/56)*90;
-	ML(50);
-	MR(-50);
+	deg = (167/56)*90;
+	ML(100);
+	MR(-100);
 	while(abs(EL.read()) < deg) 
 		script.wait(2);
 	stop();
