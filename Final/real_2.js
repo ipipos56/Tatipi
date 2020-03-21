@@ -1,22 +1,22 @@
 var __interpretation_started_timestamp__;
 pi = 3.141592653589793;
-wait = script.wait;
-
-
-
-EL_OLD=0;
-ER_OLD=0;
-EL_NEW=0;
-ER_NEW=0;
-ML_INTEGRAL=0;
-MR_INTEGRAL=0;
-
-MAX_INTEGRAL=20;
-
-KP=2;
-KI=0.3;
-KD=1;
-DT=5;
+wait = script.wait;
+
+
+
+EL_OLD=0;
+ER_OLD=0;
+EL_NEW=0;
+ER_NEW=0;
+ML_INTEGRAL=0;
+MR_INTEGRAL=0;
+
+MAX_INTEGRAL=20;
+
+KP=2;
+KI=0.3;
+KD=1;
+DT=5;
 
 sign = function(n)
 {
@@ -41,184 +41,184 @@ sin = Math.sin;
 cos = Math.cos;
 round = Math.round;
 var code;
-function left(_ML_FINISH,_MR_FINISH){
-	ER.reset();
-	EL.reset();
-	MAIN_ACCEL=0.1;
-	ML_REQUIRED=0;
-	MR_REQUIRED=0;
-	ML_FINISH=_ML_FINISH;
-	MR_FINISH=_MR_FINISH;
-	//ML_FINISH=231;
-	//MR_FINISH=-231;
-	ML_SPEED=0;
-	MR_SPEED=0;
-	ERR=100000;
-	REAL_ERR=100000;
-	while(ERR>4){
-		EL_NEW=-EL.read();
-		ER_NEW=-ER.read();
-		
-		if(ML_FINISH<ML_REQUIRED){
-			if(abs(ML_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
-				ML_SPEED-=MAIN_ACCEL
-			}else{
-				ML_SPEED+=MAIN_ACCEL
-			}
-		}else{
-			if(abs(ML_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
-				ML_SPEED+=MAIN_ACCEL
-			}else{
-				ML_SPEED-=MAIN_ACCEL
-			}
-		}
-		
-		if(MR_FINISH<MR_REQUIRED){
-			if(abs(MR_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
-				MR_SPEED-=MAIN_ACCEL
-			}else{
-				MR_SPEED+=MAIN_ACCEL
-			}
-		}else{
-			if(abs(MR_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
-				MR_SPEED+=MAIN_ACCEL
-			}else{
-				MR_SPEED-=MAIN_ACCEL
-			}
-		}
-		
-		//print((abs(ML_REQUIRED-ML_FINISH)+abs(MR_REQUIRED-MR_FINISH))+"\n")
-		if(abs(ML_REQUIRED-ML_FINISH)+abs(MR_REQUIRED-MR_FINISH)>abs(MR_SPEED)+abs(ML_SPEED)){
-			ML_REQUIRED+=ML_SPEED;
-			MR_REQUIRED+=MR_SPEED;
-		}
-		
-		if(EL_NEW<ML_REQUIRED){
-			ML_INTEGRAL+=KI;
-		}else{
-			ML_INTEGRAL-=KI;
-		}
-		if(ER_NEW<MR_REQUIRED){
-			MR_INTEGRAL+=KI;
-		}else{
-			MR_INTEGRAL-=KI;
-		}
-		if(MR_INTEGRAL>MAX_INTEGRAL)MR_INTEGRAL=MAX_INTEGRAL;
-		if(MR_INTEGRAL<-MAX_INTEGRAL)MR_INTEGRAL=-MAX_INTEGRAL;
-			
-		if(ML_INTEGRAL>MAX_INTEGRAL)ML_INTEGRAL=MAX_INTEGRAL;
-		if(ML_INTEGRAL<-MAX_INTEGRAL)ML_INTEGRAL=-MAX_INTEGRAL;
-		
-		ML_POWER=(EL_NEW-ML_REQUIRED)*KP-ML_INTEGRAL-(EL_OLD-EL_NEW)*KD;
-		MR_POWER=(ER_NEW-MR_REQUIRED)*KP-MR_INTEGRAL-(ER_OLD-ER_NEW)*KD;
-		
-		ML(ML_POWER,false)
-		MR(MR_POWER,false)
-		
-		ERR=abs(ER_NEW-MR_FINISH)+abs(EL_NEW-ML_FINISH);
-		REAL_ERR=abs(ER_NEW-MR_REQUIRED)+abs(EL_NEW-ML_REQUIRED);
-		
-		ER_OLD=ER_NEW;
-		EL_OLD=EL_NEW;
-		
-		script.wait(DT);
-	}
-	ML(20,false);
-	MR(-20,false);
-	script.wait(20);
-	stop();
-}
+function left(_ML_FINISH,_MR_FINISH){
+	ER.reset();
+	EL.reset();
+	MAIN_ACCEL=0.1;
+	ML_REQUIRED=0;
+	MR_REQUIRED=0;
+	ML_FINISH=_ML_FINISH;
+	MR_FINISH=_MR_FINISH;
+	//ML_FINISH=231;
+	//MR_FINISH=-231;
+	ML_SPEED=0;
+	MR_SPEED=0;
+	ERR=100000;
+	REAL_ERR=100000;
+	while(ERR>4){
+		EL_NEW=-EL.read();
+		ER_NEW=-ER.read();
+		
+		if(ML_FINISH<ML_REQUIRED){
+			if(abs(ML_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
+				ML_SPEED-=MAIN_ACCEL
+			}else{
+				ML_SPEED+=MAIN_ACCEL
+			}
+		}else{
+			if(abs(ML_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
+				ML_SPEED+=MAIN_ACCEL
+			}else{
+				ML_SPEED-=MAIN_ACCEL
+			}
+		}
+		
+		if(MR_FINISH<MR_REQUIRED){
+			if(abs(MR_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
+				MR_SPEED-=MAIN_ACCEL
+			}else{
+				MR_SPEED+=MAIN_ACCEL
+			}
+		}else{
+			if(abs(MR_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
+				MR_SPEED+=MAIN_ACCEL
+			}else{
+				MR_SPEED-=MAIN_ACCEL
+			}
+		}
+		
+		//print((abs(ML_REQUIRED-ML_FINISH)+abs(MR_REQUIRED-MR_FINISH))+"\n")
+		if(abs(ML_REQUIRED-ML_FINISH)+abs(MR_REQUIRED-MR_FINISH)>abs(MR_SPEED)+abs(ML_SPEED)){
+			ML_REQUIRED+=ML_SPEED;
+			MR_REQUIRED+=MR_SPEED;
+		}
+		
+		if(EL_NEW<ML_REQUIRED){
+			ML_INTEGRAL+=KI;
+		}else{
+			ML_INTEGRAL-=KI;
+		}
+		if(ER_NEW<MR_REQUIRED){
+			MR_INTEGRAL+=KI;
+		}else{
+			MR_INTEGRAL-=KI;
+		}
+		if(MR_INTEGRAL>MAX_INTEGRAL)MR_INTEGRAL=MAX_INTEGRAL;
+		if(MR_INTEGRAL<-MAX_INTEGRAL)MR_INTEGRAL=-MAX_INTEGRAL;
+			
+		if(ML_INTEGRAL>MAX_INTEGRAL)ML_INTEGRAL=MAX_INTEGRAL;
+		if(ML_INTEGRAL<-MAX_INTEGRAL)ML_INTEGRAL=-MAX_INTEGRAL;
+		
+		ML_POWER=(EL_NEW-ML_REQUIRED)*KP-ML_INTEGRAL-(EL_OLD-EL_NEW)*KD;
+		MR_POWER=(ER_NEW-MR_REQUIRED)*KP-MR_INTEGRAL-(ER_OLD-ER_NEW)*KD;
+		
+		ML(ML_POWER,false)
+		MR(MR_POWER,false)
+		
+		ERR=abs(ER_NEW-MR_FINISH)+abs(EL_NEW-ML_FINISH);
+		REAL_ERR=abs(ER_NEW-MR_REQUIRED)+abs(EL_NEW-ML_REQUIRED);
+		
+		ER_OLD=ER_NEW;
+		EL_OLD=EL_NEW;
+		
+		script.wait(DT);
+	}
+	ML(20,false);
+	MR(-20,false);
+	script.wait(20);
+	stop();
+}
 //
-
-function right(_ML_FINISH,_MR_FINISH){
-	
-	ER.reset();
-	EL.reset();
-	MAIN_ACCEL=0.1;
-	ML_REQUIRED=0;
-	MR_REQUIRED=0;
-	ML_FINISH=_ML_FINISH;
-	MR_FINISH=_MR_FINISH;
-	//ML_FINISH=-236;
-	//MR_FINISH=235;
-	ML_SPEED=0;
-	MR_SPEED=0;
-	ERR=100000;
-	REAL_ERR=100000;
-	while(ERR>4){
-		EL_NEW=-EL.read();
-		ER_NEW=-ER.read();
-		
-		if(ML_FINISH<ML_REQUIRED){
-			if(abs(ML_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
-				ML_SPEED-=MAIN_ACCEL
-			}else{
-				ML_SPEED+=MAIN_ACCEL
-			}
-		}else{
-			if(abs(ML_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
-				ML_SPEED+=MAIN_ACCEL
-			}else{
-				ML_SPEED-=MAIN_ACCEL
-			}
-		}
-		
-		if(MR_FINISH<MR_REQUIRED){
-			if(abs(MR_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
-				MR_SPEED-=MAIN_ACCEL
-			}else{
-				MR_SPEED+=MAIN_ACCEL
-			}
-		}else{
-			if(abs(MR_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
-				MR_SPEED+=MAIN_ACCEL
-			}else{
-				MR_SPEED-=MAIN_ACCEL
-			}
-		}
-		
-		//print((abs(ML_REQUIRED-ML_FINISH)+abs(MR_REQUIRED-MR_FINISH))+"\n")
-		if(abs(ML_REQUIRED-ML_FINISH)+abs(MR_REQUIRED-MR_FINISH)>abs(MR_SPEED)+abs(ML_SPEED)){
-			ML_REQUIRED+=ML_SPEED;
-			MR_REQUIRED+=MR_SPEED;
-		}
-		
-		if(EL_NEW<ML_REQUIRED){
-			ML_INTEGRAL+=KI;
-		}else{
-			ML_INTEGRAL-=KI;
-		}
-		if(ER_NEW<MR_REQUIRED){
-			MR_INTEGRAL+=KI;
-		}else{
-			MR_INTEGRAL-=KI;
-		}
-		if(MR_INTEGRAL>MAX_INTEGRAL)MR_INTEGRAL=MAX_INTEGRAL;
-		if(MR_INTEGRAL<-MAX_INTEGRAL)MR_INTEGRAL=-MAX_INTEGRAL;
-			
-		if(ML_INTEGRAL>MAX_INTEGRAL)ML_INTEGRAL=MAX_INTEGRAL;
-		if(ML_INTEGRAL<-MAX_INTEGRAL)ML_INTEGRAL=-MAX_INTEGRAL;
-		
-		ML_POWER=(EL_NEW-ML_REQUIRED)*KP-ML_INTEGRAL-(EL_OLD-EL_NEW)*KD;
-		MR_POWER=(ER_NEW-MR_REQUIRED)*KP-MR_INTEGRAL-(ER_OLD-ER_NEW)*KD;
-		
-		ML(ML_POWER,false)
-		MR(MR_POWER,false)
-		
-		ERR=abs(ER_NEW-MR_FINISH)+abs(EL_NEW-ML_FINISH);
-		REAL_ERR=abs(ER_NEW-MR_REQUIRED)+abs(EL_NEW-ML_REQUIRED);
-		
-		ER_OLD=ER_NEW;
-		EL_OLD=EL_NEW;
-		
-		script.wait(DT);
-	}
-	ML(-20,false);
-	MR(20,false);
-	script.wait(20);
-	stop();
-}
-//
+
+function right(_ML_FINISH,_MR_FINISH){
+	
+	ER.reset();
+	EL.reset();
+	MAIN_ACCEL=0.1;
+	ML_REQUIRED=0;
+	MR_REQUIRED=0;
+	ML_FINISH=_ML_FINISH;
+	MR_FINISH=_MR_FINISH;
+	//ML_FINISH=-236;
+	//MR_FINISH=235;
+	ML_SPEED=0;
+	MR_SPEED=0;
+	ERR=100000;
+	REAL_ERR=100000;
+	while(ERR>4){
+		EL_NEW=-EL.read();
+		ER_NEW=-ER.read();
+		
+		if(ML_FINISH<ML_REQUIRED){
+			if(abs(ML_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
+				ML_SPEED-=MAIN_ACCEL
+			}else{
+				ML_SPEED+=MAIN_ACCEL
+			}
+		}else{
+			if(abs(ML_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
+				ML_SPEED+=MAIN_ACCEL
+			}else{
+				ML_SPEED-=MAIN_ACCEL
+			}
+		}
+		
+		if(MR_FINISH<MR_REQUIRED){
+			if(abs(MR_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
+				MR_SPEED-=MAIN_ACCEL
+			}else{
+				MR_SPEED+=MAIN_ACCEL
+			}
+		}else{
+			if(abs(MR_REQUIRED)<=abs((MR_FINISH*1.1)/2)){
+				MR_SPEED+=MAIN_ACCEL
+			}else{
+				MR_SPEED-=MAIN_ACCEL
+			}
+		}
+		
+		//print((abs(ML_REQUIRED-ML_FINISH)+abs(MR_REQUIRED-MR_FINISH))+"\n")
+		if(abs(ML_REQUIRED-ML_FINISH)+abs(MR_REQUIRED-MR_FINISH)>abs(MR_SPEED)+abs(ML_SPEED)){
+			ML_REQUIRED+=ML_SPEED;
+			MR_REQUIRED+=MR_SPEED;
+		}
+		
+		if(EL_NEW<ML_REQUIRED){
+			ML_INTEGRAL+=KI;
+		}else{
+			ML_INTEGRAL-=KI;
+		}
+		if(ER_NEW<MR_REQUIRED){
+			MR_INTEGRAL+=KI;
+		}else{
+			MR_INTEGRAL-=KI;
+		}
+		if(MR_INTEGRAL>MAX_INTEGRAL)MR_INTEGRAL=MAX_INTEGRAL;
+		if(MR_INTEGRAL<-MAX_INTEGRAL)MR_INTEGRAL=-MAX_INTEGRAL;
+			
+		if(ML_INTEGRAL>MAX_INTEGRAL)ML_INTEGRAL=MAX_INTEGRAL;
+		if(ML_INTEGRAL<-MAX_INTEGRAL)ML_INTEGRAL=-MAX_INTEGRAL;
+		
+		ML_POWER=(EL_NEW-ML_REQUIRED)*KP-ML_INTEGRAL-(EL_OLD-EL_NEW)*KD;
+		MR_POWER=(ER_NEW-MR_REQUIRED)*KP-MR_INTEGRAL-(ER_OLD-ER_NEW)*KD;
+		
+		ML(ML_POWER,false)
+		MR(MR_POWER,false)
+		
+		ERR=abs(ER_NEW-MR_FINISH)+abs(EL_NEW-ML_FINISH);
+		REAL_ERR=abs(ER_NEW-MR_REQUIRED)+abs(EL_NEW-ML_REQUIRED);
+		
+		ER_OLD=ER_NEW;
+		EL_OLD=EL_NEW;
+		
+		script.wait(DT);
+	}
+	ML(-20,false);
+	MR(20,false);
+	script.wait(20);
+	stop();
+}
+//
 
 //s = new Array(3);
 //s[0] = brick.sensor(A3);
@@ -256,7 +256,7 @@ function rotate(_deg)
 			right(-236,237)
 		else
 			 left(237,-237)
-	}
+	}
 	stop();
 }
 
@@ -278,143 +278,143 @@ fullRot = 0;
 var numbers = [49];
 for(i=0;i<49;i++)
 	numbers[i]=[0,0];
-
-
-
-function turnDown(_dist)
-{
-    ER.reset();
-    EL.reset();
-    erol = abs(ER.read());
-    elol = abs(EL.read());
-	lerr=0;
-    sp=-25;
-    while((erol+elol)/2<_dist)
-    {
-        erol = abs(ER.read());
-        elol = abs(EL.read());
-        err = (elol) - (erol) - 1;
-        P = err * 1.1;
-        I = (lerr + err) * 0;
-        D = (lerr - err) * 0;
-        mot = P+I+D;
-        MR(sp - mot,false);
-        ML(sp + mot,false);
-        lerr = err;
-        wait(10);
-    }
-    ML(30,false);
-    MR(30,false);
-    wait(20);
-	stop();
-}
-
-
-function turnForward(_dist)//dlya povorota
-{
-	path_sm=42;
-	var path_deg = _dist;//path_sm * 240/(8.2*pi);
-	EL.reset();
-	ER.reset();
-	lLast = EL.read();
-	rLast = ER.read();
-	var speed=30;
-	var err_sensor=0;
-	var err_sensor1=0
-	var err_sensor2=0
-	var err_sensor3=0
-	var err_sensor4=0
-	var err_sensor5=0
-	var curL=abs(EL.read());
-	var curR=abs(ER.read());
-
-	while(((curL-lLast)+(curR-rLast))/2<path_deg)
-	{
-		curL=abs(EL.read());
-		curR=abs(ER.read());
-		err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.2
-		_s0 = s[0].read();
-		_s2 = s[2].read();
-		if(_s0<20)
-		{
-			err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.2
-			err_sensor3=err_sensor2;
-			err_sensor2=err_sensor1;
-			err_sensor1=s0-_s0;
-			err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
-			motors(speed+err/3+err_sensor*1.7,speed-err/3-err_sensor*1.7)
-		}
-		else
-		{
-			_s2=s[2].read();
-			if(_s2<20)
-			{
-				err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.2
-				err_sensor3=err_sensor2;
-				err_sensor2=err_sensor1;
-				err_sensor1=s2-_s2;
-				err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
-				motors(speed+err/3-err_sensor*1.7,speed-err/3+err_sensor*1.7)	
-			}
-			else
-			{
-				motors(speed+err,speed-err)
-			}
-		}
-		wait(30);
-	}
-	print((abs(EL.read())-lLast)+"\n");
-	extraStop();
-	stop();
-
-}
-//
-
-function extraStop()
-{
-	ML(-30,false);
-	MR(-30,false);
-	wait(30);
+
+
+
+function turnDown(_dist)
+{
+    ER.reset();
+    EL.reset();
+    erol = abs(ER.read());
+    elol = abs(EL.read());
+	lerr=0;
+    sp=-25;
+    while((erol+elol)/2<_dist)
+    {
+        erol = abs(ER.read());
+        elol = abs(EL.read());
+        err = (elol) - (erol) - 1;
+        P = err * 1.1;
+        I = (lerr + err) * 0;
+        D = (lerr - err) * 0;
+        mot = P+I+D;
+        MR(sp - mot,false);
+        ML(sp + mot,false);
+        lerr = err;
+        wait(10);
+    }
+    ML(30,false);
+    MR(30,false);
+    wait(20);
+	stop();
+}
+
+
+function turnForward(_dist)//dlya povorota
+{
+	path_sm=42;
+	var path_deg = _dist;//path_sm * 240/(8.2*pi);
+	EL.reset();
+	ER.reset();
+	lLast = EL.read();
+	rLast = ER.read();
+	var speed=30;
+	var err_sensor=0;
+	var err_sensor1=0
+	var err_sensor2=0
+	var err_sensor3=0
+	var err_sensor4=0
+	var err_sensor5=0
+	var curL=abs(EL.read());
+	var curR=abs(ER.read());
+
+	while(((curL-lLast)+(curR-rLast))/2<path_deg)
+	{
+		curL=abs(EL.read());
+		curR=abs(ER.read());
+		err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.2
+		_s0 = s[0].read();
+		_s2 = s[2].read();
+		if(_s0<20)
+		{
+			err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.2
+			err_sensor3=err_sensor2;
+			err_sensor2=err_sensor1;
+			err_sensor1=s0-_s0;
+			err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
+			motors(speed+err/3+err_sensor*1.7,speed-err/3-err_sensor*1.7)
+		}
+		else
+		{
+			_s2=s[2].read();
+			if(_s2<20)
+			{
+				err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.2
+				err_sensor3=err_sensor2;
+				err_sensor2=err_sensor1;
+				err_sensor1=s2-_s2;
+				err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
+				motors(speed+err/3-err_sensor*1.7,speed-err/3+err_sensor*1.7)	
+			}
+			else
+			{
+				motors(speed+err,speed-err)
+			}
+		}
+		wait(30);
+	}
+	print((abs(EL.read())-lLast)+"\n");
+	extraStop();
+	stop();
+
+}
+//
+
+function extraStop()
+{
+	ML(-30,false);
+	MR(-30,false);
+	wait(30);
 }
 var main = function()
-{
-	
-	
-	var d2=brick.sensor(D2).read();
-	wait(50);
-	if(d2<40)
-	{
-		save();
-		var otv = getARTagValue(0);
+{
+	
+	
+	var d2=brick.sensor(D2).read();
+	wait(50);
+	if(d2<40)
+	{
+		save();
+		var otv = getARTagValue(0);
 	}
-    else
-	{
-		rotate(-90);
-		var d2=brick.sensor(D2).read();
-		wait(50);
-		if(d2<40)
-		{
-			save();
-			var otv = getARTagValue(0);
-		}
-		else
-		{
-			rotate(-90);
-			
-			var d2=brick.sensor(D2).read();
-			wait(50);
-			if(d2<40)
-			{
-				save();
-				var otv = getARTagValue(0);
-			}
-			else
-			{
-				rotate(-90);
-				save();
-				var otv = getARTagValue(0);
-			}
-		}
+    else
+	{
+		rotate(-90);
+		var d2=brick.sensor(D2).read();
+		wait(50);
+		if(d2<40)
+		{
+			save();
+			var otv = getARTagValue(0);
+		}
+		else
+		{
+			rotate(-90);
+			
+			var d2=brick.sensor(D2).read();
+			wait(50);
+			if(d2<40)
+			{
+				save();
+				var otv = getARTagValue(0);
+			}
+			else
+			{
+				rotate(-90);
+				save();
+				var otv = getARTagValue(0);
+			}
+		}
 	}//
 	//for(var i = 0;i<289;i++)
 	//	map[i] = [-1,-1,-1,-1];
@@ -548,13 +548,13 @@ var main = function()
 	*/
 }
 //
-function stop()
-{
-	brick.motor(M3).brake(100);
-	brick.motor(M4).brake(100);
-    //MR(0) 
-    //ML(0)
-    //wait(200)
+function stop()
+{
+	brick.motor(M3).brake(100);
+	brick.motor(M4).brake(100);
+    //MR(0) 
+    //ML(0)
+    //wait(200)
 }
 
 function findPath(stPoin,fnPoin)
@@ -837,39 +837,39 @@ function printSelectedImage()
         print(str);
     }
 }
-
-
-
-function save()
-{
-	ER.reset();
-	EL.reset();
-	erol = abs(ER.read());
-	elol = abs(EL.read());
-	_dist=50;
-	lerr=0;
-	sp=25;
-	while((erol+elol)/2<_dist)
-	{
-		erol = abs(ER.read());
-		elol = abs(EL.read());
-		err = (erol) - (elol) - 0;
-		P = err * 1.2;
-		I = (lerr + err) * 0;
-		D = (lerr - err) * 0;
-		mot = P+I+D;
-		MR(sp - mot,false);
-		ML(sp + mot,false);
-		lerr = err;
-		wait(10);
-	}
-	MR(sp+10,false);
-	ML(sp+10,false);
-	script.wait(900);
-	extraStop();
-	stop();
-	turnDown(120);
-	wait(100);
+
+
+
+function save()
+{
+	ER.reset();
+	EL.reset();
+	erol = abs(ER.read());
+	elol = abs(EL.read());
+	_dist=50;
+	lerr=0;
+	sp=25;
+	while((erol+elol)/2<_dist)
+	{
+		erol = abs(ER.read());
+		elol = abs(EL.read());
+		err = (erol) - (elol) - 0;
+		P = err * 1.2;
+		I = (lerr + err) * 0;
+		D = (lerr - err) * 0;
+		mot = P+I+D;
+		MR(sp - mot,false);
+		ML(sp + mot,false);
+		lerr = err;
+		wait(10);
+	}
+	MR(sp+10,false);
+	ML(sp+10,false);
+	script.wait(900);
+	extraStop();
+	stop();
+	turnDown(120);
+	wait(100);
 }
 function getCorners()
 {
@@ -1249,9 +1249,9 @@ function getARTagValue(number)
         rotate_clockwise(3)
     }
 		print("val")
-	for(lo=0;lo<7;lo++)
-	print(values[lo])
-	print(" ");
+	//for(lo=0;lo<7;lo++)
+	//print(values[lo])
+	//print(" ");
     //else
     //{
         //print("Error: Incorrect ARTag\n");
@@ -1294,8 +1294,8 @@ function getARTagValue(number)
 			vivo += String(kom[i]) + String(" ");
 		else
 			vivo += String(kom[i]);
-	print(vivo);
-	brick.playSound("media/beep.wav");
+	print(vivo);
+	brick.playSound("media/beep.wav");
 	wait(1000);
 	brick.display().addLabel(vivo,1,1) //вывод ответа
     brick.display().redraw()
