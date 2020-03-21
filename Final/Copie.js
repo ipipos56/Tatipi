@@ -10,8 +10,8 @@ sensorDist=0;
 		}
 		else
 		{
-			s0=16;
-			s2=16;
+			s0=15;
+			s2=15;
 		}
 wait = script.wait;
 sign = function(n)
