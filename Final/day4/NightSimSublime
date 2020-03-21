@@ -23,25 +23,13 @@ abs = Math.abs;
 sin = Math.sin;
 cos = Math.cos;
 round = Math.round;
-var code;
 
-
-//s = new Array(3);
-//s[0] = brick.sensor(A3);
-//s[1] = brick.sensor(A1);
-//s[2] = brick.sensor(A2);
-
-//sz = [0,0,0];
 
 ML = brick.motor(M4).setPower; 
 MR = brick.motor(M3).setPower; 
 EL = brick.encoder(E4); 
 ER = brick.encoder(E3); 
 
-rotCnt = 0;
-
-
-direction = 0;
 
 x = 0
 y = 0;
@@ -71,7 +59,7 @@ ypos=15;
 xfin=1;
 yfin=1;
 
-err=false;
+terr=false;
 
 var calculatePath=function(){
 	//print(xfin+" "+yfin)
@@ -105,10 +93,10 @@ var calculatePath=function(){
 		}
 	}
 	if(iter>=10000){
-		err=true;
-		print("ERR!!!")
+		terr=true;
+		print("terr!!!")
 	}else{
-		err=false;
+		terr=false;
 	}
 }
 
@@ -117,20 +105,23 @@ var main = function()
     __interpretation_started_timestamp__ = Date.now();
 	
 	
+	
+	visits=new Array(30);
+	for(var i=0;i<30;i++)
+	{
+		visits[i]=new Array(30)
+		for(var j=0;j<30;j++)
+		{
+			visits[i][j]=0;
+		}
+	}
+	
 	for(var i=0;i<30;i++){
 		map[i]=new Array(30);
 		for(var j=0;j<30;j++){
 			map[i][j]=0;
 		}
 	}
-	/*
-	for(var i=0;i<30;i++){
-		map[0][i]=1;
-		map[16][i]=1;
-		map[i][0]=1;
-		map[i][16]=1;
-	}
-	*/
 	
 	ER.reset()
 	EL.reset()
@@ -139,18 +130,18 @@ var main = function()
 	script.wait(4050);
 	moveSmall();
 	
-//	var raw = [];
+	//var raw = script.readAll("C:/Users/ipipos/Desktop/Tatipi/Final/input.txt");
 	//raw2=raw[1];
 	//raw = raw[0];
 	//raw2 = raw2.split(" ");
 	
 	//xpos=parseInt(raw[0],10)*2+1;
 	//ypos=parseInt(raw[1],10)*2+1;
-	rot=1;
+	rot=2;//parseInt(raw,10);
 	iznrot = rot - 1;
 	iznrot = cuboid(iznrot);
-	xfinpre=6; //parseInt(raw2[0],10);
-	yfinpre=7; //parseInt(raw2[1],10);
+	//xfinpre=6;//parseInt(raw2[0],10);
+	//yfinpre=7;//parseInt(raw2[1],10);
 	
 	//print(xpos+" "+ypos+" "+rot+" "+xfin+" "+yfin+"\n")
 	
@@ -160,7 +151,7 @@ var main = function()
 	maxy=0
 	
 	while(maxx-minx<7||maxy-miny<7){
-		err=false
+		terr=false
 		calculatePath();
 		while((maxx-minx<7||maxy-miny<7)){
 			
@@ -170,15 +161,17 @@ var main = function()
 			minx=min(minx,xpos);
 			miny=min(miny,ypos);
 			
+			sendRec();
+			visits[xpos][ypos]=1
 			movementStep();
-			
+			visits[xpos][ypos]=1
 			
 			maxx=max(maxx,xpos);
 			maxy=max(maxy,ypos);
 			minx=min(minx,xpos);
 			miny=min(miny,ypos);
 		}
-		err=false
+		terr=false
 		
 		xfin=28;
 		yfin=28;
@@ -193,15 +186,86 @@ var main = function()
 	}
 	
 	
-	xfin=xfinpre+minx
-	yfin=yfinpre+miny
-	print("finished! Now moving to "+xfin+" "+yfin)
-	calculatePath();
-	err=false
-	while(!  ( (abs(xfin-xpos)<=1 && abs(yfin-ypos)<=0) ||  (abs(xfin-xpos)<=0 && abs(yfin-ypos)<=1)  )){
-		map[xfin][yfin]=0;
-		movementStep();
-	}
+	
+	
+		secx=-1;
+		secy=-1;
+		xfin=-1;
+		yfin=-1;
+		while(secX==-1||secY==-1){
+			while(!(xpos==xfin&&ypos==yfin))
+			{
+				sendRec();
+				
+				
+				//print(xfin+" "+yfin)
+				for(var i=0;i<30;i++){
+					mapPaint[i]=new Array(30);
+					for(var j=0;j<30;j++){
+						mapPaint[i][j]=1000000;
+					}
+				}
+				mapPaint[xpos][ypos]=0
+				var iter=0;
+				var foundFreePath=false;
+				while(!foundFreePath && iter<10000){
+					iter++;
+					for(var i=1;i<30-1;i++){
+						for(var j=1;j<30-1;j++){
+							if(mapPaint[i][j]!=-1){
+								if(mapPaint[i+1][j]>mapPaint[i][j] && map[i+1][j]==0){
+									mapPaint[i+1][j]=mapPaint[i][j]+1;
+									if(visits[i+1][j]==0){
+										foundFreePath=true;
+										xfin=i+1;
+										yfin=j;
+									}
+								}
+								if(mapPaint[i-1][j]>mapPaint[i][j] && map[i-1][j]==0){
+									mapPaint[i-1][j]=mapPaint[i][j]+1;
+									if(visits[i-1][j]==0){
+										foundFreePath=true;
+										xfin=i-1;
+										yfin=j;
+									}
+								}
+								if(mapPaint[i][j+1]>mapPaint[i][j] && map[i][j+1]==0){
+									mapPaint[i][j+1]=mapPaint[i][j]+1;
+									if(visits[i][j+1]==0){
+										foundFreePath=true;
+										xfin=i;
+										yfin=j+1;
+									}
+								}
+								if(mapPaint[i][j-1]>mapPaint[i][j] && map[i][j-1]==0){
+									mapPaint[i][j-1]=mapPaint[i][j]+1;
+									if(visits[i][j-1]==0){
+										foundFreePath=true;
+										xfin=i;
+										yfin=j-1;
+									}
+								}
+							}
+						}
+					}
+				}
+				if(iter>=10000){
+					terr=true;
+					print("ERRNOVISIT!!!")
+				}else{
+					terr=false;
+				}
+				
+				
+				visits[xpos][ypos]=1
+				movementStep();
+				visits[xpos][ypos]=1
+			}
+		}
+		
+	
+	
+	
 	print("finish!")
 	
 	
@@ -215,10 +279,10 @@ var main = function()
 function movementStep(){
 	
 			valMap();
-			//print((maxx-minx)+" "+(maxy-miny))
-			//printMapPaint(mapPaint)
-			//printMapPaint(map)
-			//print()
+			print((maxx-minx)+" "+(maxy-miny))
+			printMapPaint(mapPaint)
+			printMapPaint(map)
+			print()
 			movedir=0;
 			if(mapPaint[xpos+1][ypos]<mapPaint[xpos][ypos]){
 				movedir=1;
@@ -454,6 +518,8 @@ function forward()
 	ER.reset()
 	EL.reset()
 	
+	direction = 0;
+	
 	//print("rot " + rot);
 	deg = (690/(pi*56))*360;
 	newrot = rot - iznrot;
@@ -466,7 +532,7 @@ function forward()
 		direction = 90;
 	else if(newrot == 3)
 		direction = -180;
-	while(((EL.read()+ER.read())/2 < deg)) //&& (s[1].read() > 25 ))
+	while(((EL.read()+ER.read())/2 < deg))
 	{
 		gyro = brick.gyroscope().read()[6]/1000;
 		if(newrot == 3)
@@ -476,9 +542,9 @@ function forward()
 			else 
 				direction = 180;
 		}
-		err = direction - gyro;
-		ML(100+(err*1))
-		MR(100-(err*1))
+		simerr = direction - gyro;
+		ML(100+(simerr*1))
+		MR(100-(simerr*1))
 		wait(2);
 	}
 	stop();
@@ -542,9 +608,9 @@ function moveSmall()
 
 	while((EL.read()+ER.read())/2 < deg)
 	{
-		err =  brick.gyroscope().read()[6]/1000 - fullRot;
-		ML(50-err*0.5);
-		MR(50+err*0.5);
+		simerr =  brick.gyroscope().read()[6]/1000 - fullRot;
+		ML(50-simerr*0.5);
+		MR(50+simerr*0.5);
 		script.wait(1);
 	}
 	stop();

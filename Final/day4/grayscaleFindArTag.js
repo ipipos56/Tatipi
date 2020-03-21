@@ -24,23 +24,14 @@ abs = Math.abs;
 sin = Math.sin;
 cos = Math.cos;
 round = Math.round;
-var code;
 
-
-//s = new Array(3);
-//s[0] = brick.sensor(A3);
-//s[1] = brick.sensor(A1);
-//s[2] = brick.sensor(A2);
-
-//sz = [0,0,0];
 
 ML = brick.motor(M4).setPower; 
 MR = brick.motor(M3).setPower; 
 EL = brick.encoder(E4); 
 ER = brick.encoder(E3); 
-
-rotCnt = 0;
-
+
+rightArtag = false;
 
 direction = 0;
 
@@ -420,10 +411,10 @@ iA = 0, jA = 0, iB = 0, jB = 0, iC = 0, jC = 0, iD = 0, jD = 0;
 
 function getData(num)
 {
-	//var raw = getPhoto();
-	var raw = script.readAll("C:/Users/ipipos/Desktop/Tatipi/Final/input.txt");
+	var raw = getPhoto();
+	//var raw = script.readAll("C:/Users/ipipos/Desktop/Tatipi/Final/input.txt");
 	var mn;
-	raw = raw[0].split(" ");
+	//raw = raw[0].split(" ");
     for (i = 0; i < height; ++i)
     {
         image[i] = [];
@@ -451,7 +442,7 @@ function getData(num)
         }
     }*/
 
-        for (i = 0; i < height; ++i)
+    for (i = 0; i < height; ++i)
     {
         for (j = width-2; j < width; j++)
         {
@@ -463,15 +454,24 @@ function getData(num)
 }
 
 function binarization()
-{
+{
+	rightArtag = false;
+	checkWhite = 0;
     sum = 0;
     for (i = 0; i < height; ++i)
         for (j = 0; j < width; ++j)
             sum += image[i][j];
     mean = sum / height / width;
     for (i = 0; i < height; ++i)
-        for (j = 0; j < width; ++j)
-            image[i][j] = (4 * image[i][j] > mean ? 0 : 1);
+        for (j = 0; j < width; ++j)
+		{
+            image[i][j] = (4 * image[i][j] > mean ? 0 : 1);
+			if(image[i][j] == 0)
+				checkWhite++;
+		}
+	print(checkWhite);
+	if(checkWhite > 11000)
+		rightArtag = true;
 }
 
 function printImage()
@@ -951,127 +951,135 @@ function getARTagValue(number)
 {
     getData(number);
     binarization();
-  //  printImage();
-    getCorners();
-    findPoint();
-	
-    //printSelectedImage();
-    if (values[0][0] == 1 && values[0][5] == 0 && values[5][5] == 0 && values[5][0] == 0)
-    { 
-        rotate_clockwise(2);
-    }
-    else if (values[0][5] == 1 && values[0][0] == 0 && values[5][5] == 0 && values[5][0] == 0)
-    {
-        rotate_clockwise(1);
-    }
-    else if (values[5][5] == 1 && values[0][5] == 0 && values[0][0] == 0 && values[5][0] == 0)
-    {
-    }
-    else if (values[5][0] == 1 && values[0][5] == 0 && values[5][5] == 0 && values[0][0] == 0)
-    {
-        rotate_clockwise(3)
-    }
-    //else
-    //{
-        //print("Error: Incorrect ARTag\n");
-    //    return [X, Y, NUM];
-    //}
-    //print(values[0][0]+" "+values[0][1]+" "+values[0][2]);
-    //print(values[1][0]+" "+values[1][1]+" "+values[1][2]);
-    //print(values[2][0]+" "+values[2][1]+" "+values[2][2]);
-    //code ="";
-    //code=(values[0][1]*8+values[1][0]*4+values[1][2]*2+values[2][1]);
-    //print(code);
-	//if(code>=8)
-	//	code=code-8;
-    //X = values[1][3] * 4 + values[2][0] * 2 + values[2][2];
-    //Y = values[2][3] * 4 + values[3][1] * 2 + values[3][2];
-    //NUM = values[1][0] * 2 + values[1][2];
-   // string = "" + X + " " + Y + " " + NUM;
-
-    // brick.display().addLabel(string,10,10);
-	
-	lineValues=[0,values[0][1],values[0][2],values[0][3],values[0][4],values[1][0],values[1][1],values[1][2],values[1][3],values[1][4],values[1][5],values[2][0],values[2][1],values[2][2],values[2][3],values[2][4],values[2][5],values[3][0],values[3][1],values[3][2],values[3][3],values[3][4],values[3][5],values[4][0],values[4][1],values[4][2],values[4][3],values[4][4],values[4][5],values[5][1],values[5][2],values[5][3],values[5][4]]
-	controlBits=[0,0,0,0,0,0]
-	for(var i=1; i<=32;i++){
-		if(i%2==1 && i != 1)
-		{
-			controlBits[0]+=lineValues[i];
-			controlBits[0]=controlBits[0]%2;
-		}
-		if(i%4>=2 && i !=2)
-		{
-			controlBits[1]+=lineValues[i];
-			controlBits[1]=controlBits[1]%2;
-		}
-		if(i%8>=4 && i!= 4){
-			controlBits[2]+=lineValues[i];
-			controlBits[2]=controlBits[2]%2;
-		}
-		if(i%16>=8 && i!= 8){
-			controlBits[3]+=lineValues[i];
-			controlBits[3]=controlBits[3]%2;
-		}
-		if(i%32>=16 && i!= 16){
-			controlBits[4]+=lineValues[i];
-			controlBits[4]=controlBits[4]%2;
-		}
-	}
-	controlBits[5]+=lineValues[32];
-	controlBits[5]%=2;
-	
-	tusum = 0;
-	if(controlBits[0] != lineValues[1])
-		tusum +=1;
-	if(controlBits[1] != lineValues[2])
-		tusum +=2;
-	if(controlBits[2] != lineValues[4])
-		tusum +=4;
-	if(controlBits[3] != lineValues[8])
-		tusum +=8;
-	if(controlBits[4] != lineValues[16])
-		tusum +=16;
-	if(controlBits[5] != lineValues[32])
-		tusum +=32;
-	print(tusum);
-	
-	if(lineValues[tusum]==1){
-		lineValues[tusum]=0
-	}else{
-		lineValues[tusum]=1
-	}
-	
-	
-
-	kom = [0,0,0,0,0,0,0,0,0,0,0,0,0];
-	kom[0] = lineValues[3] * 2 + lineValues[5];
-	kom[1] = lineValues[6] * 2 + lineValues[7];
-	kom[2] = lineValues[9] * 2 + lineValues[10];
-	kom[3] = lineValues[11] * 2 + lineValues[12];
-	kom[4] = lineValues[13] * 2 + lineValues[14];
-	kom[5] = lineValues[15] * 2 + lineValues[17];
-	kom[6] = lineValues[18] * 2 + lineValues[19];
-	kom[7] = lineValues[20] * 2 + lineValues[21];
-	kom[8] = lineValues[22] * 2 + lineValues[23];
-	kom[9] = lineValues[24] * 2 + lineValues[25];
-	kom[10] = lineValues[26] * 2 + lineValues[27];
-	kom[11] = lineValues[28] * 2 + lineValues[29];
-	kom[12] = lineValues[30] * 2 + lineValues[31];
-	vivo = "";
-	for(var i = 0;i<13;i++)
-		if(i != 12)
-			vivo += String(kom[i]) + String(" ");
-		else
-			vivo += String(kom[i]);
-	print(vivo);
-	vivo = vivo.split(" ");
+    //printImage();
+	if(rightArtag)
+	{
+		getCorners();
+		findPoint();
 		
+		//printSelectedImage();
+		if (values[0][0] == 1 && values[0][5] == 0 && values[5][5] == 0 && values[5][0] == 0)
+		{ 
+			rotate_clockwise(2);
+		}
+		else if (values[0][5] == 1 && values[0][0] == 0 && values[5][5] == 0 && values[5][0] == 0)
+		{
+			rotate_clockwise(1);
+		}
+		else if (values[5][5] == 1 && values[0][5] == 0 && values[0][0] == 0 && values[5][0] == 0)
+		{
+		}
+		else if (values[5][0] == 1 && values[0][5] == 0 && values[5][5] == 0 && values[0][0] == 0)
+		{
+			rotate_clockwise(3)
+		}
+		//else
+		//{
+			//print("Error: Incorrect ARTag\n");
+		//    return [X, Y, NUM];
+		//}
+		//print(values[0][0]+" "+values[0][1]+" "+values[0][2]);
+		//print(values[1][0]+" "+values[1][1]+" "+values[1][2]);
+		//print(values[2][0]+" "+values[2][1]+" "+values[2][2]);
+		//code ="";
+		//code=(values[0][1]*8+values[1][0]*4+values[1][2]*2+values[2][1]);
+		//print(code);
+		//if(code>=8)
+		//	code=code-8;
+		//X = values[1][3] * 4 + values[2][0] * 2 + values[2][2];
+		//Y = values[2][3] * 4 + values[3][1] * 2 + values[3][2];
+		//NUM = values[1][0] * 2 + values[1][2];
+	   // string = "" + X + " " + Y + " " + NUM;
+
+		// brick.display().addLabel(string,10,10);
+		
+		lineValues=[0,values[0][1],values[0][2],values[0][3],values[0][4],values[1][0],values[1][1],values[1][2],values[1][3],values[1][4],values[1][5],values[2][0],values[2][1],values[2][2],values[2][3],values[2][4],values[2][5],values[3][0],values[3][1],values[3][2],values[3][3],values[3][4],values[3][5],values[4][0],values[4][1],values[4][2],values[4][3],values[4][4],values[4][5],values[5][1],values[5][2],values[5][3],values[5][4]]
+		controlBits=[0,0,0,0,0,0]
+		for(var i=1; i<=32;i++){
+			if(i%2==1 && i != 1)
+			{
+				controlBits[0]+=lineValues[i];
+				controlBits[0]=controlBits[0]%2;
+			}
+			if(i%4>=2 && i !=2)
+			{
+				controlBits[1]+=lineValues[i];
+				controlBits[1]=controlBits[1]%2;
+			}
+			if(i%8>=4 && i!= 4){
+				controlBits[2]+=lineValues[i];
+				controlBits[2]=controlBits[2]%2;
+			}
+			if(i%16>=8 && i!= 8){
+				controlBits[3]+=lineValues[i];
+				controlBits[3]=controlBits[3]%2;
+			}
+			if(i%32>=16 && i!= 16){
+				controlBits[4]+=lineValues[i];
+				controlBits[4]=controlBits[4]%2;
+			}
+		}
+		controlBits[5]+=lineValues[32];
+		controlBits[5]%=2;
+		
+		tusum = 0;
+		if(controlBits[0] != lineValues[1])
+			tusum +=1;
+		if(controlBits[1] != lineValues[2])
+			tusum +=2;
+		if(controlBits[2] != lineValues[4])
+			tusum +=4;
+		if(controlBits[3] != lineValues[8])
+			tusum +=8;
+		if(controlBits[4] != lineValues[16])
+			tusum +=16;
+		if(controlBits[5] != lineValues[32])
+			tusum +=32;
+		print(tusum);
+		
+		if(lineValues[tusum]==1){
+			lineValues[tusum]=0
+		}else{
+			lineValues[tusum]=1
+		}
+		
+		
+
+		kom = [0,0,0,0,0,0,0,0,0,0,0,0,0];
+		kom[0] = lineValues[3] * 2 + lineValues[5];
+		kom[1] = lineValues[6] * 2 + lineValues[7];
+		kom[2] = lineValues[9] * 2 + lineValues[10];
+		kom[3] = lineValues[11] * 2 + lineValues[12];
+		kom[4] = lineValues[13] * 2 + lineValues[14];
+		kom[5] = lineValues[15] * 2 + lineValues[17];
+		kom[6] = lineValues[18] * 2 + lineValues[19];
+		kom[7] = lineValues[20] * 2 + lineValues[21];
+		kom[8] = lineValues[22] * 2 + lineValues[23];
+		kom[9] = lineValues[24] * 2 + lineValues[25];
+		kom[10] = lineValues[26] * 2 + lineValues[27];
+		kom[11] = lineValues[28] * 2 + lineValues[29];
+		kom[12] = lineValues[30] * 2 + lineValues[31];
+		vivo = "";
+		for(var i = 0;i<13;i++)
+			if(i != 12)
+				vivo += String(kom[i]) + String(" ");
+			else
+				vivo += String(kom[i]);
+		print(vivo);
+		vivo = vivo.split(" ");
+	}
+	else
+	{
+		print("No ArTag");
+		wait(1000);
+		getARTagValue(0);
+	}
 	ER.reset()
 	EL.reset()
 	
-	brick.gyroscope().calibrate(4000);
-	script.wait(4050);
-	moveSmall();
+	//brick.gyroscope().calibrate(4000);
+	//script.wait(4050);
+	/*moveSmall();
 	
 	
 	for(var i = 0;i<vivo.length;i++)
@@ -1083,7 +1091,7 @@ function getARTagValue(number)
 		else if(vivo[i] == '1')
 			turn_left();
 		wait(200);
-	}
+	}*/
 	
     brick.display().addLabel("finish",1,1) //вывод ответа
     brick.display().redraw()
