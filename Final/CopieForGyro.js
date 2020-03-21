@@ -110,7 +110,7 @@ function forward(_path_deg)
 	var err_sensor5=0
 	//print(path_deg);
 	var curL=abs(EL.read());
-	var curR=abs(ER.read());
+	var curR=abs(ER.read());
 	
 	while(((curL-lLast)+(curR-rLast))/2<path_deg)
 	{
@@ -849,8 +849,8 @@ function rotate(_deg)
 
 
 var main = function()
-{
-	forward();
+{
+	forward();
 	while(1);
 	//Left_()
 	//Right_();

@@ -139,14 +139,18 @@ var main = function()
 	script.wait(4050);
 	moveSmall();
 	
-	var raw = script.readAll("input.txt");
-	raw = raw[0];
+	//var raw = script.readAll("C:/Users/ipipos/Desktop/Tatipi/Final/input.txt");
+	//raw2=raw[1];
+	//raw = raw[0];
+	//raw2 = raw2.split(" ");
 	
 	//xpos=parseInt(raw[0],10)*2+1;
 	//ypos=parseInt(raw[1],10)*2+1;
-	rot=parseInt(raw,10);
+	rot=1;//parseInt(raw,10);
 	iznrot = rot - 1;
 	iznrot = cuboid(iznrot);
+	xfinpre=6;//parseInt(raw2[0],10);
+	yfinpre=7;//parseInt(raw2[1],10);
 	
 	//print(xpos+" "+ypos+" "+rot+" "+xfin+" "+yfin+"\n")
 	
@@ -190,10 +194,14 @@ var main = function()
 	
 	
 	xfin=xfinpre+minx
-	yfin=yfinpre+miny
-	
-	
-	
+	yfin=yfinpre+miny
+	print("finished! Now moving to "+xfin+" "+yfin)
+	calculatePath();
+	err=false
+	while(!  ( (abs(xfin-xpos)<=1 && abs(yfin-ypos)<=0) ||  (abs(xfin-xpos)<=0 && abs(yfin-ypos)<=1)  )){
+		map[xfin][yfin]=0;
+		movementStep();
+	}
 	print("finish!")
 	
 	

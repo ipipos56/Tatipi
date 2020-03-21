@@ -487,6 +487,39 @@ var main = function()
     script.wait(10000)
 	}
     return 0;
+}
+
+function valSen()
+{
+	switch(bortnum)
+	{
+		case 0;
+			for(var _i = 0;_i<4;_i++)
+			{
+				sz[_i] = s[_i].read();
+
+				{
+					if(sz[_i] < 20&&sz[_i]>0)
+						sz[_i] = 0;
+					else
+						sz[_i] = 1;
+				}
+			}
+		break;
+		case 1;
+			for(var _i = 0;_i<3;_i++)
+			{
+				sz[_i] = s[_i].read();
+
+				{
+					if(sz[_i] < 20&&sz[_i]>0)
+						sz[_i] = 0;
+					else
+						sz[_i] = 1;
+				}
+			}
+		break;
+	}
 }
 
 function save()
@@ -774,130 +807,116 @@ function printMapPaint(msn){
 		}
 		print(st)
 	}
-}
-function valSen()
-{
-	for(var _i = 0;_i<3;_i++)
-	{
-		sz[_i] = s[_i].read();
-		if(sz[_i] < 50)
-			sz[_i] = 0;
-		else
-			sz[_i] = 1;
-	}
-	
-}
+}
 
+function ()
+{
+	switch(bortnum)
+	{
+		case 0;
+			for(var _i = 0;_i<4;_i++)
+			{
+				sz[_i] = s[_i].read();
+
+				{
+					if(sz[_i] < 20&&sz[_i]>0)
+						sz[_i] = 0;
+					else
+						sz[_i] = 1;
+				}
+			}
+		break;
+		case 1;
+			for(var _i = 0;_i<3;_i++)
+			{
+				sz[_i] = s[_i].read();
+
+				{
+					if(sz[_i] < 20&&sz[_i]>0)
+						sz[_i] = 0;
+					else
+						sz[_i] = 1;
+				}
+			}
+		break;
+	}
+}
 
 function stop(){
 	MR(0)
 	ML(0)
 	wait(50)
 }
-
-function forward()
-{
-		
-	ER.reset()
-	EL.reset()
-	
-	direction = 0;
-	
-	//print("rot " + rot);
-	deg = (690/(pi*56))*360;
-	newrot = rot - iznrot;
-	newrot = cuboid(newrot);
-	if(newrot == 0)
-		direction = -90;
-	else if(newrot == 1)
-		direction = 0;
-	else if(newrot == 2)
-		direction = 90;
-	else if(newrot == 3)
-		direction = -180;
-	while(((EL.read()+ER.read())/2 < deg))
-	{
-		gyro = brick.gyroscope().read()[6]/1000;
-		if(newrot == 3)
-		{
-			if(gyro < 0)
-				direction = -180;
-			else 
-				direction = 180;
-		}
-		simerr = direction - gyro;
-		ML(100+(simerr*1))
-		MR(100-(simerr*1))
-		wait(2);
-	}
-	stop();
-	
-	if(rot == 0)
-		point-=h;
-	else if(rot == 1)
-		point+=1;
-	else if(rot == 2)
-		point+=h;
-	else if(rot == 3)
-		point-=1;
-
-}
-
-function turn_left() {
-	
-	
-	ER.reset()
-	EL.reset()
-
-	deg = (167/56)*90
-	ML(-100)
-	MR(100)
-	while(abs(ER.read()) < deg)
-	{
-		wait(2)
-	}
-	stop()
-
-	rot-=1; 
-	rot = cuboid(rot);
-
-}
-
-function turn_right() 
-{
-	
-	ER.reset()
-	EL.reset()
-	
-	deg = (167/56)*90;
-	ML(100);
-	MR(-100);
-	while(abs(EL.read()) < deg) 
-		script.wait(2);
-	stop();
-	
-	rot+=1; 
-	rot = cuboid(rot);
-
-}
-
-
-
-function moveSmall()
-{
-	ER.reset();
-	EL.reset();
-	deg = (88/(pi*56))*360;
-
-	while((EL.read()+ER.read())/2 < deg)
-	{
-		simerr =  brick.gyroscope().read()[6]/1000 - fullRot;
-		ML(50-simerr*0.5);
-		MR(50+simerr*0.5);
-		script.wait(1);
-	}
-	stop();
-}
+function motors(_ml,_mr)
+{
+	ML(_ml,false);
+	MR(_mr,false);
+}
+//
+boolDist=false;
+function forward(_path_deg)
+{
+	EL.reset();
+	ER.reset();
+	path_sm=42;
+	var path_deg = 591;//path_sm * 240/(8.2*pi);
+	EL.reset();
+	ER.reset();
+	lLast = EL.read();
+	rLast = ER.read();
+	var speed=35;
+	var err_sensor=0;
+	var err_sensor1=0
+	var err_sensor2=0
+	var err_sensor3=0
+	var err_sensor4=0
+	var err_sensor5=0
+	//print(path_deg);
+	var curL=abs(EL.read());
+	var curR=abs(ER.read());
+	
+	while(((curL-lLast)+(curR-rLast))/2<path_deg)
+	{
+		curL=abs(EL.read());
+		curR=abs(ER.read());
+		err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.4
+		_s0 = s[0].read();
+		_s2 = s[2].read();
+		
+		if(_s0<20)
+		{
+			err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.4
+			err_sensor3=err_sensor2;
+			err_sensor2=err_sensor1;
+			err_sensor1=s0-_s0;
+			err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
+			motors(speed+err/2+err_sensor*2.4,speed-err/2-err_sensor*2.4)
+		}
+		else
+		{
+			_s2=s[2].read();
+			if(_s2<20)
+			{
+				
+				err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-3)*1.4
+				err_sensor3=err_sensor2;
+				err_sensor2=err_sensor1;
+				err_sensor1=s2-_s2;
+				err_sensor=(err_sensor1+err_sensor2+err_sensor3)/3;
+				motors(speed+err/2-err_sensor*2.4,speed-err/2+err_sensor*2.4)	
+			}
+			else
+			{
+				err=((abs(ER.read())-rLast)-(abs(EL.read())-lLast)-2)*1.4
+				motors(speed+err,speed-err)
+			}
+		}
+		wait(30);
+	}
+	extraStop();
+	stop();
+}
+//
 
 function cuboid(_a)
 {
