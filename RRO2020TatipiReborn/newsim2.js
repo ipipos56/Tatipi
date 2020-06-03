@@ -207,7 +207,12 @@ var main = function()
     brick.display().redraw();
 	
 	
-    script.wait(10000);
+    script.wait(10000);
+	
+	brick.display().clear();
+    brick.display().addLabel("finish",1,1);
+    brick.display().redraw();
+	script.wait(1000);
 
     return;
 }
@@ -281,10 +286,12 @@ function findPath(stPoin,fnPoin)
 				if(i != q.length - 1)
 					viv += String(q[q.length-i-1]) + ",";
 				else
-					viv += String(q[q.length-i-1]);
-				
+					viv += String(q[q.length-i-1]);
+				
+			
+			brick.display().clear();	
 			brick.display().addLabel("(" + xfin + ";" + yfin + ")",1,1)
-			brick.display().redraw()
+			//brick.display().redraw()
 			//script.wait(3000)
 				
 			brick.display().addLabel(viv,1,25)
@@ -332,7 +339,7 @@ function findPath(stPoin,fnPoin)
 	}
 	else
 	{	
-		print("No path");
+		//print("No path");
 		
 		brick.display().addLabel("(" + xfin + ";" + yfin + ")",1,1)
 		brick.display().addLabel("-1",1,25)

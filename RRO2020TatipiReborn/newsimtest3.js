@@ -1,6 +1,7 @@
 var __interpretation_started_timestamp__;
 pi = 3.141592653589793;
 wait = script.wait;
+err_global=0
 sign = function(n)
 {
     return n > 0 ? 1 : n = 0 ? 0 : -1;
@@ -38,8 +39,9 @@ MR = brick.motor(M3).setPower;
 EL = brick.encoder(E4); 
 ER = brick.encoder(E3); 
 
+inversed_section=false
 rotCnt = 0;
-
+move_beginning=true
 
 direction = 0;
 
@@ -198,7 +200,7 @@ var main = function()
 	//print(xpos+" "+ypos+" "+rot+" "+xfin+" "+yfin+"\n")
 	ML(-20);
 	MR(-20);
-	script.wait(1300);
+	script.wait(900);
 	MR(0);
 	ML(0);
 	
@@ -208,6 +210,12 @@ var main = function()
 	
 	
     script.wait(10000);
+	
+	brick.display().clear();
+    brick.display().addLabel("finish",1,1);
+    brick.display().redraw();
+	script.wait(1000);
+
 
     return;
 }
@@ -289,7 +297,9 @@ function findPath(stPoin,fnPoin)
 				
 			brick.display().addLabel(viv,1,25)
 			brick.display().redraw()
-			script.wait(3000)
+			script.wait(3100)
+			brick.display().clear();
+			brick.display().redraw()
 		}
 		var previs = q.pop();
 		var prib = 0;
@@ -332,12 +342,12 @@ function findPath(stPoin,fnPoin)
 	}
 	else
 	{	
-		print("No path");
+		//print("No path");
 		
-		brick.display().addLabel("(" + xfin + ";" + yfin + ")",1,1)
+		brick.display().addLabel("(" + xfin + ";" + yfin + ")",1,1)
 		brick.display().addLabel("-1",1,25)
 		brick.display().redraw()
-		script.wait(2000)
+		script.wait(3000)
 		return 0;
 	}
 }
@@ -532,7 +542,7 @@ function stop(){
 
 function forward()
 {
-		
+	move_beginning=false
 	ER.reset()
 	EL.reset()
 	
@@ -549,7 +559,8 @@ function forward()
 		direction = 90;
 	else if(newrot == 3)
 		direction = -180;
-	while(((EL.read()+ER.read())/2 < deg)) //&& (s[1].read() > 25 ))
+	additional_move=0
+	while(((EL.read()+ER.read())/2+additional_move/20 < deg)) //&& (s[1].read() > 25 ))
 	{
 		gyro = brick.gyroscope().read()[6]/1000;
 		if(newrot == 3)
@@ -560,11 +571,27 @@ function forward()
 				direction = 180;
 		}
 		err = direction - gyro;
+		err=err*2
+		a1v=brick.sensor(A1).read()
+		a2v=brick.sensor(A2).read()
+		if((a1v<50&&a2v<50)){
+			inversed_section=false
+		}
+		if((a1v>50&&a2v>50)){
+			inversed_section=true
+		}
+		if(!inversed_section){
+			err=err+(a1v-a2v)*1
+		}else{
+			err=err-(a1v-a2v)*1
+		}
+		additional_move=additional_move+abs(err)
 		ML(100+(err*1))
 		MR(100-(err*1))
 		wait(2);
 	}
 	stop();
+	err_global=direction - brick.gyroscope().read()[6]/1000
 	
 	if(rot == 0)
 		point-=h;
@@ -584,18 +611,27 @@ function turn_left() {
 	EL.reset()
 
 	//deg = (174/56)*90
-	deg = (164/56)*90
+	deg = (164/56)*(90-err_global)
 	ML(-100)
 	MR(100)
-	while(abs(ER.read()) < deg)
-	{
-		wait(2)
+	if(!move_beginning){
+		while(abs(ER.read()) < deg/1.3)
+		{
+			wait(2)
+		}
+	}else{
+		while(abs(ER.read()) < deg)
+		{
+			wait(2)
+		}
 	}
+	
 	stop()
 
 	rot-=1; 
 	rot = cuboid(rot);
-
+	err_global=0
+	move_beginning=false
 }
 
 function turn_right() 
@@ -605,15 +641,36 @@ function turn_right()
 	EL.reset()
 	
 	//deg = (174/56)*90;
-	deg = (164/56)*90
+	deg = (164/56)*(90+err_global)
 	ML(100);
 	MR(-100);
-	while(abs(EL.read()) < deg) 
-		script.wait(2);
+	if(!move_beginning){
+		while(abs(EL.read()) < deg/1.3) {
+			script.wait(2);
+		}
+	}else{
+		while(abs(EL.read()) < deg) {
+			script.wait(2);
+		}
+	}
+	
+	/*if(inversed_section){
+		while(brick.sensor(A3).read()<20)
+		{
+			wait(2)
+		}
+	}else{
+		while(brick.sensor(A3).read()>80)
+		{
+			wait(2)
+		}
+	}*/
 	stop();
 	
 	rot+=1; 
 	rot = cuboid(rot);
+	err_global=0
+	move_beginning=false
 
 }
 
