@@ -45,7 +45,7 @@ direction = 0;
 
 x = 0
 y = 0;
-h = 5;
+h = 6;
 point = 0;
 rot = 1;
 iznrot = 1;
@@ -153,6 +153,7 @@ var calculatePath=function(){
 var main = function()
 {
     __interpretation_started_timestamp__ = Date.now();
+	brick.display().clear();
 	
 	/*
 	for(var i=0;i<5;i++){
@@ -166,155 +167,185 @@ var main = function()
 	ER.reset()
 	EL.reset()
 	
-	brick.gyroscope().calibrate(4000);
-	script.wait(4050);
-	moveSmall();
+	brick.gyroscope().calibrate(2000);
+	script.wait(2050);
+	//moveSmall();
 	
-	var raw = script.readAll("input.txt");
-	raw2=raw[1];
-	raw = raw[0].split(" ");
-	raw2 = raw2.split(" ");
+	//var raw = script.readAll("input.txt");
+	//raw2=raw[1];
+	//raw = raw[0].split(" ");
+	//raw2 = raw2.split(" ");
 	
-	xpos=parseInt(raw[0],10)*2+1;
-	ypos=parseInt(raw[1],10)*2+1;
-	rot=parseInt(raw[2],10);
+	xpos=0//parseInt(raw[0],10)*2+1;
+	ypos=0//parseInt(raw[1],10)*2+1;
+	rot=1//parseInt(raw[2],10);
 	iznrot = rot - 1;
-	iznrot = cuboid(iznrot);
-	xfin=parseInt(raw2[0],10)*2+1;
-	yfin=parseInt(raw2[1],10)*2+1;
-	
-	print(xpos+" "+ypos+" "+rot+" "+xfin+" "+yfin+"\n")
-	
-	while(!(xpos==xfin&&ypos==yfin)){
-		valMap();
-		calculatePath();
-		//printMapPaint(mapPaint)
-		//printMapPaint(map)
-		print()
-		movedir=0;
-		if(mapPaint[xpos+1][ypos]<mapPaint[xpos][ypos]){
-			movedir=1;
-		}else{
-			if(mapPaint[xpos-1][ypos]<mapPaint[xpos][ypos]){
-				movedir=3;
-			}else{
-				if(mapPaint[xpos][ypos+1]<mapPaint[xpos][ypos]){
-					movedir=2;
-				}else{
-					if(mapPaint[xpos][ypos-1]<mapPaint[xpos][ypos]){
-						movedir=0;
-					}else{
-						//break;
-					}
-				}
-			}
-		}
-		
-		
-		
-		if(rot==0 && movedir==0){
-			
-		}
-		if(rot==0 && movedir==1){
-			turn_right();
-		}
-		if(rot==0 && movedir==2){
-			turn_right();
-			turn_right();
-		}
-		if(rot==0 && movedir==3){
-			turn_left();
-		}
-		
-		
-		if(rot==1 && movedir==0){
-			turn_left();
-		}
-		if(rot==1 && movedir==1){
-			
-		}
-		if(rot==1 && movedir==2){
-			turn_right();
-		}
-		if(rot==1 && movedir==3){
-			turn_right();
-			turn_right();
-		}
-		
-		
-		if(rot==2 && movedir==0){
-			turn_right();
-			turn_right();
-		}
-		if(rot==2 && movedir==1){
-			turn_left();
-		}
-		if(rot==2 && movedir==2){
-			
-		}
-		if(rot==2 && movedir==3){
-			turn_right();
-		}
-		
-		
-		if(rot==3 && movedir==0){
-			turn_right();
-		}
-		if(rot==3 && movedir==1){
-			turn_right();
-			turn_right();
-		}
-		if(rot==3 && movedir==2){
-			turn_left();
-		}
-		if(rot==3 && movedir==3){
-			
-		}
-		
-		
-		valMap();
-		valSen();
-		if(sz[1]){
-			if(rot==0){
-				print("up")
-			}
-			if(rot==1){
-				print("right")
-			}
-			if(rot==2){
-				print("down")
-			}
-			if(rot==3){
-				print("left")
-			}
-			wait(1000);
-			forward();
-			if(rot==0){
-				ypos-=2;
-			}
-			if(rot==1){
-				xpos+=2;
-			}
-			if(rot==2){
-				ypos+=2;
-			}
-			if(rot==3){
-				xpos-=2;
-			}
-		}
+	iznrot = cuboid(iznrot);
+	xfin = 0;
+	yfin = 0;
+	tt = 0;
+	while(tt == 0)
+	{
+		while(Math.abs(xfin - xpos) <= 2 && Math.abs(yfin-ypos) <=2)
+		{
+			xfin=script.random(0, h-1)//parseInt(raw2[0],10)*2+1;
+			yfin=script.random(0, h-1)//parseInt(raw2[1],10)*2+1;
+		}
+		tt = findPath(point,yfin * h + xfin);
+		if(tt == 0)
+			print("Cant destinate this point");
 	}
+	//print(xpos+" "+ypos+" "+rot+" "+xfin+" "+yfin+"\n")
+	ML(-20);
+	MR(-20);
+	script.wait(1300);
+	MR(0);
+	ML(0);
 	
-    brick.display().addLabel("finish",1,1) //вывод ответа
-    brick.display().redraw()
-    script.wait(10000)
+	brick.display().clear();
+    brick.display().addLabel("finish",1,1);
+    brick.display().redraw();
+	
+	
+    script.wait(10000);
 
     return;
-}
+}
+
+
+function findPath(stPoin,fnPoin)
+{
+	var q = [];
+	var dis = [];
+	var par = [];
+	for(var _i = 0;_i<36;_i++)
+	{
+		dis[_i] = 100000;
+		par[_i] = [-1,-1];
+	}
+	q.push(stPoin);
+	dis[stPoin] = 0;
+	par[stPoin][0] = -1;
+	par[stPoin][1] = rot;
+	while(q.length > 0)
+	{
+		var vert = q.pop();
+		
+		for(var er = 0;er<4;er++)
+		{
+			var poiDel = 0;
+			if(er == 0)
+				poiDel = (-1 * h);
+			else if(er == 1)
+				poiDel = 1;
+			else if(er == 2)
+				poiDel = h;
+			else if(er == 3)
+				poiDel = -1;
+			
+			var pri = abs(par[vert][1] - er);
+			
+			if( pri == 1 || pri == 3)
+                pri = 2;
+            else if(pri == 2)
+                pri = 3;
+            else if(pri == 0)
+                pri = 1;
+			
+			//print(vert + " " + (vert + poiDel) +" "+map[vert][i] + " " + dis[vert + poiDel] + " " + pri + " " + par[vert][0]+" "+ par[vert][1]);
+				
+			if((parseInt(map[vert][er],10) == 1) && (dis[(vert + poiDel)] > (dis[vert] + pri)))
+			{
+				par[(vert + poiDel)][0] = vert;
+				par[(vert + poiDel)][1] = er;
+				dis[(vert + poiDel)] = dis[vert] + pri;
+				q.push(vert + poiDel);
+			}
+		}
+	}
+	//print(fnPoin);
+	if(dis[fnPoin] != 100000)
+	{
+		var para = fnPoin;
+		q.push(para);
+
+		while(par[para][0] != -1)
+		{
+			para = par[para][0];
+			q.push(para);
+		}
+		if(q.length > 0)
+		{
+			var viv = "";
+			for(var i = 0;i<q.length;i++)
+				if(i != q.length - 1)
+					viv += String(q[q.length-i-1]) + ",";
+				else
+					viv += String(q[q.length-i-1]);
+				
+			brick.display().addLabel("(" + xfin + ";" + yfin + ")",1,1)
+			brick.display().redraw()
+			//script.wait(3000)
+				
+			brick.display().addLabel(viv,1,25)
+			brick.display().redraw()
+			script.wait(3000)
+		}
+		var previs = q.pop();
+		var prib = 0;
+		//print(previs);
+
+		while(q.length > 0)
+		{
+			var cur = q.pop();
+
+			//print(cur);
+			if(abs(dis[cur]-dis[previs]) == 3)
+			{
+				for(var j = 0;j<2;j++)
+				{
+					turn_right();
+				}
+			}
+			else if(abs(dis[cur]-dis[previs]) == 2)
+			{
+				if(rot == 0 || rot == 1)
+				{
+					if((cur - previs) > 0)
+						turn_right();
+					else if(cur - previs < 0)
+						turn_left();
+				}
+				else if(rot == 2 || rot == 3)
+				{
+					if(cur - previs > 0)
+						turn_left();
+					else if(cur - previs < 0)
+						turn_right();
+				}
+			}
+			forward();
+			previs = cur;
+		}
+		//newInfo();
+		return 1;
+	}
+	else
+	{	
+		print("No path");
+		
+		brick.display().addLabel("(" + xfin + ";" + yfin + "), -1",1,1)
+		brick.display().redraw()
+		script.wait(2000)
+		return 0;
+	}
+}
+
 function valMap(){
 	valSen();
 		if(!sz[1]){
 			if(rot==0 && map[xpos][ypos-1]!=1){
-				print("Wall Up")
+				//print("Wall Up")
 				map[xpos][ypos-1]=1;
 				map[xpos][ypos-2]=1;
 				map[xpos][ypos-3]=1;
@@ -326,7 +357,7 @@ function valMap(){
 				map[xpos+1][ypos-3]=1;
 			}
 			if(rot==1 && map[xpos+1][ypos]!=1){
-				print("Wall Right")
+				//print("Wall Right")
 				map[xpos+1][ypos]=1;
 				map[xpos+2][ypos]=1;
 				map[xpos+3][ypos]=1;
@@ -338,7 +369,7 @@ function valMap(){
 				map[xpos+3][ypos+1]=1;
 			}
 			if(rot==2 && map[xpos][ypos+1]!=1){
-				print("Wall Down")
+				//print("Wall Down")
 				map[xpos][ypos+1]=1;
 				map[xpos][ypos+2]=1;
 				map[xpos][ypos+3]=1;
@@ -350,7 +381,7 @@ function valMap(){
 				map[xpos+1][ypos+3]=1;
 			}
 			if(rot==3 && map[xpos-1][ypos]!=1){
-				print("Wall Left")
+				//print("Wall Left")
 				map[xpos-1][ypos]=1;
 				map[xpos-2][ypos]=1;
 				map[xpos-3][ypos]=1;
@@ -366,7 +397,7 @@ function valMap(){
 		
 		if(!sz[0]){
 			if(rot==1 && map[xpos][ypos-1]!=1){
-				print("Wall Up")
+				//print("Wall Up")
 				map[xpos][ypos-1]=1;
 				map[xpos][ypos-2]=1;
 				map[xpos][ypos-3]=1;
@@ -378,7 +409,7 @@ function valMap(){
 				map[xpos+1][ypos-3]=1;
 			}
 			if(rot==2 && map[xpos+1][ypos]!=1){
-				print("Wall Right")
+				//print("Wall Right")
 				map[xpos+1][ypos]=1;
 				map[xpos+2][ypos]=1;
 				map[xpos+3][ypos]=1;
@@ -390,7 +421,7 @@ function valMap(){
 				map[xpos+3][ypos+1]=1;
 			}
 			if(rot==3 && map[xpos][ypos+1]!=1){
-				print("Wall Down")
+				//print("Wall Down")
 				map[xpos][ypos+1]=1;
 				map[xpos][ypos+2]=1;
 				map[xpos][ypos+3]=1;
@@ -402,7 +433,7 @@ function valMap(){
 				map[xpos+1][ypos+3]=1;
 			}
 			if(rot==0 && map[xpos-1][ypos]!=1){
-				print("Wall Left")
+				//print("Wall Left")
 				map[xpos-1][ypos]=1;
 				map[xpos-2][ypos]=1;
 				map[xpos-3][ypos]=1;
@@ -417,7 +448,7 @@ function valMap(){
 		}
 		if(!sz[2]){
 			if(rot==3 && map[xpos][ypos-1]!=1){
-				print("Wall Up")
+				//print("Wall Up")
 				map[xpos][ypos-1]=1;
 				map[xpos][ypos-2]=1;
 				map[xpos][ypos-3]=1;
@@ -429,7 +460,7 @@ function valMap(){
 				map[xpos+1][ypos-3]=1;
 			}
 			if(rot==0 && map[xpos+1][ypos]!=1){
-				print("Wall Right")
+				//print("Wall Right")
 				map[xpos+1][ypos]=1;
 				map[xpos+2][ypos]=1;
 				map[xpos+3][ypos]=1;
@@ -441,7 +472,7 @@ function valMap(){
 				map[xpos+3][ypos+1]=1;
 			}
 			if(rot==1 && map[xpos][ypos+1]!=1){
-				print("Wall Down")
+				//print("Wall Down")
 				map[xpos][ypos+1]=1;
 				map[xpos][ypos+2]=1;
 				map[xpos][ypos+3]=1;
@@ -453,7 +484,7 @@ function valMap(){
 				map[xpos+1][ypos+3]=1;
 			}
 			if(rot==2 && map[xpos-1][ypos]!=1){
-				print("Wall Left")
+				//print("Wall Left")
 				map[xpos-1][ypos]=1;
 				map[xpos-2][ypos]=1;
 				map[xpos-3][ypos]=1;
@@ -504,8 +535,9 @@ function forward()
 	ER.reset()
 	EL.reset()
 	
-	print("rot " + rot);
-	deg = (700/(pi*56))*360;
+	//print("rot " + rot);
+	deg = (700/(pi*56))*360;
+	deg/=2.12;
 	newrot = rot - iznrot;
 	newrot = cuboid(newrot);
 	if(newrot == 0)
@@ -527,8 +559,8 @@ function forward()
 				direction = 180;
 		}
 		err = direction - gyro;
-		ML(50+(err*1))
-		MR(50-(err*1))
+		ML(100+(err*1))
+		MR(100-(err*1))
 		wait(2);
 	}
 	stop();
@@ -550,9 +582,10 @@ function turn_left() {
 	ER.reset()
 	EL.reset()
 
-	deg = (174/56)*90
-	ML(-50)
-	MR(50)
+	//deg = (174/56)*90
+	deg = (164/56)*90
+	ML(-100)
+	MR(100)
 	while(abs(ER.read()) < deg)
 	{
 		wait(2)
@@ -570,9 +603,10 @@ function turn_right()
 	ER.reset()
 	EL.reset()
 	
-	deg = (174/56)*90;
-	ML(50);
-	MR(-50);
+	//deg = (174/56)*90;
+	deg = (164/56)*90
+	ML(100);
+	MR(-100);
 	while(abs(EL.read()) < deg) 
 		script.wait(2);
 	stop();
