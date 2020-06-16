@@ -297,7 +297,9 @@ function findPath(stPoin,fnPoin)
 				
 			brick.display().addLabel(viv,1,25)
 			brick.display().redraw()
-			script.wait(3000)
+			script.wait(3100)
+			brick.display().clear();
+			brick.display().redraw()
 		}
 		var previs = q.pop();
 		var prib = 0;
@@ -345,7 +347,7 @@ function findPath(stPoin,fnPoin)
 		brick.display().addLabel("(" + xfin + ";" + yfin + ")",1,1)
 		brick.display().addLabel("-1",1,25)
 		brick.display().redraw()
-		script.wait(2000)
+		script.wait(3000)
 		return 0;
 	}
 }
