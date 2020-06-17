@@ -36,8 +36,8 @@ pathminus=0
 el.reset()
 er.reset()
 
-x_start=3
-y_start=1
+x_start=1
+y_start=5
 
 
 

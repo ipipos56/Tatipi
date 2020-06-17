@@ -1,0 +1,9 @@
+<sensors>
+        <sensor port="A5###input###А5###sensorA5" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="22:24"/>
+        <sensor port="A6###input###А6###sensorA6" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="10:24"/>
+        <sensor port="A1###input###А1###sensorA1" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="14:17"/>
+        <sensor port="A2###input###А2###sensorA2" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="14:32"/>
+        <sensor port="A3###input###А3###sensorA3" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="17:3"/>
+        <sensor port="A4###input###А4###sensorA4" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="17:46"/>
+        <sensor port="LineSensorPort###input###TrikLineSensorPort###lineSensor" type="" direction="0" position="0:0"/>
+</sensors>
