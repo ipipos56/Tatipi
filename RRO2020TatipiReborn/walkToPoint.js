@@ -1,5 +1,34 @@
-var __interpretation_started_timestamp__;
-var pi = 3.141592653589793;
+var __interpretation_started_timestamp__;
+pi = 3.141592653589793;
+wait = script.wait;
+sign = function(n)
+{
+    return n > 0 ? 1 : n = 0 ? 0 : -1;
+}
+sqr = function(n)
+{
+    return n * n;
+}
+sqrt = Math.sqrt;
+min = function(a, b)
+{
+    return a < b ? a : b;
+}
+max = function(a, b)
+{
+    return a > b ? a : b;
+}
+
+abs = Math.abs;
+sin = Math.sin;
+cos = Math.cos;
+round = Math.round;
+var code;
+rotCnt = 0;
+
+
+direction = 0;
+
 
 
 ml = brick.motor(M4).setPower; 
@@ -32,181 +61,59 @@ move_to_y=3
 
 pos_x=
 
-path_check()
-forward()
-path_check()
-right()
-forward()
-path_check()
-right()
-forward()
-path_check()
-left()
-forward()
-path_check()
-right()
-forward()
-path_check()
-right()
-forward()
-path_check()
-left()
-forward()
-path_check()
-right()
-forward()
-
-path_check()
-left()
-forward()
-path_check()
-left()
-forward()
-path_check()
-forward()
-path_check()
-left()
-forward()
-path_check()
-
-
-ml(-100)
-mr(-100)
-delay(500)
+//path_check()
+//left()
+//forward()
+//path_check()
 
-var main = function()
-{
+fullRot = 0;
+
+
+map = new Array(36);
+mapPaint = new Array(36);
+
+
+sz = [0,0,0];
+
+
+xpos=0;
+ypos=0;
+
+xfin=0;
+yfin=0;
+
+point = 0;
+
+err=false;
+walllen = 6;
+
+
+//ml(-100)
+//mr(-100)
+//delay(500)
+
+var main = function()
+{
     __interpretation_started_timestamp__ = Date.now();
 	
-
-	xpos=parseInt(raw[0],10)*2+1;
-	ypos=parseInt(raw[1],10)*2+1;
-	rot=parseInt(raw[2],10);
-	iznrot = rot - 1;
-	iznrot = cuboid(iznrot);
-	xfin=parseInt(raw2[0],10)*2+1;
-	yfin=parseInt(raw2[1],10)*2+1;
-	
-	print(xpos+" "+ypos+" "+rot+" "+xfin+" "+yfin+"\n")
-	
-	while(!(xpos==xfin&&ypos==yfin)){
-		valMap();
-		calculatePath();
-		//printMapPaint(mapPaint)
-		//printMapPaint(map)
-		print()
-		movedir=0;
-		if(mapPaint[xpos+1][ypos]<mapPaint[xpos][ypos]){
-			movedir=1;
-		}else{
-			if(mapPaint[xpos-1][ypos]<mapPaint[xpos][ypos]){
-				movedir=3;
-			}else{
-				if(mapPaint[xpos][ypos+1]<mapPaint[xpos][ypos]){
-					movedir=2;
-				}else{
-					if(mapPaint[xpos][ypos-1]<mapPaint[xpos][ypos]){
-						movedir=0;
-					}else{
-						//break;
-					}
-				}
-			}
-		}
-		
-		
-		
-		if(rot==0 && movedir==0){
-			
-		}
-		if(rot==0 && movedir==1){
-			right();
-		}
-		if(rot==0 && movedir==2){
-			right();
-			right();
-		}
-		if(rot==0 && movedir==3){
-			left();
-		}
-		
-		
-		if(rot==1 && movedir==0){
-			left();
-		}
-		if(rot==1 && movedir==1){
-			
-		}
-		if(rot==1 && movedir==2){
-			right();
-		}
-		if(rot==1 && movedir==3){
-			right();
-			right();
-		}
-		
-		
-		if(rot==2 && movedir==0){
-			right();
-			right();
-		}
-		if(rot==2 && movedir==1){
-			left();
-		}
-		if(rot==2 && movedir==2){
-			
-		}
-		if(rot==2 && movedir==3){
-			right();
-		}
-		
-		
-		if(rot==3 && movedir==0){
-			right();
-		}
-		if(rot==3 && movedir==1){
-			right();
-			right();
-		}
-		if(rot==3 && movedir==2){
-			left();
-		}
-		if(rot==3 && movedir==3){
-			
-		}
-		
-		
-		valMap();
-		valSen();
-		if(sz[1]){
-			if(rot==0){
-				print("up")
-			}
-			if(rot==1){
-				print("right")
-			}
-			if(rot==2){
-				print("down")
-			}
-			if(rot==3){
-				print("left")
-			}
-			wait(1000);
-			forward();
-			if(rot==0){
-				ypos-=2;
-			}
-			if(rot==1){
-				xpos+=2;
-			}
-			if(rot==2){
-				ypos+=2;
-			}
-			if(rot==3){
-				xpos-=2;
-			}
-		}
+	for(var i = 0;i<36;i++)
+	{
+		map[i] = [0,0,0,0];
 	}
+	
+	xpos=3
+	ypos=0
+	rot=1
+	iznrot = rot - 1;
+	iznrot = cuboid(iznrot);
+	xfin=ypos
+	yfin=xpos
+	point = ypos * walllen + xpos;
+	
+	print(xpos+" "+ypos+" "+rot+" "+xfin+" "+yfin+"\n")
+	
+	valSen();
+	
 }
 
 function path_check(){
@@ -276,11 +183,58 @@ function path_check(){
 		pathminus=(700/(pi*56))*30
 	}else{
 		pathminus=0;
-	}
+	}
+	sz = [0,0,0];
+	if(forward_free)
+		sz[1] = 1;
+	if(left_free)
+		sz[0] = 1;
+	if(right_free)
+		sz[2] = 1;
 	print("GO!")
 	ml(0)
 	mr(0)
-}
+}
+
+var calculatePath=function(){
+	
+	for(var i=0;i<walllen;i++){
+		mapPaint[i]=new Array(walllen);
+		for(var j=0;j<walllen;j++){
+			mapPaint[i][j]=1000000;
+		}
+	}
+	mapPaint[xfin][yfin]=0
+	var iter=0;
+	while(mapPaint[xpos][ypos]==1000000 && iter<10000){
+		iter++;
+		for(var i=1;i<16;i++){
+			for(var j=1;j<16;j++){
+				if(mapPaint[i][j]!=-1){
+					if(mapPaint[i+1][j]>mapPaint[i][j] && map[i+1][j]==0){
+						mapPaint[i+1][j]=mapPaint[i][j]+1;
+					}
+					if(mapPaint[i-1][j]>mapPaint[i][j] && map[i-1][j]==0){
+						mapPaint[i-1][j]=mapPaint[i][j]+1;
+					}
+					if(mapPaint[i][j+1]>mapPaint[i][j] && map[i][j+1]==0){
+						mapPaint[i][j+1]=mapPaint[i][j]+1;
+					}
+					if(mapPaint[i][j-1]>mapPaint[i][j] && map[i][j-1]==0){
+						mapPaint[i][j-1]=mapPaint[i][j]+1;
+					}
+				}
+			}
+		}
+	}
+	if(iter>=10000){
+		err=true;
+		print("ERR!!!")
+	}else{
+		err=false;
+	}
+}
+
 
 function forward(){
 	
@@ -305,185 +259,201 @@ function forward(){
 
 	ml(0)
 	mr(0)
-	print()
+	print()
+	
+	if(rot == 0)
+		point-=h;
+	else if(rot == 1)
+		point+=1;
+	else if(rot == 2)
+		point+=h;
+	else if(rot == 3)
+		point-=1;
 }
 function right(){
 	ml(100)
 	mr(-60)
-	delay(500)
+	delay(500)
+	rot++;
+	rot = cuboid(rot);
 }
 function left(){
 	ml(-60)
 	mr(100)
-	delay(500)
+	delay(500)
+	rot--;
+	rot = cuboid(rot);
+}
+
+function valMap(){
+	valSen();
+		if(!sz[1]){
+			if(rot==0 && map[xpos * (ypos-1)]!=1){
+				print("Wall Up")
+				map[xpos][ypos-1]=1;
+				map[xpos][ypos-2]=1;
+				map[xpos][ypos-3]=1;
+				map[xpos-1][ypos-1]=1;
+				map[xpos-1][ypos-2]=1;
+				map[xpos-1][ypos-3]=1;
+				map[xpos+1][ypos-1]=1;
+				map[xpos+1][ypos-2]=1;
+				map[xpos+1][ypos-3]=1;
+			}
+			if(rot==1 && map[xpos+1][ypos]!=1){
+				print("Wall Right")
+				map[xpos+1][ypos]=1;
+				map[xpos+2][ypos]=1;
+				map[xpos+3][ypos]=1;
+				map[xpos+1][ypos-1]=1;
+				map[xpos+2][ypos-1]=1;
+				map[xpos+3][ypos-1]=1;
+				map[xpos+1][ypos+1]=1;
+				map[xpos+2][ypos+1]=1;
+				map[xpos+3][ypos+1]=1;
+			}
+			if(rot==2 && map[xpos][ypos+1]!=1){
+				print("Wall Down")
+				map[xpos][ypos+1]=1;
+				map[xpos][ypos+2]=1;
+				map[xpos][ypos+3]=1;
+				map[xpos-1][ypos+1]=1;
+				map[xpos-1][ypos+2]=1;
+				map[xpos-1][ypos+3]=1;
+				map[xpos+1][ypos+1]=1;
+				map[xpos+1][ypos+2]=1;
+				map[xpos+1][ypos+3]=1;
+			}
+			if(rot==3 && map[xpos-1][ypos]!=1){
+				print("Wall Left")
+				map[xpos-1][ypos]=1;
+				map[xpos-2][ypos]=1;
+				map[xpos-3][ypos]=1;
+				map[xpos-1][ypos-1]=1;
+				map[xpos-2][ypos-1]=1;
+				map[xpos-3][ypos-1]=1;
+				map[xpos-1][ypos+1]=1;
+				map[xpos-2][ypos+1]=1;
+				map[xpos-3][ypos+1]=1;
+			}
+			//print("Wall badLuck=new Wall();")
+		}
+		
+		if(!sz[0]){
+			if(rot==1 && map[xpos][ypos-1]!=1){
+				print("Wall Up")
+				map[xpos][ypos-1]=1;
+				map[xpos][ypos-2]=1;
+				map[xpos][ypos-3]=1;
+				map[xpos-1][ypos-1]=1;
+				map[xpos-1][ypos-2]=1;
+				map[xpos-1][ypos-3]=1;
+				map[xpos+1][ypos-1]=1;
+				map[xpos+1][ypos-2]=1;
+				map[xpos+1][ypos-3]=1;
+			}
+			if(rot==2 && map[xpos+1][ypos]!=1){
+				print("Wall Right")
+				map[xpos+1][ypos]=1;
+				map[xpos+2][ypos]=1;
+				map[xpos+3][ypos]=1;
+				map[xpos+1][ypos-1]=1;
+				map[xpos+2][ypos-1]=1;
+				map[xpos+3][ypos-1]=1;
+				map[xpos+1][ypos+1]=1;
+				map[xpos+2][ypos+1]=1;
+				map[xpos+3][ypos+1]=1;
+			}
+			if(rot==3 && map[xpos][ypos+1]!=1){
+				print("Wall Down")
+				map[xpos][ypos+1]=1;
+				map[xpos][ypos+2]=1;
+				map[xpos][ypos+3]=1;
+				map[xpos-1][ypos+1]=1;
+				map[xpos-1][ypos+2]=1;
+				map[xpos-1][ypos+3]=1;
+				map[xpos+1][ypos+1]=1;
+				map[xpos+1][ypos+2]=1;
+				map[xpos+1][ypos+3]=1;
+			}
+			if(rot==0 && map[xpos-1][ypos]!=1){
+				print("Wall Left")
+				map[xpos-1][ypos]=1;
+				map[xpos-2][ypos]=1;
+				map[xpos-3][ypos]=1;
+				map[xpos-1][ypos-1]=1;
+				map[xpos-2][ypos-1]=1;
+				map[xpos-3][ypos-1]=1;
+				map[xpos-1][ypos+1]=1;
+				map[xpos-2][ypos+1]=1;
+				map[xpos-3][ypos+1]=1;
+			}
+			//print("Wall badLuck=new Wall();")
+		}
+		if(!sz[2]){
+			if(rot==3 && map[xpos][ypos-1]!=1){
+				print("Wall Up")
+				map[xpos][ypos-1]=1;
+				map[xpos][ypos-2]=1;
+				map[xpos][ypos-3]=1;
+				map[xpos-1][ypos-1]=1;
+				map[xpos-1][ypos-2]=1;
+				map[xpos-1][ypos-3]=1;
+				map[xpos+1][ypos-1]=1;
+				map[xpos+1][ypos-2]=1;
+				map[xpos+1][ypos-3]=1;
+			}
+			if(rot==0 && map[xpos+1][ypos]!=1){
+				print("Wall Right")
+				map[xpos+1][ypos]=1;
+				map[xpos+2][ypos]=1;
+				map[xpos+3][ypos]=1;
+				map[xpos+1][ypos-1]=1;
+				map[xpos+2][ypos-1]=1;
+				map[xpos+3][ypos-1]=1;
+				map[xpos+1][ypos+1]=1;
+				map[xpos+2][ypos+1]=1;
+				map[xpos+3][ypos+1]=1;
+			}
+			if(rot==1 && map[xpos][ypos+1]!=1){
+				print("Wall Down")
+				map[xpos][ypos+1]=1;
+				map[xpos][ypos+2]=1;
+				map[xpos][ypos+3]=1;
+				map[xpos-1][ypos+1]=1;
+				map[xpos-1][ypos+2]=1;
+				map[xpos-1][ypos+3]=1;
+				map[xpos+1][ypos+1]=1;
+				map[xpos+1][ypos+2]=1;
+				map[xpos+1][ypos+3]=1;
+			}
+			if(rot==2 && map[xpos-1][ypos]!=1){
+				print("Wall Left")
+				map[xpos-1][ypos]=1;
+				map[xpos-2][ypos]=1;
+				map[xpos-3][ypos]=1;
+				map[xpos-1][ypos-1]=1;
+				map[xpos-2][ypos-1]=1;
+				map[xpos-3][ypos-1]=1;
+				map[xpos-1][ypos+1]=1;
+				map[xpos-2][ypos+1]=1;
+				map[xpos-3][ypos+1]=1;
+			}
+			//print("Wall badLuck=new Wall();")
+		}
+}
+
+function valSen()
+{
+	path_check();
 }
 
-function valMap(){
-	valSen();
-		if(!sz[1]){
-			if(rot==0 && map[xpos][ypos-1]!=1){
-				print("Wall Up")
-				map[xpos][ypos-1]=1;
-				map[xpos][ypos-2]=1;
-				map[xpos][ypos-3]=1;
-				map[xpos-1][ypos-1]=1;
-				map[xpos-1][ypos-2]=1;
-				map[xpos-1][ypos-3]=1;
-				map[xpos+1][ypos-1]=1;
-				map[xpos+1][ypos-2]=1;
-				map[xpos+1][ypos-3]=1;
-			}
-			if(rot==1 && map[xpos+1][ypos]!=1){
-				print("Wall Right")
-				map[xpos+1][ypos]=1;
-				map[xpos+2][ypos]=1;
-				map[xpos+3][ypos]=1;
-				map[xpos+1][ypos-1]=1;
-				map[xpos+2][ypos-1]=1;
-				map[xpos+3][ypos-1]=1;
-				map[xpos+1][ypos+1]=1;
-				map[xpos+2][ypos+1]=1;
-				map[xpos+3][ypos+1]=1;
-			}
-			if(rot==2 && map[xpos][ypos+1]!=1){
-				print("Wall Down")
-				map[xpos][ypos+1]=1;
-				map[xpos][ypos+2]=1;
-				map[xpos][ypos+3]=1;
-				map[xpos-1][ypos+1]=1;
-				map[xpos-1][ypos+2]=1;
-				map[xpos-1][ypos+3]=1;
-				map[xpos+1][ypos+1]=1;
-				map[xpos+1][ypos+2]=1;
-				map[xpos+1][ypos+3]=1;
-			}
-			if(rot==3 && map[xpos-1][ypos]!=1){
-				print("Wall Left")
-				map[xpos-1][ypos]=1;
-				map[xpos-2][ypos]=1;
-				map[xpos-3][ypos]=1;
-				map[xpos-1][ypos-1]=1;
-				map[xpos-2][ypos-1]=1;
-				map[xpos-3][ypos-1]=1;
-				map[xpos-1][ypos+1]=1;
-				map[xpos-2][ypos+1]=1;
-				map[xpos-3][ypos+1]=1;
-			}
-			//print("Wall badLuck=new Wall();")
-		}
-		
-		if(!sz[0]){
-			if(rot==1 && map[xpos][ypos-1]!=1){
-				print("Wall Up")
-				map[xpos][ypos-1]=1;
-				map[xpos][ypos-2]=1;
-				map[xpos][ypos-3]=1;
-				map[xpos-1][ypos-1]=1;
-				map[xpos-1][ypos-2]=1;
-				map[xpos-1][ypos-3]=1;
-				map[xpos+1][ypos-1]=1;
-				map[xpos+1][ypos-2]=1;
-				map[xpos+1][ypos-3]=1;
-			}
-			if(rot==2 && map[xpos+1][ypos]!=1){
-				print("Wall Right")
-				map[xpos+1][ypos]=1;
-				map[xpos+2][ypos]=1;
-				map[xpos+3][ypos]=1;
-				map[xpos+1][ypos-1]=1;
-				map[xpos+2][ypos-1]=1;
-				map[xpos+3][ypos-1]=1;
-				map[xpos+1][ypos+1]=1;
-				map[xpos+2][ypos+1]=1;
-				map[xpos+3][ypos+1]=1;
-			}
-			if(rot==3 && map[xpos][ypos+1]!=1){
-				print("Wall Down")
-				map[xpos][ypos+1]=1;
-				map[xpos][ypos+2]=1;
-				map[xpos][ypos+3]=1;
-				map[xpos-1][ypos+1]=1;
-				map[xpos-1][ypos+2]=1;
-				map[xpos-1][ypos+3]=1;
-				map[xpos+1][ypos+1]=1;
-				map[xpos+1][ypos+2]=1;
-				map[xpos+1][ypos+3]=1;
-			}
-			if(rot==0 && map[xpos-1][ypos]!=1){
-				print("Wall Left")
-				map[xpos-1][ypos]=1;
-				map[xpos-2][ypos]=1;
-				map[xpos-3][ypos]=1;
-				map[xpos-1][ypos-1]=1;
-				map[xpos-2][ypos-1]=1;
-				map[xpos-3][ypos-1]=1;
-				map[xpos-1][ypos+1]=1;
-				map[xpos-2][ypos+1]=1;
-				map[xpos-3][ypos+1]=1;
-			}
-			//print("Wall badLuck=new Wall();")
-		}
-		if(!sz[2]){
-			if(rot==3 && map[xpos][ypos-1]!=1){
-				print("Wall Up")
-				map[xpos][ypos-1]=1;
-				map[xpos][ypos-2]=1;
-				map[xpos][ypos-3]=1;
-				map[xpos-1][ypos-1]=1;
-				map[xpos-1][ypos-2]=1;
-				map[xpos-1][ypos-3]=1;
-				map[xpos+1][ypos-1]=1;
-				map[xpos+1][ypos-2]=1;
-				map[xpos+1][ypos-3]=1;
-			}
-			if(rot==0 && map[xpos+1][ypos]!=1){
-				print("Wall Right")
-				map[xpos+1][ypos]=1;
-				map[xpos+2][ypos]=1;
-				map[xpos+3][ypos]=1;
-				map[xpos+1][ypos-1]=1;
-				map[xpos+2][ypos-1]=1;
-				map[xpos+3][ypos-1]=1;
-				map[xpos+1][ypos+1]=1;
-				map[xpos+2][ypos+1]=1;
-				map[xpos+3][ypos+1]=1;
-			}
-			if(rot==1 && map[xpos][ypos+1]!=1){
-				print("Wall Down")
-				map[xpos][ypos+1]=1;
-				map[xpos][ypos+2]=1;
-				map[xpos][ypos+3]=1;
-				map[xpos-1][ypos+1]=1;
-				map[xpos-1][ypos+2]=1;
-				map[xpos-1][ypos+3]=1;
-				map[xpos+1][ypos+1]=1;
-				map[xpos+1][ypos+2]=1;
-				map[xpos+1][ypos+3]=1;
-			}
-			if(rot==2 && map[xpos-1][ypos]!=1){
-				print("Wall Left")
-				map[xpos-1][ypos]=1;
-				map[xpos-2][ypos]=1;
-				map[xpos-3][ypos]=1;
-				map[xpos-1][ypos-1]=1;
-				map[xpos-2][ypos-1]=1;
-				map[xpos-3][ypos-1]=1;
-				map[xpos-1][ypos+1]=1;
-				map[xpos-2][ypos+1]=1;
-				map[xpos-3][ypos+1]=1;
-			}
-			//print("Wall badLuck=new Wall();")
-		}
-}
-
-function valSen()
+function cuboid(_a)
 {
-	for(var _i = 0;_i<3;_i++)
-	{
-		sz[_i] = s[_i].read();
-		if(sz[_i] < 50)
-			sz[_i] = 0;
-		else
-			sz[_i] = 1;
-	}
+	if(_a > 3)
+		return _a-4;
+	if(_a < 0)
+		return _a+4;
+	return _a;
 }
+
