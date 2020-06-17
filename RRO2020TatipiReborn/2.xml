@@ -126,15 +126,15 @@
     </world>
     <robots>
         <robot id="trikKitRobot" direction="0" position="50:-275">
-            <sensors>
-                <sensor port="A5###input###Ð5###sensorA5" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="22:24"/>
-                <sensor port="A6###input###Ð6###sensorA6" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="10:24"/>
-                <sensor port="A1###input###Ð1###sensorA1" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="14:17"/>
-                <sensor port="A2###input###Ð2###sensorA2" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="14:32"/>
-                <sensor port="A3###input###Ð3###sensorA3" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="17:3"/>
-                <sensor port="A4###input###Ð4###sensorA4" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="17:46"/>
-                <sensor port="LineSensorPort###input###TrikLineSensorPort###lineSensor" type="" direction="0" position="0:0"/>
-            </sensors>
+<sensors>
+        <sensor port="A5###input###À5###sensorA5" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="22:24"/>
+        <sensor port="A6###input###À6###sensorA6" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="10:24"/>
+        <sensor port="A1###input###À1###sensorA1" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="14:17"/>
+        <sensor port="A2###input###À2###sensorA2" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="14:32"/>
+        <sensor port="A3###input###À3###sensorA3" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="17:3"/>
+        <sensor port="A4###input###À4###sensorA4" type="trik::robotModel::parts::TrikLightSensor" direction="0" position="17:46"/>
+        <sensor port="LineSensorPort###input###TrikLineSensorPort###lineSensor" type="" direction="0" position="0:0"/>
+</sensors>
             <startPosition y="-250" id="{6afeae8f-c6db-4e52-b1d0-2a41bbae4065}" x="75" direction="0"/>
             <wheels right="M3###output###Ðœ3###" left="M4###output###Ðœ4###"/>
         </robot>
