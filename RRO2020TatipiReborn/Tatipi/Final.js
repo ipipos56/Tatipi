@@ -32,12 +32,13 @@ delay(400)
 terr=false;
 begin=true
 pathminus=0
+found = false;
 
 el.reset()
 er.reset()
 
 x_start=1
-y_start=3
+y_start=4
 
 
 
@@ -87,11 +88,11 @@ for(var i=0;i<11;i++){
 	map[minx+i][maxy+1]=1;
 }
 var main = function(){
-	go_to_coordinates()
+	go_to_coordinates(false)
 	
 	ml(100)
 	mr(100)
-	delay(300)
+	delay(200)
 	ml(0)
 	mr(0)
 	
@@ -107,26 +108,69 @@ var main = function(){
 	delay(300)
 	ml(0)
 	mr(0)
-	for(var i=x_base-4;i<=x_base+4;i+=2){
-		for(var j=y_base-4;j<=y_base+4;j+=2){
-			if(i>=0 && j>=0 && i<30 && j<30 && mapVisit[i][j]!=1){
-				x_fin=i
-				y_fin=j
-				go_to_coordinates()
-			}
-			if(mapCross[x_pos][y_pos] == 6)
-				break;
-		}
-	}
-	path_check();
-	calculate_path();
-	ml(-100)
-	mr(-100)
-	delay(400)
 	
+	
+	if(!found)
+	{
+		for(var i=x_base-4;i<=x_base+4&&!found;i+=2){
+			for(var j=y_base-4;j<=y_base+4&&!found;j+=2){
+				if(i==x_base-4||j==y_base-4){
+					//print("UPLEFT")
+					if(i>=0 && j>=0 && i<30 && j<30 && mapVisit[i][j]!=1 && abs(i-maxx)>1 && abs(i-minx)>1 && abs(j-maxy)>1 && abs(j-miny)>1){
+						if(mapCross[x_pos][y_pos] == 6)
+						{
+							found = true;
+							break;
+						}
+						x_fin=i
+						y_fin=j
+						go_to_coordinates(true)
+					}
+				}
+			}
+		}
+		for(var i=x_base-4;i<=x_base+4&&!found;i+=2){
+			for(var j=y_base-4;j<=y_base+4&&!found;j+=2){
+				if(i==x_base+4||j==y_base+4){
+					//print("DOWNRIGHT")
+					if(i>=0 && j>=0 && i<30 && j<30 && mapVisit[i][j]!=1 && abs(i-maxx)>1 && abs(i-minx)>1 && abs(j-maxy)>1 && abs(j-miny)>1){
+						if(mapCross[x_pos][y_pos] == 6)
+						{
+							found = true;
+							break;
+						}
+						x_fin=i
+						y_fin=j
+						go_to_coordinates(true)
+					}
+				}
+			}
+		}
+		if(max_cross_value<3){
+			for(var i=x_base-4;i<=x_base+4&&!found;i+=2){
+				for(var j=y_base-4;j<=y_base+4&&!found;j+=2){
+					if(i>=0 && j>=0 && i<30 && j<30 && mapVisit[i][j]!=1){
+						if(mapCross[x_pos][y_pos] == 6)
+						{
+							found = true;
+							break;
+						}
+						x_fin=i
+						y_fin=j
+						go_to_coordinates(true)
+					}
+				}
+			}
+		}
+		path_check();
+		calculate_path();
+		ml(-100)
+		mr(-100)
+		delay(400)
+	}
 	x_fin=max_cross_x
 	y_fin=max_cross_y
-	go_to_coordinates()
+	go_to_coordinates(false)
 	ml(100)
 	mr(100)
 	delay(300)
@@ -147,7 +191,7 @@ var main = function(){
 	mr(0)
 	x_fin=15
 	y_fin=15
-	go_to_coordinates()
+	go_to_coordinates(false)
 	ml(100)
 	mr(100)
 	delay(300)
@@ -161,7 +205,7 @@ var main = function(){
 	///FINISH
 }
 
-function go_to_coordinates(){
+function go_to_coordinates(cross_search){
 	
 	calculate_path()
 	if(terr){
@@ -174,6 +218,12 @@ function go_to_coordinates(){
 		//print(x_fin+" "+y_fin)
 		//if(!slew){
 			path_check();
+		if(found&&cross_search){
+			ml(-100)
+			mr(-100)
+			delay(400)
+			return;
+		}
 		//}
 		calculate_path()
 		
@@ -277,9 +327,9 @@ function go_to_coordinates(){
 			//print(right_free)
 			if(!left_free&&!right_free){
 				//print("ygtfaughjfvutyfshgb")
-				ml(100)
-				mr(100)
-				delay(600)
+				//ml(100)
+				//mr(100)
+				//delay(300)
 				ml(0)
 				mr(0)
 			}
@@ -320,8 +370,52 @@ function printMapPaint(msn){
 		print(st)
 	}
 }
-
 function calculate_path(){
+	calculate_path_unknown()
+	//printMapPaint(map)
+	//delay(1000)
+}
+function calculate_path_known(){
+	ml(0)
+	mr(0)
+	//print(xfin+" "+yfin)
+	for(var i=0;i<30;i++){
+		mapPaint[i]=new Array(30);
+		for(var j=0;j<30;j++){
+			mapPaint[i][j]=1000000;
+		}
+	}
+	mapPaint[x_fin][y_fin]=0
+	var iter=0;
+	while(mapPaint[x_pos][y_pos]==1000000 && iter<100){
+		iter++;
+		for(var i=1;i<30-1;i++){
+			for(var j=1;j<30-1;j++){
+				if(mapPaint[i][j]!=-1){
+					if(mapPaint[i+1][j]>mapPaint[i][j] && map[i+1][j]==0&&mapVisit[i+1][j]==1){
+						mapPaint[i+1][j]=mapPaint[i][j]+1;
+					}
+					if(mapPaint[i-1][j]>mapPaint[i][j] && map[i-1][j]==0&&mapVisit[i-1][j]==1){
+						mapPaint[i-1][j]=mapPaint[i][j]+1;
+					}
+					if(mapPaint[i][j+1]>mapPaint[i][j] && map[i][j+1]==0&&mapVisit[i][j+1]==1){
+						mapPaint[i][j+1]=mapPaint[i][j]+1;
+					}
+					if(mapPaint[i][j-1]>mapPaint[i][j] && map[i][j-1]==0&&mapVisit[i][j-1]==1){
+						mapPaint[i][j-1]=mapPaint[i][j]+1;
+					}
+				}
+			}
+		}
+	}
+	if(iter>=100){
+		terr=true;
+		//print("terr!!!")
+	}else{
+		terr=false;
+	}
+}
+function calculate_path_unknown(){
 	ml(0)
 	mr(0)
 	//print(xfin+" "+yfin)
@@ -394,7 +488,7 @@ function path_check(){
 				//print("RIGHT_FREE")
 				right_free=true
 			}
-			if(a5middle()>50&&forward_free){
+			if(a5middle()>90&&forward_free){
 				forward_free=false
 			}
 		}else{
@@ -581,13 +675,14 @@ function path_check(){
 			max_cross_value=crossValue
 		}
 		mapCross[x_pos][y_pos]=crossValue
+		if(mapCross[x_pos][y_pos] == 6)
+		{
+			found = true;
+			//print("FOUND");
+		}
 	}
 
 	
-	
-	//ml(0)
-	//mr(0)
-	//delay(2000)
 }
 
 function forward(){
@@ -600,9 +695,9 @@ function forward(){
 		if(a3()<50&&a4()<50){
 			inverted_section=false
 		}
-		err=(a2()-a1())/4
+		err=(a2()-a1())/3
 		if(err!=0){
-			err=err*err*(abs(err)/err)
+			err=err*abs(err)
 		}
 		if(inverted_section){
 			err=-err;
