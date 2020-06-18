@@ -36,8 +36,8 @@ pathminus=0
 el.reset()
 er.reset()
 
-x_start=3
-y_start=0
+x_start=1
+y_start=5
 
 
 
@@ -100,7 +100,7 @@ var main = function(){
     brick.display().redraw();
 	script.wait(5000);
 	///BASESESESE
-	brick.display().clear();
+	brick.display().clear();
 	brick.display().redraw();
 	ml(-100)
 	mr(-100)
@@ -136,7 +136,7 @@ var main = function(){
     brick.display().redraw();
 	script.wait(5000);
 	////POINT
-	brick.display().clear();
+	brick.display().clear();
 	brick.display().redraw();
 	ml(-100)
 	mr(-100)
