@@ -93,14 +93,15 @@ var main = function(){
 	mr(100)
 	delay(300)
 	ml(0)
-	mr(0)
-	
-	brick.display().clear();
-    brick.display().addLabel("BASE",1,1);
+	mr(0)
+	
+	brick.display().clear();
+    brick.display().addLabel("BASE",1,1);
     brick.display().redraw();
 	script.wait(5000);
-	///BASESESESE
-	brick.display().clear();
+	///BASESESESE
+	brick.display().clear();
+	brick.display().redraw();
 	ml(-100)
 	mr(-100)
 	delay(300)
@@ -128,14 +129,15 @@ var main = function(){
 	mr(100)
 	delay(300)
 	ml(0)
-	mr(0)
-	
-	brick.display().clear();
-    brick.display().addLabel("POINT",1,1);
-    brick.display().redraw();
-	script.wait(5000);
-	////POINT
+	mr(0)
+	
 	brick.display().clear();
+    brick.display().addLabel("POINT",1,1);
+    brick.display().redraw();
+	script.wait(5000);
+	////POINT
+	brick.display().clear();
+	brick.display().redraw();
 	ml(-100)
 	mr(-100)
 	delay(300)
@@ -148,12 +150,12 @@ var main = function(){
 	mr(100)
 	delay(300)
 	ml(0)
-	mr(0)
-	
-	brick.display().clear();
-    brick.display().addLabel("FINISH",1,1);
-    brick.display().redraw();
-	script.wait(5000);
+	mr(0)
+	
+	brick.display().clear();
+    brick.display().addLabel("FINISH",1,1);
+    brick.display().redraw();
+	script.wait(5000);
 	///FINISH
 }
 
