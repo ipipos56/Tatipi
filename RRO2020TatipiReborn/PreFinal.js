@@ -31,13 +31,14 @@ delay(400)
 
 terr=false;
 begin=true
-pathminus=0
+pathminus=0
+found = false;
 
 el.reset()
 er.reset()
 
-x_start=1
-y_start=5
+x_start=4
+y_start=0
 
 
 
@@ -106,22 +107,103 @@ var main = function(){
 	mr(-100)
 	delay(300)
 	ml(0)
-	mr(0)
-	for(var i=x_base-4;i<=x_base+4;i+=2){
-		for(var j=y_base-4;j<=y_base+4;j+=2){
-			if(i>=0 && j>=0 && i<30 && j<30 && mapVisit[i][j]!=1){
-				x_fin=i
-				y_fin=j
-				go_to_coordinates()
+	mr(0)
+	
+	/*
+	if(y_start >= 3 && x_start <= 2)
+	{
+		if(!found)
+		{
+			for(var j=y_base-4;j<=y_base+4;j+=2)
+			{
+				if(i>=0 && j>=0 && i<30 && j<30 && mapVisit[i][j]!=1){
+					x_fin=x_base-4
+					y_fin=j
+					go_to_coordinates()
+				}
+				if(mapCross[x_pos][y_pos] == 6)
+				{
+					found = true;
+					break;
+				}
+			}
+		}
+		if(!found)
+		{
+			for(var i=x_base-4;i<=x_base+4;i+=2)
+			{
+				if(i>=0 && j>=0 && i<30 && j<30 && mapVisit[i][j]!=1){
+					x_fin=i
+					y_fin=y_base+4
+					go_to_coordinates()
+				}
+				if(mapCross[x_pos][y_pos] == 6)
+				{
+					found = true;
+					break;
+				}
+			}
+		}
+	}
+	else if(y_start <= 2 && x_start >= 3)
+	{
+		if(!found)
+		{
+			for(var i=x_base-4;i<=x_base+4;i+=2)
+			{
+				if(i>=0 && j>=0 && i<30 && j<30 && mapVisit[i][j]!=1){
+					x_fin=i
+					y_fin=y_base-4
+					go_to_coordinates()
+				}
+				if(mapCross[x_pos][y_pos] == 6)
+				{
+					found = true;
+					break;
+				}
+			}
+		}
+		if(!found)
+		{
+			for(var j=y_base-4;j<=y_base+4;j+=2)
+			{
+				if(i>=0 && j>=0 && i<30 && j<30 && mapVisit[i][j]!=1){
+					x_fin=x_base+4
+					y_fin=j
+					go_to_coordinates()
+				}
+				if(mapCross[x_pos][y_pos] == 6)
+				{
+					found = true;
+					break;
+				}
+			}
+		}
+	}
+	*/
+	
+	if(!found)
+	{
+		for(var i=x_base-4;i<=x_base+4;i+=2){
+			for(var j=y_base-4;j<=y_base+4;j+=2){
+				if(i>=0 && j>=0 && i<30 && j<30 && mapVisit[i][j]!=1){
+					x_fin=i
+					y_fin=j
+					go_to_coordinates()
+				}
+				if(mapCross[x_pos][y_pos] == 6)
+				{
+					found = true;
+					break;
+				}
 			}
 		}
+		path_check();
+		calculate_path();
+		ml(-100)
+		mr(-100)
+		delay(400)
 	}
-	path_check();
-	calculate_path();
-	ml(-100)
-	mr(-100)
-	delay(400)
-	
 	x_fin=max_cross_x
 	y_fin=max_cross_y
 	go_to_coordinates()
@@ -578,7 +660,12 @@ function path_check(){
 			max_cross_y=y_pos
 			max_cross_value=crossValue
 		}
-		mapCross[x_pos][y_pos]=crossValue
+		mapCross[x_pos][y_pos]=crossValue
+		if(mapCross[x_pos][y_pos] == 6)
+		{
+			found = true;
+			//print("FOUND");
+		}
 	}
 
 	
