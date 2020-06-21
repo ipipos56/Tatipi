@@ -145,6 +145,8 @@ var main = function(){
     brick.display().addLabel("BASE",1,1);
     brick.display().redraw();
 	script.wait(5000);
+	brick.display().clear();
+    brick.display().redraw();
 	///BASESESESE
 	brick.display().clear();
 	brick.display().redraw();
@@ -226,6 +228,8 @@ var main = function(){
     brick.display().addLabel("POINT",1,1);
     brick.display().redraw();
 	script.wait(5000);
+	brick.display().clear();
+    brick.display().redraw();
 	////POINT
 	brick.display().clear();
 	brick.display().redraw();
